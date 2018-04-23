@@ -13,20 +13,4 @@ import java.util.List;
 @Transactional
 public class AccountService {
 
-
-    private IAccountRepository accountRepository;
-
-    public AccountService(IAccountRepository accountRepository) {
-        this.accountRepository = accountRepository;
-    }
-
-    public List<Account> findAll() {
-
-        List<Account> accountList = new ArrayList<>();
-
-        for (Account account : accountRepository.findAll()) {
-            accountList.add(account);
-        }
-        return accountList;
-    }
 }

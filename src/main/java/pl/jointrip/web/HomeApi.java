@@ -1,10 +1,8 @@
 package pl.jointrip.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import pl.jointrip.dao.IAccountRepository;
 import pl.jointrip.domain.Account;
 
@@ -15,7 +13,7 @@ public class HomeApi {
     private IAccountRepository accountRepository;
 
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         return "This is non rest, just checking if everything works";
     }
 
@@ -25,4 +23,10 @@ public class HomeApi {
         // This returns a JSON or XML with the users
         return accountRepository.findAll();
     }
+
+    @RequestMapping(value = "/addAccount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addUndead(@RequestBody Account acc) {
+        accountRepository.save(acc);
+    }
+
 }
