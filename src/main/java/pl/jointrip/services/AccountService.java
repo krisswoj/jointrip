@@ -16,7 +16,6 @@ public class AccountService {
 
     private IAccountRepository accountRepository;
 
-    @Autowired
     public AccountService(IAccountRepository accountRepository) {
         this.accountRepository = accountRepository;
     }
