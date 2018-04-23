@@ -5,12 +5,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import pl.jointrip.dao.IAccountRepository;
 import pl.jointrip.domain.Account;
+import pl.jointrip.services.AccountService;
 
 @RestController
 public class HomeApi {
 
     @Autowired
-    private IAccountRepository accountRepository;
+    private AccountService accountService;
 
     @RequestMapping("/")
     public String index() {
@@ -21,12 +22,12 @@ public class HomeApi {
     public @ResponseBody
     Iterable<Account> getAllUsers() {
         // This returns a JSON or XML with the users
-        return accountRepository.findAll();
+        return accountService.findAll();
     }
 
     @RequestMapping(value = "/addAccount", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addUndead(@RequestBody Account acc) {
-        accountRepository.save(acc);
+        accountService.addAccount(acc);
     }
 
 }

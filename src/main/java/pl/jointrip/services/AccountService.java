@@ -13,4 +13,19 @@ import java.util.List;
 @Transactional
 public class AccountService {
 
+    @Autowired
+    IAccountRepository accountRepository;
+
+    public List<Account> findAll() {
+        List<Account> retList = new ArrayList<>();
+        for(Account acc : accountRepository.findAll()){
+            retList.add(acc);
+        }
+        return retList;
+    }
+
+    public void addAccount(Account acc){
+        accountRepository.save(acc);
+    }
+
 }
