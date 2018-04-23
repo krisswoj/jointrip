@@ -28,4 +28,9 @@ public class AccountService {
         accountRepository.save(acc);
     }
 
+    public Account getById(long id){
+        Account acc = accountRepository.findById(id);
+        return acc;
+    }
+
 }
