@@ -21,10 +21,10 @@ public class RegisterController {
         return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+ /*   @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String verifyRegisterData(@RequestParam String userNick, @RequestParam String userEmail){
 
-        Account account = accountService.checkEmail(userEmail);
+        //Account account = accountService.checkEmail(userEmail);
 
-    }
+    }*/
 }
