@@ -6,12 +6,28 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.jointrip.dao.IAccountRepository;
 import pl.jointrip.domain.Account;
 
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
 public class AccountService {
+
+    private Connection connection;
+
+
+    public AccountService() throws SQLException{
+
+        this.connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
+        if (!isReady()) {
+            createTables();
+        }
+        this.setConnection(this.connection);
+    }
 
     @Autowired
     IAccountRepository accountRepository;
@@ -32,5 +48,13 @@ public class AccountService {
         Account acc = accountRepository.findById(id);
         return acc;
     }
+
+    public String checkNick(String nick){
+        return null;
+    };
+
+    public String checkEmail(String email){
+        return null;
+    };
 
 }
