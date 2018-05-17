@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rejestracja JoinTrip</title>
+</head>
+<body>
+
+<h1>Prosta rejestracja JoinTrip</h1>
+<div class="container">
+    ${registerError}
+    <div class="form-group form">
+        <form action='register' method="post">
+
+            <div>
+                <label>Twój nick:</label>
+                <input type="text" id="userNick" name="userNick" placeholder="Wprowadź Twój nick" class="form-control"/>
+            </div>
+
+            <div>
+                <label>Twój e-mail:</label>
+                <input type="email" id="userEmail" name="userEmail" placeholder="Wprowadź e-mail" class="form-control"/>
+            </div>
+
+            <div>
+                <label>Hasło:</label>
+                <input type="password" id="userPassword" name="userPassword" placeholder="Wprowadź hasło"
+                       class="form-control"/>
+            </div>
+
+            <div>
+                <label>Powtórz hasło:</label>
+                <input type="password" id="userPassword2" name="userPassword2" placeholder="Wprowadź ponownie hasło"
+                       class="form-control"/>
+            </div>
+
+            <button id="registerButton" class="form-control">Zarejestruj się</button>
+
+        </form>
+
+    </div>
+</div>
+</body>
+</html>
