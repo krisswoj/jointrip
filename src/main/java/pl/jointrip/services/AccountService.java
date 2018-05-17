@@ -23,10 +23,10 @@ public class AccountService {
     public AccountService() throws SQLException{
 
         this.connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
-        if (!isReady()) {
-            createTables();
-        }
-        this.setConnection(this.connection);
+//        if (!isReady()) {
+//            createTables();
+//        }
+//        this.setConnection(this.connection);
     }
 
     @Autowired
