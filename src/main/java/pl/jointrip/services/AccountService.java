@@ -29,6 +29,7 @@ public class AccountService {
         }
         return retList;
     }
+    //chuj kurwa jebac souretree ja kocham tylko konsole
 
     public void addAccount(Account acc){
         accountRepository.save(acc);
