@@ -59,5 +59,4 @@ public class RegisterController {
         return "addSuccess";
     }
 
-
 }
