@@ -17,18 +17,6 @@ import java.util.List;
 @Transactional
 public class AccountService {
 
-    private Connection connection;
-
-
-    public AccountService() throws SQLException{
-
-        this.connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
-//        if (!isReady()) {
-//            createTables();
-//        }
-//        this.setConnection(this.connection);
-    }
-
     @Autowired
     IAccountRepository accountRepository;
 
