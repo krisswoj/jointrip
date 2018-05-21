@@ -3,7 +3,7 @@ package pl.jointrip.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import pl.jointrip.domain.Role;
+import pl.jointrip.models.Role;
 
 @Repository("roleRepository")
 public interface RoleRepository extends JpaRepository<Role, Integer>{

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import pl.jointrip.domain.Role;
-import pl.jointrip.domain.User;
+import pl.jointrip.models.Role;
+import pl.jointrip.models.User;
 import pl.jointrip.dao.RoleRepository;
 import pl.jointrip.dao.UserRepository;
 
