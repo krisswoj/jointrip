@@ -9,5 +9,8 @@ import pl.jointrip.domain.Account;
 public interface IAccountRepository extends CrudRepository<Account, Integer> {
 
     Account findById(long id);
+    Account findByName(String nick);
+    Account findByEmail(String email);
+
 
 }

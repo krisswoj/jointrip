@@ -9,6 +9,7 @@ import pl.jointrip.domain.Account;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,17 +18,6 @@ import java.util.List;
 @Transactional
 public class AccountService {
 
-    private Connection connection;
-
-
-    public AccountService() throws SQLException{
-
-        this.connection = DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/workdb");
-//        if (!isReady()) {
-//            createTables();
-//        }
-//        this.setConnection(this.connection);
-    }
 
     @Autowired
     IAccountRepository accountRepository;
@@ -49,12 +39,27 @@ public class AccountService {
         return acc;
     }
 
-    public String checkNick(String nick){
-        return null;
-    };
+    public Integer checkNickExists(String name){
+        String userId;
+        try{
+            Account account = accountRepository.findByName(name);
+            userId = String.valueOf(account.getId());
+        }
+        catch (Exception ex){
+            return 0;
+        }
+        return 1;
+    }
 
-    public String checkEmail(String email){
-        return null;
-    };
-
+    public Integer checkEmailExists(String email){
+        String userId;
+        try{
+            Account account = accountRepository.findByEmail(email);
+            userId = String.valueOf(account.getId());
+        }
+        catch (Exception ex){
+            return 0;
+        }
+        return 1;
+    }
 }

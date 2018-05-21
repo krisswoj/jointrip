@@ -1,25 +1,30 @@
 package pl.jointrip.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-@Entity(name = "Accounts")
+@Entity
+@Table(name = "accounts")
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @NotNull
     private String name;
+    @NotNull
     private String surname;
+    @NotNull
     private String email;
+    @NotNull
+    private String password;
 
-    public Account(int id, String name, String surname, String email) {
+    public Account(int id, String name, String surname, String email, String password) {
         this.id = id;
         this.name = name;
         this.surname = surname;
         this.email = email;
+        this.password = password;
     }
 
     public Account() {
@@ -56,4 +61,8 @@ public class Account {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
 }
