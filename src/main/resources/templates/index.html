@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+
+<div class="content" th:fragment="content">
+    <div class="main-wrapper">
+
+        <!-- TOP DEALS -->
+        <section class="mainContentSection packagesSection">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="sectionTitle">
+                            <h2><span class="lightBg">Our Top Deals</span></h2>
+                            <p>Quisque lacus augue, blandit non est a, dictum malesuada odio.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="thumbnail deals">
+                            <img th:src="@{/images/home/deal/deal-01.jpg}" alt="deal-image">
+                            <a href="single-package-right-sidebar.html" class="pageLink"></a>
+                            <div class="discountInfo">
+                                <div class="discountOffer">
+                                    <h4>
+                                        50% <span>OFF</span>
+                                    </h4>
+                                </div>
+                                <ul class="list-inline rating homePage">
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                </ul>
+                                <ul class="list-inline duration">
+                                    <li>7 days</li>
+                                    <li>15 hrs</li>
+                                    <li>15 min</li>
+                                </ul>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="single-package-right-sidebar.html" class="captionTitle">Suspendisse
+                                    Blandit</a></h4>
+                                <p>Integer purus ex, dictum nec elementum eu, tristique vel lectus. Donec rutrum lectus
+                                    et pharetra egestas.</p>
+                                <div class="detailsInfo">
+                                    <h5>
+                                        <span>Start From</span>
+                                        $299
+                                    </h5>
+                                    <ul class="list-inline detailsBtn">
+                                        <li><a href='booking-1.html' class="btn buttonTransparent">Book now</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="thumbnail deals">
+                            <img th:src="@{/images/home/deal/deal-02.jpg}" alt="deal-image">
+                            <a href="single-package-fullwidth.html" class="pageLink"></a>
+                            <div class="discountInfo">
+                                <div class="discountOffer">
+                                    <h4>
+                                        Free <span>Gift</span>
+                                    </h4>
+                                </div>
+                                <ul class="list-inline rating homePage">
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                </ul>
+                                <ul class="list-inline duration">
+                                    <li>12 days</li>
+                                    <li>3 hrs</li>
+                                    <li>12 min</li>
+                                </ul>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="single-package-fullwidth.html" class="captionTitle">Suspendisse Eros
+                                    Erat</a></h4>
+                                <p>Proin convallis magna vel libero accumsan sollicitudin. Quisque dapibus vitae turpis
+                                    eu magna sagittis.</p>
+                                <div class="detailsInfo">
+                                    <h5>
+                                        <span>Start From</span>
+                                        $499
+                                    </h5>
+                                    <ul class="list-inline detailsBtn">
+                                        <li><a data-toggle="modal" data-target="#inquiryModal" href="#"
+                                               class="btn buttonTransparent">Inquiry</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-12">
+                        <div class="thumbnail deals">
+                            <img th:src="@{/images/home/deal/deal-03.jpg}" alt="deal-image">
+                            <a href="single-package-left-sidebar.html" class="pageLink"></a>
+                            <div class="discountInfo">
+                                <div class="discountOffer">
+                                    <h4>
+                                        25% <span>OFF</span>
+                                    </h4>
+                                </div>
+                                <ul class="list-inline rating homePage">
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                </ul>
+                                <ul class="list-inline duration">
+                                    <li>17 days</li>
+                                    <li>13 hrs</li>
+                                    <li>18 min</li>
+                                </ul>
+                            </div>
+                            <div class="caption">
+                                <h4><a href="single-package-left-sidebar.html" class="captionTitle">Quisque Placerat
+                                    Nunc</a></h4>
+                                <p>Vivamus eu mattis nibh. Quisque eget ipsum at odio fringilla consequat vel id erat.
+                                    Suspendisse non feugiat mi.</p>
+                                <div class="detailsInfo">
+                                    <h5>
+                                        <span>Start From</span>
+                                        $399
+                                    </h5>
+                                    <ul class="list-inline detailsBtn">
+                                        <li><a href='booking-1.html' class="btn buttonTransparent">Book now</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="btnArea">
+                            <a href="packages-grid.html" class="btn buttonTransparent">view all</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <footer>
+            <div class="footer clearfix">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="footerContent">
+                                <a href="index.html" class="footer-logo"><img th:src="@{/images/logo-color-sm.png}"
+                                                                              alt="footer-logo"></a>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute </p>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="footerContent">
+                                <h5>contact us</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod.</p>
+                                <ul class="list-unstyled">
+                                    <li><i class="fa fa-home" aria-hidden="true"></i>61 Park Street, Fifth Avenue, NY
+                                    </li>
+                                    <li><i class="fa fa-phone" aria-hidden="true"></i>[88] 657 524 332</li>
+                                    <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a
+                                            href="mailTo:info@star-travel.com">info@star-travel.com</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="footerContent imgGallery">
+                                <h5>Gallery</h5>
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <a class="fancybox-pop" href="img/home/gallery/gallery-1.jpg"><img
+                                                th:src="@{/images/home/gallery/thumb-gallery-1.jpg}" alt="image"></a>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a class="fancybox-pop" href="img/home/gallery/gallery-2.jpg"><img
+                                                th:src="@{/images/home/gallery/thumb-gallery-2.jpg}" alt="image"></a>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a class="fancybox-pop" href="img/home/gallery/gallery-3.jpg"><img
+                                                th:src="@{/images/home/gallery/thumb-gallery-3.jpg}" alt="image"></a>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a class="fancybox-pop" href="img/home/gallery/gallery-4.jpg"><img
+                                                th:src="@{/images/home/gallery/thumb-gallery-4.jpg}" alt="image"></a>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a class="fancybox-pop" href="img/home/gallery/gallery-5.jpg"><img
+                                                th:src="@{/images/home/gallery/thumb-gallery-5.jpg}" alt="image"></a>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <a class="fancybox-pop" href="img/home/gallery/gallery-6.jpg"><img
+                                                th:src="@{/images/home/gallery/thumb-gallery-6.jpg}" alt="image"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="footerContent">
+                                <h5>newsletter</h5>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do. </p>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Enter your email"
+                                           aria-describedby="basic-addon21">
+                                    <span class="input-group-addon" id="basic-addon21"><i class="fa fa-long-arrow-right"
+                                                                                          aria-hidden="true"></i></span>
+                                </div>
+                                <ul class="list-inline">
+                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-vimeo" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyRight clearfix">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 col-sm-push-6 col-xs-12">
+                            <ul class="list-inline">
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Support</a></li>
+                                <li><a href="#">Blog</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-6 col-sm-pull-6 col-xs-12">
+                            <div class="copyRightText">
+                                <p>Copyright © 2016. All Rights Reserved by <a target="_blank"
+                                                                               href="http://www.iamabdus.com/">Abdus</a>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade signupLoging" id="signup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modalContentCustom">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Create your account</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="">
+                        <div class="form-group">
+                            <input type="text" class="form-control bg-ash" id="exampleInputEmail1"
+                                   placeholder="Full Name">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control bg-ash" id="exampleInputPassword1"
+                                   placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control bg-ash" id="exampleInputPassword1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> I agree to the terms of use and privacy.
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-default">Login</button>
+                    </form>
+                    <div class="or">
+                        or
+                    </div>
+                    <a class="btn btn-default btnSocial" href="#">Log in with facebook</a>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dontHaveAccount">
+                        <p>Don’t have an Account?<a href=""> Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade signupLoging" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content modalContentCustom">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Log in to your account</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="">
+                        <div class="form-group">
+                            <input type="email" class="form-control bg-ash" id="exampleInputPassword1"
+                                   placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control bg-ash" id="exampleInputPassword1"
+                                   placeholder="Password">
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <a class="forgotPass clerfix" href="">Fogot Password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-default">Login</button>
+                    </form>
+                    <div class="or">
+                        or
+                    </div>
+                    <a class="btn btn-default btnSocial" href="#">Log in with facebook</a>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="dontHaveAccount">
+                        <p>Don’t have an Account?<a href=""> Sign up</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JAVASCRIPTS -->
+<script src="plugins/jquery/jquery-2.2.4.min.js"></script>
+<script src="plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="plugins/revolution/js/jquery.themepunch.tools.min.js"></script>
+<script src="plugins/revolution/js/jquery.themepunch.revolution.min.js"></script>
+<script src="plugins/selectbox/jquery.selectbox-0.1.3.min.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="plugins/jquery/waypoints.min.js"></script>
+<script src="plugins/counter-up/jquery.counterup.min.js"></script>
+<script src="plugins/isotope/isotope.min.js"></script>
+<script src="plugins/isotope/jquery.fancybox.pack.js"></script>
+<script src="plugins/isotope/isotope-triger.js"></script>
+<script src="plugins/countdown/jquery.syotimer.js"></script>
+<script src="plugins/slick/slick.min.js"></script>
+<script src="js/custom.js"></script>
+
+</body>
+
+</html>
