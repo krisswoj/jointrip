@@ -5,12 +5,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.models.User;
 import pl.jointrip.services.UserService;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
@@ -28,6 +30,7 @@ public class LoginController {
 
 
     @RequestMapping(value="/registration", method = RequestMethod.GET)
+    @ModelAttribute("user")
     public ModelAndView registration(){
         ModelAndView modelAndView = new ModelAndView();
         User user = new User();
@@ -37,6 +40,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
+    @ModelAttribute("user")
     public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
         User userExists = userService.findUserByEmail(user.getEmail());
@@ -47,14 +51,15 @@ public class LoginController {
         }
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("registration");
+            return modelAndView;
         } else {
+            ModelAndView mv = new ModelAndView("redirect:/login");
             userService.saveUser(user);
-            modelAndView.addObject("successMessage", "User has been registered successfully");
-            modelAndView.addObject("user", new User());
-            modelAndView.setViewName("registration");
+            mv.addObject("user", new User());
+            //mv.setViewName("login");
+            return mv;
 
         }
-        return modelAndView;
     }
 
     @RequestMapping(value="/admin/home", method = RequestMethod.GET)

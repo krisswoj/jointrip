@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import pl.jointrip.models.Role;
 
-@Repository("roleRepository")
 public interface RoleRepository extends JpaRepository<Role, Integer>{
     Role findByRole(String role);
 

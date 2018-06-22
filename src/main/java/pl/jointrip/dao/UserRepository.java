@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import pl.jointrip.models.User;
 
-@Repository("userRepository")
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 }
