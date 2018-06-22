@@ -1,0 +1,37 @@
+<!-- Login Modal -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<div class="modal fade signupLoging" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modalContentCustom">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Log in to your account</h4>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/login}" method="POST" >
+                    <div class="form-group">
+                        <input type="text" id="email" name="email"  th:placeholder="Email"
+                               class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <input type="password"  th:placeholder="Password"
+                               id="password" name="password" class="form-control">
+                    </div>
+                    <div align="center" th:if="${param.error}">
+                        <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please verify</p>
+                    </div>
+                    <button type="submit" class="btn btn-default" name="Submit" value="Login">Login</button>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <div class="dontHaveAccount">
+                    <p>Don’t have an Account?<a href="" data-toggle="modal" data-target="#signup" data-dismiss="modal"> Sign up</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
