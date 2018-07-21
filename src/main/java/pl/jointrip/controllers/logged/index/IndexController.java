@@ -15,9 +15,6 @@ import javax.validation.Valid;
 @Controller
 public class IndexController implements ErrorController{
 
-    @Autowired
-    private UserService userService;
-
     @RequestMapping(value={"/","/index"}, method = RequestMethod.GET)
     @ModelAttribute("user")
     public ModelAndView index(){
