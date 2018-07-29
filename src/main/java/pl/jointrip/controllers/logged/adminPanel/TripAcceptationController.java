@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripRepository;
-import pl.jointrip.models.TripEntity;
+import pl.jointrip.models.Trip;
 
 @Controller
 public class TripAcceptationController {
@@ -17,7 +17,7 @@ public class TripAcceptationController {
     @RequestMapping(value = "/admin/acceptationPanel", method = RequestMethod.GET)
     public ModelAndView showTripsToAccept(){
         ModelAndView mv = new ModelAndView();
-        Iterable<TripEntity> trips = tripRepository.findAll();
+        Iterable<Trip> trips = tripRepository.findAll();
         mv.addObject("notAcceptedTrips", trips);
         mv.setViewName("admin/acceptationPanel");
         return mv;

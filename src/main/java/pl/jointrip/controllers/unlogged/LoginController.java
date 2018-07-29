@@ -12,7 +12,6 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.models.User;
 import pl.jointrip.services.UserService;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 @Controller
