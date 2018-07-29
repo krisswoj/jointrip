@@ -28,6 +28,3 @@
 target/maven-status/maven-compiler-plugin/
 lab01.iml
 target/
-
-### Application properites ###
-application.properties
