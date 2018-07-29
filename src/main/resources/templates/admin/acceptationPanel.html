@@ -16,23 +16,26 @@
             <div class="container" th:fragment="content">
 
                 <div th:if="${not #lists.isEmpty(notAcceptedTrips)}">
-                    <h2>Lista wędek</h2>
+                    <h2>Wycieczki oczekujące na akceptacjęk</h2>
                     <table class="table table-striped">
                         <tr>
                             <th>Tytul wycieczki</th>
                             <th>Krotki opis</th>
                             <th>Full opis</th>
-                            <th>ilosc ludzi</th>
-                            <th>cena </th>
-                            <th>data dodania</th>
+                            <th>Ilosc ludzi</th>
+                            <th>Cena </th>
+                            <th>Data dodania</th>
+                            <th>Akcje</th>
                         </tr>
-                        <tr th:each="count : ${notAcceptedTrips}">
-                            <td th:text="${count.tripTitle}"></td>
-                            <td th:text="${count.tripShortDesc}"></td>
-                            <td th:text="${count.tripFullDesc}"></td>
-                            <td th:text="${count.tripMembersAmount}"></td>
-                            <td th:text="${count.tripPriceMember}"></td>
-                            <td th:text="${count.tripCreateDate}"></td>
+                        <tr th:each="trip : ${notAcceptedTrips}">
+                            <td th:text="${trip.tripTitle}"></td>
+                            <td th:text="${trip.tripShortDesc}"></td>
+                            <td th:text="${trip.tripFullDesc}"></td>
+                            <td th:text="${trip.tripMembersAmount}"></td>
+                            <td th:text="${trip.tripPriceMember}"></td>
+                            <td th:text="${#dates.format(trip.tripCreateDate, 'dd-MMM-yyyy')}"></td>
+                            <td></td>
+
                         </tr>
                     </table>
                 </div>
