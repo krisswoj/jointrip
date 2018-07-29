@@ -11,7 +11,9 @@ import java.util.Collection;
 //@Repository
 public interface TripRepository extends CrudRepository<Trip, Integer> {
     Collection<Trip> findTripByTripStatus(Integer status);
-//    Collection<Trip> findTripByUserByUserId(User user);
+    Trip findById(int id);
+
+    //    Collection<Trip> findTripByUserByUserId(User user);
 //    Trip findTripById(Integer id);
 //
 //
