@@ -6,11 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripRepository;
-import pl.jointrip.models.TripEntity;
+import pl.jointrip.models.Trip;
 
 import javax.validation.Valid;
 import java.util.Date;
-import java.util.List;
 
 @Controller
 public class TripController {
@@ -20,18 +19,18 @@ public class TripController {
 
 
     @RequestMapping(value = "/add_trip", method = RequestMethod.GET)
-    public ModelAndView addTripForm(){
+    public ModelAndView addTripForm() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("trip_form", new TripEntity());
+        modelAndView.addObject("trip_form", new Trip());
         modelAndView.setViewName("trip/add_trip_form");
         return modelAndView;
     }
 
     @RequestMapping(value = "/add_trip", method = RequestMethod.POST)
-    public ModelAndView addTripForm(@Valid TripEntity tripEntity){
+    public ModelAndView addTripForm(@Valid Trip tripEntity) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("trip_form", new TripEntity());
+        modelAndView.addObject("trip_form", new Trip());
         tripEntity.setTripCreateDate(new Date());
         tripEntity.setTripEditDate(new Date());
         tripRepository.save(tripEntity);
@@ -42,9 +41,9 @@ public class TripController {
 
 
     @RequestMapping(value = "/show_trips", method = RequestMethod.GET)
-    public ModelAndView showTrips(){
+    public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        Iterable<TripEntity> trips = tripRepository.findAll();
+        Iterable<Trip> trips = tripRepository.findAll();
         modelAndView.addObject("show_trips", trips);
         modelAndView.setViewName("trip/trips");
         return modelAndView;

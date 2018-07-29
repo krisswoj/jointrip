@@ -4,12 +4,24 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-public class Role {
+@Table(name = "user_role", schema = "jointrip_home", catalog = "")
+@IdClass(UserRolePK.class)
+public class UserRole {
+    private int userId;
     private int roleId;
-    private String role;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    @Id
     @Column(name = "role_id")
     public int getRoleId() {
         return roleId;
@@ -19,28 +31,18 @@ public class Role {
         this.roleId = roleId;
     }
 
-    @Basic
-    @Column(name = "role")
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Role role1 = (Role) o;
-        return roleId == role1.roleId &&
-                Objects.equals(role, role1.role);
+        UserRole userRole = (UserRole) o;
+        return userId == userRole.userId &&
+                roleId == userRole.roleId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(roleId, role);
+        return Objects.hash(userId, roleId);
     }
 }
