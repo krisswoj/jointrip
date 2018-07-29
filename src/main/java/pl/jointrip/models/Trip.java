@@ -2,6 +2,7 @@ package pl.jointrip.models;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -17,6 +18,7 @@ public class Trip {
     private Integer tripStatus;
     private String tripTitle;
     private User userByUserId;
+    private List<User> tripMembers;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -150,5 +152,14 @@ public class Trip {
 
     public void setUserByUserId(User userByUserId) {
         this.userByUserId = userByUserId;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    public List<User> getTripMembers() {
+        return tripMembers;
+    }
+
+    public void setTripMembers(List<User> tripMembers) {
+        this.tripMembers = tripMembers;
     }
 }
