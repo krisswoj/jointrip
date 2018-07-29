@@ -24,7 +24,7 @@ public class TripAcceptationController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/acceptationPanel", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptationPanel/accept", params = "id", method = RequestMethod.GET)
     public ModelAndView acceptTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         Trip trip = tripRepository.findById(id);
@@ -33,6 +33,14 @@ public class TripAcceptationController {
         Iterable<Trip> trips = tripRepository.findTripByTripStatus(0);
         modelAndView.addObject("notAcceptedTrips", trips);
         modelAndView.setViewName("admin/acceptationPanel");
+        return modelAndView;
+    }
+    @RequestMapping(value = "/admin/acceptationPanel/show", params = "id", method = RequestMethod.GET)
+    public ModelAndView showTrip(@RequestParam("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Trip trip = tripRepository.findById(id);
+        modelAndView.addObject("tripInfo", trip);
+        modelAndView.setViewName("admin/tripInfo");
         return modelAndView;
     }
 }

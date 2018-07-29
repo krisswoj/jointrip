@@ -15,7 +15,7 @@
         <div class="panel panel-primary">
             <div class="container" th:fragment="content">
 
-                <div th:if="${not #lists.isEmpty(notAcceptedTrips)}">
+                <div th:if="${not #lists.isEmpty(tripInfo)}">
                     <h2>Wycieczki oczekujące na akceptacjęk</h2>
                     <table class="table table-striped">
                         <tr>
@@ -27,16 +27,13 @@
                             <th>Data dodania</th>
                             <th>Akcje</th>
                         </tr>
-                        <tr th:each="trip : ${notAcceptedTrips}">
+                        <tr th:each="trip : ${tripInfo}">
                             <td th:text="${trip.tripTitle}"></td>
                             <td th:text="${trip.tripShortDesc}"></td>
                             <td th:text="${trip.tripFullDesc}"></td>
                             <td th:text="${trip.tripMembersAmount}"></td>
                             <td th:text="${trip.tripPriceMember}"></td>
-                            <td th:text="${#dates.format(trip.tripCreateDate, 'dd-MM-yyyy')}"></td>
-                            <td><a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/accept/(id=${trip.id})}">Zaakceptuj</a>
-                            <a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/show/(id=${trip.id})}">Podglad</a></td>
-
+                            <td th:text="${#dates.format(trip.tripCreateDate, 'dd-MMM-yyyy')}"></td>
 
                         </tr>
                     </table>
