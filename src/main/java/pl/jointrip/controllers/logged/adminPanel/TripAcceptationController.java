@@ -17,7 +17,7 @@ public class TripAcceptationController {
     @RequestMapping(value = "/admin/acceptationPanel", method = RequestMethod.GET)
     public ModelAndView showTripsToAccept(){
         ModelAndView mv = new ModelAndView();
-        Iterable<Trip> trips = tripRepository.findAll();
+        Iterable<Trip> trips = tripRepository.findTripByTripStatus(0);
         mv.addObject("notAcceptedTrips", trips);
         mv.setViewName("admin/acceptationPanel");
         return mv;
