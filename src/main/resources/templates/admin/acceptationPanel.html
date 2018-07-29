@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<body>
+<div class="container" th:fragment="content">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout</button>
+    </form>
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary">
+            <div class="container" th:fragment="content">
+
+                <div th:if="${not #lists.isEmpty(notAcceptedTrips)}">
+                    <h2>Lista wędek</h2>
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Tytul wycieczki</th>
+                            <th>Krotki opis</th>
+                            <th>Full opis</th>
+                            <th>ilosc ludzi</th>
+                            <th>cena </th>
+                            <th>data dodania</th>
+                        </tr>
+                        <tr th:each="count : ${notAcceptedTrips}">
+                            <td th:text="${count.tripTitle}"></td>
+                            <td th:text="${count.tripShortDesc}"></td>
+                            <td th:text="${count.tripFullDesc}"></td>
+                            <td th:text="${count.tripMembersAmount}"></td>
+                            <td th:text="${count.tripPriceMember}"></td>
+                            <td th:text="${count.tripCreateDate}"></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
