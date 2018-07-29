@@ -1,5 +1,6 @@
 package pl.jointrip.services;
 
+import org.springframework.stereotype.Service;
 import pl.jointrip.models.User;
 
 public interface UserService {

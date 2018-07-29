@@ -11,6 +11,7 @@ import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.User;
 import pl.jointrip.models.Trip;
+import pl.jointrip.services.TripService;
 
 import javax.validation.Valid;
 import java.util.Date;
@@ -22,6 +23,8 @@ public class TripController {
     TripRepository tripRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    TripService tripService;
 
 
     @RequestMapping(value = "/add_trip", method = RequestMethod.GET)
@@ -35,16 +38,15 @@ public class TripController {
     @RequestMapping(value = "/add_trip", method = RequestMethod.POST)
     public ModelAndView addTripForm(@Valid Trip tripEntity) {
 
-        UserDetails userDetails =
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trip_form", new Trip());
-        tripEntity.setTripCreateDate(new Date());
-        tripEntity.setTripEditDate(new Date());
-        tripEntity.setUserByUserId(user);
-        tripRepository.save(tripEntity);
+
+        if(tripService.saveTrip(tripEntity)){
+            modelAndView.addObject("message", "Wycieczke dodano pomysleni!");
+        }
+        else{
+            modelAndView.addObject("message", "Sorry ale cos sie wyjebalo");
+        }
         modelAndView.setViewName("trip/add_trip_form");
         return modelAndView;
 
