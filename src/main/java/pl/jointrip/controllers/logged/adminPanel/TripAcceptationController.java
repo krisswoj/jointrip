@@ -40,7 +40,20 @@ public class TripAcceptationController {
         ModelAndView modelAndView = new ModelAndView();
         Trip trip = tripRepository.findById(id);
         modelAndView.addObject("tripInfo", trip);
+        modelAndView.addObject("members", trip.getTripMembers());
         modelAndView.setViewName("admin/tripInfo");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/admin/acceptationPanel/reject", params = "id", method = RequestMethod.GET)
+    public ModelAndView rejectTrip(@RequestParam("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        Trip trip = tripRepository.findById(id);
+        trip.setTripStatus(2);
+        tripRepository.save(trip);
+        Iterable<Trip> trips = tripRepository.findTripByTripStatus(0);
+        modelAndView.addObject("notAcceptedTrips", trips);
+        modelAndView.setViewName("admin/acceptationPanel");
         return modelAndView;
     }
 }

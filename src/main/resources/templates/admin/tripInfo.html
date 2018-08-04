@@ -8,36 +8,57 @@
 
     <form th:action="@{/logout}" method="get">
         <button class="btn btn-md btn-danger btn-block" name="registration"
-                type="Submit">Logout</button>
+                type="Submit">Logout
+        </button>
     </form>
 
     <div class="panel-group" style="margin-top:40px">
         <div class="panel panel-primary">
             <div class="container" th:fragment="content">
-
-                <div th:if="${not #lists.isEmpty(tripInfo)}">
-                    <h2>Wycieczki oczekujące na akceptacjęk</h2>
-                    <table class="table table-striped">
-                        <tr>
-                            <th>Tytul wycieczki</th>
-                            <th>Krotki opis</th>
-                            <th>Full opis</th>
-                            <th>Ilosc ludzi</th>
-                            <th>Cena </th>
-                            <th>Data dodania</th>
-                            <th>Akcje</th>
-                        </tr>
-                        <tr th:each="trip : ${tripInfo}">
-                            <td th:text="${trip.tripTitle}"></td>
-                            <td th:text="${trip.tripShortDesc}"></td>
-                            <td th:text="${trip.tripFullDesc}"></td>
-                            <td th:text="${trip.tripMembersAmount}"></td>
-                            <td th:text="${trip.tripPriceMember}"></td>
-                            <td th:text="${#dates.format(trip.tripCreateDate, 'dd-MMM-yyyy')}"></td>
-
-                        </tr>
-                    </table>
+                <div>
+                    <b>Zalożyciel wycieczki</b>
+                    <br />
+                    <span th:utext="${tripInfo.userByUserId.name}"></span>
                 </div>
+                <div>
+                    <b>Tytul wycieczki</b>
+                    <br />
+                    <span th:utext="${tripInfo.tripTitle}"></span>
+                </div>
+                <div>
+                    <b>Opis wycieczki</b>
+                    <br />
+                    <span th:utext="${tripInfo.tripFullDesc}"></span>
+                </div>
+
+                <div>
+                    <b>Cena od osoby za wycieczke</b>
+                    <br />
+                    <span th:utext="${tripInfo.tripPriceMember}"></span>
+                </div>
+
+                <div>
+                    <b>Data utworzenia wycieczki</b>
+                    <br />
+                    <span th:utext="${#dates.format(tripInfo.tripCreateDate, 'dd-MM-yyyy')}"></span>
+                </div>
+
+
+                <div>
+                    <b>Data ostatniej edycji wycieczki</b>
+                    <br />
+                    <span th:utext="${#dates.format(tripInfo.tripEditDate, 'dd-MM-yyyy')}"></span>
+                </div>
+
+                <div>
+                    <b>Data zakończenia wycieczki</b>
+                    <br />
+                    <span th:utext="${#dates.format(tripInfo.tripEndDate, 'dd-MM-yyyy')}"></span>
+                </div>
+
+
+                <a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/accept(id=${tripInfo.id})}">Zaakceptuj</a>
+                <a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/reject(id=${tripInfo.id})}">Odrzuć</a>
 
             </div>
 

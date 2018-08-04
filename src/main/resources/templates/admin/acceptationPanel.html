@@ -34,8 +34,8 @@
                             <td th:text="${trip.tripMembersAmount}"></td>
                             <td th:text="${trip.tripPriceMember}"></td>
                             <td th:text="${#dates.format(trip.tripCreateDate, 'dd-MM-yyyy')}"></td>
-                            <td><a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/accept/(id=${trip.id})}">Zaakceptuj</a>
-                            <a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/show/(id=${trip.id})}">Podglad</a></td>
+                            <td><a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/accept(id=${trip.id})}">Zaakceptuj</a>
+                            <a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/show(id=${trip.id})}">Podglad</a></td>
 
 
                         </tr>
