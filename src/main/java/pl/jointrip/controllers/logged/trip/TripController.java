@@ -1,20 +1,16 @@
 package pl.jointrip.controllers.logged.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
-import pl.jointrip.models.User;
 import pl.jointrip.models.Trip;
-import pl.jointrip.services.TripService;
+import pl.jointrip.services.tripService.TripService;
 
 import javax.validation.Valid;
-import java.util.Date;
 
 @Controller
 public class TripController {

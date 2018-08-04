@@ -1,4 +1,4 @@
-package pl.jointrip.services;
+package pl.jointrip.services.tripService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;

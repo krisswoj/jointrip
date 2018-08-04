@@ -1,4 +1,4 @@
-package pl.jointrip.services;
+package pl.jointrip.services.userService;
 
 import java.util.Arrays;
 import java.util.HashSet;

@@ -8,18 +8,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.models.Trip;
+import pl.jointrip.services.tripService.TripAcceptationService;
 
 @Controller
 public class TripAcceptationController {
 
     @Autowired
-    TripRepository tripRepository;
+    TripAcceptationService acceptationService;
 
     @RequestMapping(value = "/admin/acceptationPanel", method = RequestMethod.GET)
     public ModelAndView showTripsToAccept() {
         ModelAndView mv = new ModelAndView();
-        Iterable<Trip> trips = tripRepository.findTripByTripStatus(0);
-        mv.addObject("notAcceptedTrips", trips);
+        mv.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
         mv.setViewName("admin/acceptationPanel");
         return mv;
     }
@@ -27,18 +27,15 @@ public class TripAcceptationController {
     @RequestMapping(value = "/admin/acceptationPanel/accept", params = "id", method = RequestMethod.GET)
     public ModelAndView acceptTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        Trip trip = tripRepository.findById(id);
-        trip.setTripStatus(1);
-        tripRepository.save(trip);
-        Iterable<Trip> trips = tripRepository.findTripByTripStatus(0);
-        modelAndView.addObject("notAcceptedTrips", trips);
+        acceptationService.changeTripStatus(id, 1);
+        modelAndView.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
         modelAndView.setViewName("admin/acceptationPanel");
         return modelAndView;
     }
     @RequestMapping(value = "/admin/acceptationPanel/show", params = "id", method = RequestMethod.GET)
     public ModelAndView showTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        Trip trip = tripRepository.findById(id);
+        Trip trip = acceptationService.fetchTripById(id);
         modelAndView.addObject("tripInfo", trip);
         modelAndView.addObject("members", trip.getTripMembers());
         modelAndView.setViewName("admin/tripInfo");
@@ -48,11 +45,8 @@ public class TripAcceptationController {
     @RequestMapping(value = "/admin/acceptationPanel/reject", params = "id", method = RequestMethod.GET)
     public ModelAndView rejectTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        Trip trip = tripRepository.findById(id);
-        trip.setTripStatus(2);
-        tripRepository.save(trip);
-        Iterable<Trip> trips = tripRepository.findTripByTripStatus(0);
-        modelAndView.addObject("notAcceptedTrips", trips);
+        acceptationService.changeTripStatus(id, 2);
+        modelAndView.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
         modelAndView.setViewName("admin/acceptationPanel");
         return modelAndView;
     }
