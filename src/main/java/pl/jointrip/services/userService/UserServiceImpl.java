@@ -1,4 +1,4 @@
-package pl.jointrip.services;
+package pl.jointrip.services.userService;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import pl.jointrip.models.Role;
-import pl.jointrip.models.User;
 import pl.jointrip.dao.RoleRepository;
 import pl.jointrip.dao.UserRepository;
+import pl.jointrip.models.Role;
+import pl.jointrip.models.User;
 
 @Service("userService")
 public class UserServiceImpl implements UserService{

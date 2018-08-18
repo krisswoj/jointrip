@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<body>
+<div class="container" th:fragment="content">
+
+    <form th:action="@{/logout}" method="get">
+        <button class="btn btn-md btn-danger btn-block" name="registration"
+                type="Submit">Logout
+        </button>
+    </form>
+
+    <div class="panel-group" style="margin-top:40px">
+        <div class="panel panel-primary">
+            <div class="container" th:fragment="content">
+                <div>
+                    <b>Zalożyciel wycieczki</b>
+                    <br />
+                    <span th:utext="${tripInfo.userByUserId.name}"></span>
+                </div>
+                <div>
+                    <b>Tytul wycieczki</b>
+                    <br />
+                    <span th:utext="${tripInfo.tripTitle}"></span>
+                </div>
+                <div>
+                    <b>Opis wycieczki</b>
+                    <br />
+                    <span th:utext="${tripInfo.tripFullDesc}"></span>
+                </div>
+
+                <div>
+                    <b>Cena od osoby za wycieczke</b>
+                    <br />
+                    <span th:utext="${tripInfo.tripPriceMember}"></span>
+                </div>
+
+                <div>
+                    <b>Data utworzenia wycieczki</b>
+                    <br />
+                    <span th:utext="${#dates.format(tripInfo.tripCreateDate, 'dd-MM-yyyy')}"></span>
+                </div>
+
+
+                <div>
+                    <b>Data ostatniej edycji wycieczki</b>
+                    <br />
+                    <span th:utext="${#dates.format(tripInfo.tripEditDate, 'dd-MM-yyyy')}"></span>
+                </div>
+
+                <div>
+                    <b>Data zakończenia wycieczki</b>
+                    <br />
+                    <span th:utext="${#dates.format(tripInfo.tripEndDate, 'dd-MM-yyyy')}"></span>
+                </div>
+
+
+                <a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/accept(id=${tripInfo.id})}">Zaakceptuj</a>
+                <a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/reject(id=${tripInfo.id})}">Odrzuć</a>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
