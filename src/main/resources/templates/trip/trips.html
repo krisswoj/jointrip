@@ -1,62 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Wyciekczki</title>
-
-    <!-- Bootstrap core CSS -->
-    <link th:href="@{css/bootstrap.min.css}" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link th:href="@{css/sticky-footer-navbar.css}" rel="stylesheet">
-</head>
-
-<body>
-
-<header>
-    <!-- Fixed navbar -->
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-        <a class="navbar-brand" href="http://getbootstrap.com/docs/4.1/examples/sticky-footer-navbar/#">Fixed navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="./add_rod">Dodaj wędkę</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./show_rods">Lista wędek</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./show_food_ingredients">Pokaż składniki</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./add_food_ingredient">Dodaj składnik</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="./calculator">Kalkulator kalorii</a>
-                </li>
-                <li class="nav-item">
-                    <form th:action="@{/logout}" method="get">
-                        <button class="btn btn-md btn-danger btn-block" name="registration"
-                                type="Submit">Logout
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
-
-<div class="container" th:fragment="content">
+<div th:fragment="content">
 
     <div th:if="${not #lists.isEmpty(show_trips)}">
         <h2>Lista wędek</h2>
