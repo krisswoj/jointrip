@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<div th:fragment="content">
+    <div>
+        <b>Użytkownik</b>
+        <br />
+        <span th:utext="${user.name}"></span>
+    </div>
+    <div>
+        <b>Użytkownik</b>
+        <br />
+        <span th:utext="${user.email}"></span>
+    </div>
+</div>
+</html>

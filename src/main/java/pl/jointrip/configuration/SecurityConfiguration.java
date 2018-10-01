@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import pl.jointrip.services.userService.UserService;
 
 @Configuration
 @EnableWebSecurity
@@ -20,6 +21,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private UserService userService;
 
 	@Qualifier("dataSource")
 	@Autowired
@@ -51,7 +54,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/login").permitAll()
 				.antMatchers("/registration").permitAll()
 				.antMatchers("/index").permitAll()
-				.antMatchers("/trip/**").hasAnyAuthority("normal", "ADMIN")
+				.antMatchers("/trip/**").authenticated()
+				.antMatchers("/user/**").authenticated()
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
 				.loginPage("/login").failureUrl("/login")
