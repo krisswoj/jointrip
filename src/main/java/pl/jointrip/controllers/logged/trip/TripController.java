@@ -38,10 +38,10 @@ public class TripController {
         modelAndView.addObject("trip_form", new Trip());
 
         if(tripService.saveTrip(tripEntity)){
-            modelAndView.addObject("message", "Wycieczke dodano pomysleni!");
+            modelAndView.addObject("message", "Wycieczkę dodano pomyślnie!");
         }
         else{
-            modelAndView.addObject("message", "Sorry ale cos sie wyjebalo");
+            modelAndView.addObject("message", "Nie udało się dodać wycieczki");
         }
         modelAndView.setViewName("trip/add_trip_form");
         return modelAndView;
