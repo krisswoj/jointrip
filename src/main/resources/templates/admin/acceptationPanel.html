@@ -5,7 +5,65 @@
 
 <div th:fragment="content">
 
-    <div th:if="${not #lists.isEmpty(notAcceptedTrips)}">
+    <section class="recentActivitySection">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="recentActivityContent bg-ash">
+                        <div class="dashboardPageTitle">
+                            <h2>Wycieczki oczekujące na akceptację</h2>
+                        </div>
+                        <div class="table-responsive" data-pattern="priority-columns">
+                            <table class="table listingsTable">
+                                <tbody>
+
+                                <tr class="rowItem" th:each="trip : ${notAcceptedTrips}">
+                                    <td class="dateTd">
+                                        <div class="date">25 <span th:text="${#dates.day(trip.tripCreateDate)}"></span></div>
+                                    </td>
+                                    <td class="iconTd">
+                                        <div class="icon br-orange">
+                                            <i class="fa fa-fort-awesome" aria-hidden="true"></i>
+                                        </div>
+                                    </td>
+                                    <td class="packageTd">
+                                        <ul class="list-inline listingsInfo">
+                                            <li>
+                                                <h4 th:text="${trip.tripTitle}"><a href="#"></a></h4>
+                                                <p>2 Adults Staying</p>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="priceTd">
+                                        <ul class="list-inline listingsInfo text-right">
+                                            <li>
+                                                <h4 th:text="${trip.tripPriceMember}"/>
+                                                <p>AVG/Person</p>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="bookingTd">
+                                        <ul class="list-inline listingsInfo text-left">
+                                            <li>
+                                                <h4>TRIP ID</h4>
+                                                <p>5754-8DK8-8EE</p>
+                                                <h4>BOOKED ON</h4>
+                                                <p>Tuesday, Jul 25, 2017</p>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--<div th:if="${not #lists.isEmpty(notAcceptedTrips)}">
         <h2>Wycieczki oczekujące na akceptację</h2>
         <table class="table table-striped">
             <tr>
@@ -31,7 +89,7 @@
 
             </tr>
         </table>
-    </div>
+    </div>-->
 
 </div>
 </html>
