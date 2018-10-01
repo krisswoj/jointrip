@@ -4,15 +4,19 @@
       th:include="layout :: page">
 
 <div th:fragment="content">
-    <div>
-        <b>Użytkownik</b>
-        <br />
-        <span th:utext="${user.name}"></span>
-    </div>
-    <div>
-        <b>Użytkownik</b>
-        <br />
-        <span th:utext="${user.email}"></span>
-    </div>
+    <form autocomplete="off" action="#" th:action="@{/user/edit}"
+          th:object="${userEdit}" method="post" class="form-horizontal" role="form">
+        <div style="width: 30%">
+            <input type="text" th:field="*{name}" placeholder="Imię"
+                   class="form-control"/>
+        </div>
+        <div style="width: 30%">
+            <input type="text" th:field="*{lastName}" placeholder="Nazwisko"
+                   class="form-control"/>
+        </div>
+        <div style="width: 30%">
+            <button type="submit" class="btn buttonTransparent">Edytuj</button>
+        </div>
+    </form>
 </div>
 </html>
