@@ -16,38 +16,38 @@
                         <form autocomplete="off" action="#" th:action="@{/add_trip}"
                               th:object="${trip_form}" method="post" class="form-horizontal" role="form">
                             <div class="col-sm-12">
-                                    <label th:if="${#fields.hasErrors('tripShortDesc')}" th:errors="*{tripShortDesc}"
-                                           class="validation-message"></label>
-                                    <input type="text" th:field="*{tripTitle}" placeholder="Dodaj tytul wycieczki"
-                                           class="form-control"/>
-                                </div>
+                                <label th:if="${#fields.hasErrors('tripShortDesc')}" th:errors="*{tripShortDesc}"
+                                       class="validation-message"></label>
+                                <input type="text" th:field="*{tripTitle}" placeholder="Dodaj tytul wycieczki"
+                                       class="form-control"/>
+                            </div>
 
                             <div class="col-sm-12">
-                                    <label th:if="${#fields.hasErrors('tripShortDesc')}" th:errors="*{tripShortDesc}"
-                                           class="validation-message"></label>
-                                    <input type="text" th:field="*{tripShortDesc}" placeholder="Dodaj opis wycieczki"
-                                           class="form-control"/>
-                                </div>
+                                <label th:if="${#fields.hasErrors('tripShortDesc')}" th:errors="*{tripShortDesc}"
+                                       class="validation-message"></label>
+                                <input type="text" th:field="*{tripShortDesc}" placeholder="Dodaj opis wycieczki"
+                                       class="form-control"/>
+                            </div>
 
                             <div class="col-sm-12">
-                                    <input type="text" th:field="*{tripFullDesc}" placeholder="Pelen opis wycieczki"
-                                           class="form-control"/>
-                                </div>
+                                <input type="text" th:field="*{tripFullDesc}" placeholder="Pelen opis wycieczki"
+                                       class="form-control"/>
+                            </div>
 
                             <div class="col-sm-12">
-                                    <input type="text" th:field="*{tripMembersAmount}"
-                                           placeholder="Ilosc czlonkow wycieczki"
-                                           class="form-control"/>
-                                </div>
+                                <input type="text" th:field="*{tripMembersAmount}"
+                                       placeholder="Ilosc czlonkow wycieczki"
+                                       class="form-control"/>
+                            </div>
 
                             <div class="col-sm-12">
-                                    <input type="text" th:field="*{tripPriceMember}" placeholder="Cena za osobe"
-                                           class="form-control"/>
-                                </div>
+                                <input type="text" th:field="*{tripPriceMember}" placeholder="Cena za osobe"
+                                       class="form-control"/>
+                            </div>
 
                             <div class="col-sm-12">
-                                    <button type="submit" class="btn buttonTransparent">Dodaj</button>
-                                </div>
+                                <button type="submit" class="btn buttonTransparent">Dodaj</button>
+                            </div>
 
 
                         </form>

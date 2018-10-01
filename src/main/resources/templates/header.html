@@ -51,6 +51,13 @@
                     </li>
 
                     <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Użytkownik</a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li class=""><a href="/user/info">Pokaż profil</a></li>
+                            <li class=""><a href="/user/edit">Edytuj profil</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
                         <a href="/logout" class="dropdown-toggle">Logout</a>
                     </li>
                     <li class="dropdown searchBox">
