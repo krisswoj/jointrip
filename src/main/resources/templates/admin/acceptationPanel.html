@@ -19,18 +19,15 @@
 
                                 <tr class="rowItem" th:each="trip : ${notAcceptedTrips}">
                                     <td class="dateTd">
-                                        <div class="date">25 <span th:text="${#dates.day(trip.tripCreateDate)}"></span></div>
-                                    </td>
-                                    <td class="iconTd">
-                                        <div class="icon br-orange">
-                                            <i class="fa fa-fort-awesome" aria-hidden="true"></i>
+                                        <div class="date">
+                                            <div th:text="${#dates.day(trip.tripCreateDate)}"/>
+                                            <div th:text="${#dates.monthName(trip.tripCreateDate)}"/>
                                         </div>
                                     </td>
                                     <td class="packageTd">
                                         <ul class="list-inline listingsInfo">
                                             <li>
-                                                <h4 th:text="${trip.tripTitle}"><a href="#"></a></h4>
-                                                <p>2 Adults Staying</p>
+                                                <a th:href="@{/admin/acceptationPanel/show(id=${trip.id})}"><h4 th:text="${trip.tripTitle}"></h4></a>
                                             </li>
                                         </ul>
                                     </td>
@@ -38,17 +35,15 @@
                                         <ul class="list-inline listingsInfo text-right">
                                             <li>
                                                 <h4 th:text="${trip.tripPriceMember}"/>
-                                                <p>AVG/Person</p>
+                                                <p>ZŁ/OSOBA</p>
                                             </li>
                                         </ul>
                                     </td>
-                                    <td class="bookingTd">
-                                        <ul class="list-inline listingsInfo text-left">
+                                    <td class="packageTd">
+                                        <ul class="list-inline listingsInfo text-center">
                                             <li>
-                                                <h4>TRIP ID</h4>
-                                                <p>5754-8DK8-8EE</p>
-                                                <h4>BOOKED ON</h4>
-                                                <p>Tuesday, Jul 25, 2017</p>
+                                                <a th:href="@{/admin/acceptationPanel/accept(id=${trip.id})}"><h4>Zaakceptuj</h4></a>
+                                                <a th:href="@{/admin/acceptationPanel/reject(id=${trip.id})}"><h4>Odrzuć</h4></a>
                                             </li>
                                         </ul>
                                     </td>
