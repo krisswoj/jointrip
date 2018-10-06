@@ -1,9 +1,7 @@
 package pl.jointrip.models;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -12,8 +10,11 @@ public class Comments {
     private String text;
     private int userId;
     private int tripId;
+    private User user;
+    private Trip trip;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public int getId() {
         return id;
@@ -51,6 +52,26 @@ public class Comments {
 
     public void setTripId(int tripId) {
         this.tripId = tripId;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="trip_id", nullable=false, insertable = false, updatable = false)
+    public Trip getTrip() {
+        return trip;
+    }
+
+    public void setTrip(Trip trip) {
+        this.trip = trip;
+    }
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false, insertable = false, updatable = false)
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

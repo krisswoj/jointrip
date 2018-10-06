@@ -1,4 +1,7 @@
 package pl.jointrip.dao;
 
-public interface CommentsRepository {
+import org.springframework.data.repository.CrudRepository;
+import pl.jointrip.models.Comments;
+
+public interface CommentsRepository extends CrudRepository<Comments, Integer> {
 }

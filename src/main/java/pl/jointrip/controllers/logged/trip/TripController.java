@@ -4,11 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
+import pl.jointrip.models.Comments;
 import pl.jointrip.models.Trip;
 import pl.jointrip.services.tripService.TripService;
+import pl.jointrip.services.userService.UserService;
 
 import javax.validation.Valid;
 
@@ -21,6 +24,8 @@ public class TripController {
     UserRepository userRepository;
     @Autowired
     TripService tripService;
+    @Autowired
+    UserService userService;
 
 
     @RequestMapping(value = "/add_trip", method = RequestMethod.GET)
@@ -53,10 +58,38 @@ public class TripController {
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
         Iterable<Trip> trips = tripRepository.findAll();
+        modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("show_trips", trips);
         modelAndView.setViewName("trip/trips");
         return modelAndView;
 
+
+    }
+
+    @RequestMapping(value = "/showTrip", params = "id", method = RequestMethod.GET)
+    public ModelAndView showTrip(@RequestParam("id") int id) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("userInfo", userService.getLoggedUser());
+        modelAndView.addObject("tripInfo", tripRepository.findById(id));
+        modelAndView.addObject("commentForm", new Comments());
+        modelAndView.setViewName("trip/showTrip");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addComment", params = "id", method = RequestMethod.POST)
+    public ModelAndView addCommentForm(@Valid Comments commentEntity,@RequestParam("id") int tripId) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("commentsForm", new Comments());
+
+        if(tripService.saveComment(commentEntity, tripId)){
+            modelAndView.addObject("message", "Wycieczkę dodano pomyślnie!");
+        }
+        else{
+            modelAndView.addObject("message", "Nie udało się dodać wycieczki");
+        }
+        modelAndView.setViewName("trip/showTrip");
+        return modelAndView;
 
     }
 }

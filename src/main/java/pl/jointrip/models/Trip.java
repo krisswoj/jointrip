@@ -1,9 +1,7 @@
 package pl.jointrip.models;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Trip {
@@ -19,6 +17,7 @@ public class Trip {
     private String tripTitle;
     private User userByUserId;
     private List<User> tripMembers;
+    private List<Comments> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -161,5 +160,14 @@ public class Trip {
 
     public void setTripMembers(List<User> tripMembers) {
         this.tripMembers = tripMembers;
+    }
+
+    @OneToMany(mappedBy="trip")
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
     }
 }

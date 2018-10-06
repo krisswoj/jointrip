@@ -2,6 +2,7 @@ package pl.jointrip.models;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ public class User {
     private String password;
     private Collection<Trip> tripsByUserId;
     private Set<Role> roles;
+    private List<Comments> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -113,5 +115,14 @@ public class User {
 
     public void setTripsByUserId(Collection<Trip> tripsByUserId) {
         this.tripsByUserId = tripsByUserId;
+    }
+
+    @OneToMany(mappedBy="user")
+    public List<Comments> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
     }
 }
