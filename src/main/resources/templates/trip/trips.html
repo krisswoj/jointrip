@@ -22,7 +22,7 @@
                 <td th:text="${count.tripFullDesc}"></td>
                 <td th:text="${count.tripMembersAmount}"></td>
                 <td th:text="${count.tripPriceMember}"></td>
-                <td th:text="${count.tripCreateDate}"></td>
+                <td th:text="${#dates.format(count.tripCreateDate, 'dd-MM-yyyy')}"></td>
             </tr>
         </table>
     </div>
