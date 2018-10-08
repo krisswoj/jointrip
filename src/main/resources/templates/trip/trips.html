@@ -17,7 +17,7 @@
                 <th>data dodania</th>
             </tr>
             <tr th:each="count : ${show_trips}">
-                <td><a href="/showTrip" th:href="@{/showTrip(id=${count.id})}"><span th:text="${count.tripTitle}"/></a></td>
+                <td><a href="/showTrip" th:href="@{/showTrip(ide=${count.id})}"><span th:text="${count.tripTitle}"/></a></td>
                 <td th:text="${count.tripShortDesc}"></td>
                 <td th:text="${count.tripFullDesc}"></td>
                 <td th:text="${count.tripMembersAmount}"></td>

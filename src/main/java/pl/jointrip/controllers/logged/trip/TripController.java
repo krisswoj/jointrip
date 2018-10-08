@@ -66,8 +66,8 @@ public class TripController {
 
     }
 
-    @RequestMapping(value = "/showTrip", params = "id", method = RequestMethod.GET)
-    public ModelAndView showTrip(@RequestParam("id") int id) {
+    @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.GET)
+    public ModelAndView showTrip(@RequestParam("ide") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("tripInfo", tripRepository.findById(id));
@@ -76,11 +76,14 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/addComment", params = "id", method = RequestMethod.POST)
-    public ModelAndView addCommentForm(@Valid Comments commentEntity,@RequestParam("id") int tripId) {
+    @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.POST)
+    public ModelAndView addCommentForm(@Valid Comments commentEntity, @RequestParam("ide") int tripId) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("commentsForm", new Comments());
+        modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
+
+        commentEntity.getId();
 
         if(tripService.saveComment(commentEntity, tripId)){
             modelAndView.addObject("message", "Wycieczkę dodano pomyślnie!");

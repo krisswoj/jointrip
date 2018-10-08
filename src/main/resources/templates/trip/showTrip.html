@@ -7,41 +7,41 @@
 
     <div class="panel-group" style="margin-top:40px">
         <div class="panel panel-primary">
-            <!--<div>-->
-                <!--<b>Tytul wycieczki</b>-->
-                <!--<br />-->
-                <!--<span th:utext="${tripInfo.getTripTitle()}"></span>-->
-            <!--</div>-->
-            <!--<div>-->
-                <!--<b>Opis wycieczki</b>-->
-                <!--<br />-->
-                <!--<span th:utext="${tripInfo.getTripFullDesc()}"></span>-->
-            <!--</div>-->
-
-            <!--<div>-->
-                <!--<b>Cena od osoby za wycieczke</b>-->
-                <!--<br />-->
-                <!--<span th:utext="${tripInfo.getTripPriceMember()}"></span>-->
-            <!--</div>-->
-
             <div>
-                <b>Data utworzenia wycieczki</b>
+                <b>Tytul wycieczki</b>
                 <br />
-                <span th:utext="${#dates.format(tripInfo.tripCreateDate, 'dd-MM-yyyy')}"></span>
+                <span th:utext="${tripInfo.getTripTitle()}"></span>
             </div>
-
-
             <div>
-                <b>Data ostatniej edycji wycieczki</b>
+                <b>Opis wycieczki</b>
                 <br />
-                <span th:utext="${#dates.format(tripInfo.tripEditDate, 'dd-MM-yyyy')}"></span>
+                <span th:utext="${tripInfo.getTripFullDesc()}"></span>
             </div>
 
             <div>
-                <b>Data zakończenia wycieczki</b>
+                <b>Cena od osoby za wycieczke</b>
                 <br />
-                <span th:utext="${#dates.format(tripInfo.tripEndDate, 'dd-MM-yyyy')}"></span>
+                <span th:utext="${tripInfo.getTripPriceMember()}"></span>
             </div>
+
+            <!--<div>-->
+                <!--<b>Data utworzenia wycieczki</b>-->
+                <!--<br />-->
+                <!--<span th:utext="${#dates.format(tripInfo.tripCreateDate, 'dd-MM-yyyy')}"></span>-->
+            <!--</div>-->
+
+
+            <!--<div>-->
+                <!--<b>Data ostatniej edycji wycieczki</b>-->
+                <!--<br />-->
+                <!--<span th:utext="${#dates.format(tripInfo.tripEditDate, 'dd-MM-yyyy')}"></span>-->
+            <!--</div>-->
+
+            <!--<div>-->
+                <!--<b>Data zakończenia wycieczki</b>-->
+                <!--<br />-->
+                <!--<span th:utext="${#dates.format(tripInfo.tripEndDate, 'dd-MM-yyyy')}"></span>-->
+            <!--</div>-->
 
 
         </div>
@@ -76,7 +76,7 @@
                 </ul>
             </div>
 
-            <form action="#" method="post" role="form" class="commentsForm" th:object="${commentForm}" th:action="@{/addComment(id=${tripInfo.id})}">
+            <form action="#" method="post" role="form" class="commentsForm" th:object="${commentForm}" th:action="@{/showTrip(ide=${tripInfo.id})}">
 
                 <h3 class="reviewTitle">Dodaj komentarz</h3>
 
