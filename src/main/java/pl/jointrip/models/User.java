@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
+@Table(name = "[user]")
 public class User {
     private int userId;
     private Integer active;
