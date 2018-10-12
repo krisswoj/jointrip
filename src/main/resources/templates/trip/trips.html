@@ -5,27 +5,108 @@
 
 <div th:fragment="content">
 
-    <div th:if="${not #lists.isEmpty(show_trips)}">
-        <h2>Lista wycieczek</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>Tytul wycieczki</th>
-                <th>Krotki opis</th>
-                <th>Full opis</th>
-                <th>ilosc ludzi</th>
-                <th>cena</th>
-                <th>data dodania</th>
-            </tr>
-            <tr th:each="count : ${show_trips}">
-                <td><a href="/showTrip" th:href="@{/showTrip(id=${count.id})}"><span th:text="${count.tripTitle}"/></a></td>
-                <td th:text="${count.tripShortDesc}"></td>
-                <td th:text="${count.tripFullDesc}"></td>
-                <td th:text="${count.tripMembersAmount}"></td>
-                <td th:text="${count.tripPriceMember}"></td>
-                <td th:text="${#dates.format(count.tripCreateDate, 'dd-MM-yyyy')}"></td>
-            </tr>
-        </table>
-    </div>
+    <!-- PAGE TITLE -->
+    <section class="pageTitle" style="background-image:url(../images/pages/page-title-bg6.jpg);padding: 0px;margin: 0px">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="titleTable">
+                        <div class="titleTableInner">
+                            <div class="pageTitleInfo">
+                                <h1>Wyszukaj wycieczkę</h1>
+                                <div class="under-border"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- PAGE CONTENT -->
+    <section class="mainContentSection packagesSection">
+        <div class="container">
+            <div class="row">
+
+
+
+                <div class="col-sm-3 col-xs-12">
+                    <aside>
+                        <div class="panel panel-default packagesFilter">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">search</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="searchFilter">
+                                            <select name="guiest_id3" id="guiest_id3" class="select-drop">
+                                                <option value="0">Destinations</option>
+                                                <option value="1">USA</option>
+                                                <option value="2">UK</option>
+                                                <option value="3">Canada</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="input-group date ed-datepicker filterDate" data-provide="datepicker">
+                                            <input type="text" class="form-control" placeholder="MM/DD/YYYY">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="input-group date ed-datepicker filterDate" data-provide="datepicker">
+                                            <input type="text" class="form-control" placeholder="MM/DD/YYYY">
+                                            <div class="input-group-addon">
+                                                <span class="fa fa-calendar"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <a href="#" class="btn btn-block buttonTransparent">Search</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+
+
+
+                <div class="col-sm-9  col-xs-12">
+                    <div class="row sidebarPage">
+                        <div class="col-xs-12">
+                            <div class="media packagesList" th:each="count : ${show_trips}">
+                                <a class="media-left fancybox-pop" href="../images/packages/package-list-01.jpg">
+                                    <img class="media-object" src="../images/packages/package-list-01.jpg" alt="Image">
+                                </a>
+                                <div class="media-body">
+                                    <div class="bodyLeft">
+                                        <h4 class="media-heading"><a href="/showTrip" th:href="@{/showTrip(id=${count.id})}" th:text="${count.tripTitle}"></a></h4>
+                                            <span><b>Asia to do</b></span>
+                                        <p th:text="${count.tripShortDesc}"/>
+                                        <ul class="list-inline detailsBtn">
+                                            <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i><span style="padding-left: 5px;font-weight: bold" th:text="${#dates.format(count.tripCreateDate, 'dd/MM/yyyy')}"></span></span></li>
+                                            <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i>to do</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="bodyRight">
+                                        <div class="bookingDetails">
+                                            <h2 th:text="${count.tripPriceMember}"/>
+                                            <p>ZŁ/OSOBA</p>
+                                            <a href="/showTrip" th:href="@{/showTrip(id=${count.id})}" class="btn buttonTransparent clearfix">Szczegóły</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 </div>
