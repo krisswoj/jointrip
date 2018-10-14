@@ -10,18 +10,18 @@
             <div>
                 <b>Tytul wycieczki</b>
                 <br />
-                <span th:utext="${tripInfo.getTripTitle()}"></span>
+                <span th:utext="${tripInfo.tripTitle}"></span>
             </div>
             <div>
                 <b>Opis wycieczki</b>
                 <br />
-                <span th:utext="${tripInfo.getTripFullDesc()}"></span>
+                <span th:utext="${tripInfo.tripFullDesc}"></span>
             </div>
 
             <div>
                 <b>Cena od osoby za wycieczke</b>
                 <br />
-                <span th:utext="${tripInfo.getTripPriceMember()}"></span>
+                <span th:utext="${tripInfo.tripPriceMember}"></span>
             </div>
 
             <!--<div>-->
@@ -49,11 +49,11 @@
 
     <div class="review-aria">
         <div class="sectionTitle2">
-            <h2>Reviews</h2>
+            <h2>Komentarze</h2>
         </div>
         <div class="reviewContent">
 
-            <div class="reviewMedia">
+            <div class="reviewMedia" th:each="count : ${comments}">
                 <ul class="media-list">
                     <li class="media">
                         <div class="media-left">
@@ -62,15 +62,8 @@
                             </a>
                         </div>
                         <div class="media-body">
-                            <h5 class="media-heading">Jessica Brown</h5>
-                            <span>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                              <i class="fa fa-star" aria-hidden="true"></i>
-                            </span>
-                            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudan totam rem ape riam</p>
+                            <h5 class="media-heading" th:utext="${count.user.name}"></h5>
+                            <p th:utext="${count.text}"></p>
                         </div>
                     </li>
                 </ul>
