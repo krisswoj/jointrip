@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import pl.jointrip.dao.CommentsRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.Comments;
@@ -22,6 +23,8 @@ public class TripController {
     TripRepository tripRepository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    CommentsRepository commentsRepository;
     @Autowired
     TripService tripService;
     @Autowired
@@ -69,9 +72,11 @@ public class TripController {
     @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.GET)
     public ModelAndView showTrip(@RequestParam("ide") int id) {
         ModelAndView modelAndView = new ModelAndView();
+        Iterable<Comments> comments = commentsRepository.findAll();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("tripInfo", tripRepository.findById(id));
         modelAndView.addObject("commentForm", new Comments());
+        modelAndView.addObject("comments", comments);
         modelAndView.setViewName("trip/showTrip");
         return modelAndView;
     }
@@ -92,6 +97,8 @@ public class TripController {
             modelAndView.addObject("message", "Nie udało się dodać wycieczki");
         }
         modelAndView.setViewName("trip/showTrip");
+        Iterable<Comments> comments = commentsRepository.findAll();
+        modelAndView.addObject("comments", comments);
         return modelAndView;
 
     }
