@@ -27,7 +27,7 @@
                                     <td class="packageTd">
                                         <ul class="list-inline listingsInfo">
                                             <li>
-                                                <a th:href="@{/admin/acceptation-panel/show(id=${trip.id})}"><h4 th:text="${trip.tripTitle}"></h4></a>
+                                                <a th:href="@{/admin/acceptationPanel/show(id=${trip.id})}"><h4 th:text="${trip.tripTitle}"></h4></a>
                                             </li>
                                         </ul>
                                     </td>
@@ -42,8 +42,8 @@
                                     <td class="packageTd">
                                         <ul class="list-inline listingsInfo text-center">
                                             <li>
-                                                <a th:href="@{/admin/acceptation-panel/accept(id=${trip.id})}"><h4>Zaakceptuj</h4></a>
-                                                <a th:href="@{/admin/acceptation-panel/reject(id=${trip.id})}"><h4>Odrzuć</h4></a>
+                                                <a th:href="@{/admin/acceptationPanel/accept(id=${trip.id})}"><h4>Zaakceptuj</h4></a>
+                                                <a th:href="@{/admin/acceptationPanel/reject(id=${trip.id})}"><h4>Odrzuć</h4></a>
                                             </li>
                                         </ul>
                                     </td>
@@ -57,33 +57,4 @@
             </div>
         </div>
     </section>
-
-    <!--<div th:if="${not #lists.isEmpty(notAcceptedTrips)}">
-        <h2>Wycieczki oczekujące na akceptację</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>Tytul wycieczki</th>
-                <th>Krotki opis</th>
-                <th>Full opis</th>
-                <th>Ilosc ludzi</th>
-                <th>Cena</th>
-                <th>Data dodania</th>
-                <th>Akcje</th>
-            </tr>
-            <tr th:each="trip : ${notAcceptedTrips}">
-                <td th:text="${trip.tripTitle}"></td>
-                <td th:text="${trip.tripShortDesc}"></td>
-                <td th:text="${trip.tripFullDesc}"></td>
-                <td th:text="${trip.tripMembersAmount}"></td>
-                <td th:text="${trip.tripPriceMember}"></td>
-                <td th:text="${#dates.format(trip.tripCreateDate, 'dd-MM-yyyy')}"></td>
-                <td><a href="admin/acceptationPanel" th:href="@{/admin/acceptationPanel/accept(id=${trip.id})}">Zaakceptuj</a>
-                    <a href="admin/acceptationPanel"
-                       th:href="@{/admin/acceptationPanel/show(id=${trip.id})}">Podglad</a></td>
-
-
-            </tr>
-        </table>
-    </div>-->
-
 </div>

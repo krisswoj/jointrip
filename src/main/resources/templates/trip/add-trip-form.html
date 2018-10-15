@@ -13,7 +13,7 @@
                     <div class="row">
 
                         <span th:utext="${message}"></span>
-                        <form autocomplete="off" action="#" th:action="@{/add-trip}"
+                        <form autocomplete="off" action="#" th:action="@{/addTrip}"
                               th:object="${trip_form}" method="post" class="form-horizontal" role="form">
                             <div class="col-sm-12">
                                 <label th:if="${#fields.hasErrors('tripShortDesc')}" th:errors="*{tripShortDesc}"

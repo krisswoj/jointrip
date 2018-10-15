@@ -16,7 +16,7 @@ public class TripAcceptationController {
     @Autowired
     TripAcceptationService acceptationService;
 
-    @RequestMapping(value = "/admin/acceptation-panel", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptationPanel", method = RequestMethod.GET)
     public ModelAndView showTripsToAccept() {
         ModelAndView mv = new ModelAndView();
         mv.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
@@ -24,7 +24,7 @@ public class TripAcceptationController {
         return mv;
     }
 
-    @RequestMapping(value = "/admin/acceptation-panel/accept", params = "id", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptationPanel/accept", params = "id", method = RequestMethod.GET)
     public ModelAndView acceptTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         acceptationService.changeTripStatus(id, 1);
@@ -32,7 +32,7 @@ public class TripAcceptationController {
         modelAndView.setViewName("admin/acceptation-panel");
         return modelAndView;
     }
-    @RequestMapping(value = "/admin/acceptation-panel/show", params = "id", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptationPanel/show", params = "id", method = RequestMethod.GET)
     public ModelAndView showTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         Trip trip = acceptationService.fetchTripById(id);
@@ -44,7 +44,7 @@ public class TripAcceptationController {
 
     //      
 
-    @RequestMapping(value = "/admin/acceptation-panel/reject", params = "id", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptationPanel/reject", params = "id", method = RequestMethod.GET)
     public ModelAndView rejectTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         acceptationService.changeTripStatus(id, 2);

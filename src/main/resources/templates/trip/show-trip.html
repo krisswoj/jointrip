@@ -27,7 +27,7 @@
             <td class="packageTd">
                 <ul class="list-inline listingsInfo text-center">
                     <li>
-                        <a th:href="@{../show-trip(join=${tripInfo.id})}"><h4>Dołącz do wycieczki</h4></a>
+                        <a th:href="@{../showTrip(join=${tripInfo.id})}"><h4>Dołącz do wycieczki</h4></a>
                     </li>
                 </ul>
             </td>
@@ -84,7 +84,7 @@
                 </ul>
             </div>
 
-            <form action="#" method="post" role="form" class="commentsForm" th:object="${commentForm}" th:action="@{/show-trip(ide=${tripInfo.id})}">
+            <form action="#" method="post" role="form" class="commentsForm" th:object="${commentForm}" th:action="@{/showTrip(ide=${tripInfo.id})}">
 
                 <h3 class="reviewTitle">Dodaj komentarz</h3>
 

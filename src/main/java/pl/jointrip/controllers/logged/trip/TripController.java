@@ -29,7 +29,7 @@ public class TripController {
     UserService userService;
 
 
-    @RequestMapping(value = "/add-trip", method = RequestMethod.GET)
+    @RequestMapping(value = "/addTrip", method = RequestMethod.GET)
     public ModelAndView addTripForm() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trip_form", new Trip());
@@ -37,7 +37,7 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add-trip", method = RequestMethod.POST)
+    @RequestMapping(value = "/addTrip", method = RequestMethod.POST)
     public ModelAndView addTripForm(@Valid Trip tripEntity) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -54,7 +54,7 @@ public class TripController {
 
     }
 
-    @RequestMapping(value = "/show-trip", params = "ide", method = RequestMethod.GET)
+    @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.GET)
     public ModelAndView showTrip(@RequestParam("ide") int id) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
@@ -64,7 +64,7 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/show-trip", params = "ide", method = RequestMethod.POST)
+    @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.POST)
     public ModelAndView addCommentForm(@Valid Comments commentEntity, @RequestParam("ide") int tripId) {
 
         ModelAndView modelAndView = new ModelAndView();
@@ -81,7 +81,7 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/show-trip", params = "join", method = RequestMethod.GET)
+    @RequestMapping(value = "/showTrip", params = "join", method = RequestMethod.GET)
     public ModelAndView joinToTrip(@RequestParam("join") int id){
 
         ModelAndView modelAndView = new ModelAndView();
@@ -99,7 +99,7 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/show-trips", method = RequestMethod.GET)
+    @RequestMapping(value = "/showTrips", method = RequestMethod.GET)
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
         Iterable<Trip> trips = tripRepository.findAll();
@@ -109,7 +109,7 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/my-trips", method = RequestMethod.GET)
+    @RequestMapping(value = "/myTrips", method = RequestMethod.GET)
     public ModelAndView myTrips() {
         ModelAndView modelAndView = new ModelAndView();
         Iterable<Trip> trips = tripService.joinedTripByUser();

@@ -84,7 +84,7 @@
                                 </a>
                                 <div class="media-body">
                                     <div class="bodyLeft">
-                                        <h4 class="media-heading"><a href="/showTrip" th:href="@{/show-trip(ide=${count.id})}" th:text="${count.tripTitle}"></a></h4>
+                                        <h4 class="media-heading"><a href="/showTrip" th:href="@{/showTrip(ide=${count.id})}" th:text="${count.tripTitle}"></a></h4>
                                             <span><b>Asia to do</b></span>
                                         <p th:text="${count.tripShortDesc}"/>
                                         <ul class="list-inline detailsBtn">
@@ -96,7 +96,7 @@
                                         <div class="bookingDetails">
                                             <h2 th:text="${count.tripPriceMember}"/>
                                             <p>ZŁ/OSOBA</p>
-                                            <a href="/showTrip" th:href="@{/show-trip(ide=${count.id})}" class="btn buttonTransparent clearfix">Szczegóły</a>
+                                            <a href="/showTrip" th:href="@{/showTrip(ide=${count.id})}" class="btn buttonTransparent clearfix">Szczegóły</a>
                                         </div>
                                     </div>
                                 </div>
