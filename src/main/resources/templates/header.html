@@ -24,29 +24,20 @@
                     <li sec:authorize="isAnonymous()"><a href="/registration">Zarejestruj</a></li>
                     <li sec:authorize="isAnonymous()"><a href="/login">Zaloguj</a></li>
 
-                    <!--<li class="dropdown singleDrop active" sec:authorize="isAnonymous()">
-                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-haspopup="true" aria-expanded="false">Admin</a>
-                        <ul class="dropdown-menu dropdown-menu-right">
-                            &lt;!&ndash;<li class=""><a href="" data-toggle="modal" data-target="#signup">Signup</a></li>&ndash;&gt;
-                            &lt;!&ndash;<li class=""><a href="" data-toggle="modal" data-target="#login">Login</a></li>&ndash;&gt;
-                            <li class=""><a href="/registration">Zarejestruj</a></li>
-                            <li class=""><a href="/login">Zaloguj</a></li>
-                        </ul>
-                    </li>-->
                     <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
                         <a >Wycieczki</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li class=""><a href="/add_trip">Dodaj wycieczkę</a></li>
-                            <li class=""><a href="/show_trips">Pokaż wycieczki</a></li>
+                            <li class=""><a href="/add-trip">Dodaj wycieczkę</a></li>
+                            <li class=""><a href="/show-trips">Pokaż wycieczki</a></li>
+                            <li class=""><a href="/my-trips">Moje wycieczki</a></li>
                         </ul>
                     </li>
 
                     <!--AUTORYZACJA ADMINA-->
-                    <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
+                    <li class="dropdown singleDrop" sec:authorize="hasAuthority('ADMIN')">
                         <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li class=""><a href="/admin/acceptationPanel">Akceptacja wycieczek</a></li>
+                            <li class=""><a href="/admin/acceptation-panel">Akceptacja wycieczek</a></li>
                         </ul>
                     </li>
 

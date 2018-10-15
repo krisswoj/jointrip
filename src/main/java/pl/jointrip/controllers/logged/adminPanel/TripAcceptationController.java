@@ -16,40 +16,40 @@ public class TripAcceptationController {
     @Autowired
     TripAcceptationService acceptationService;
 
-    @RequestMapping(value = "/admin/acceptationPanel", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptation-panel", method = RequestMethod.GET)
     public ModelAndView showTripsToAccept() {
         ModelAndView mv = new ModelAndView();
         mv.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
-        mv.setViewName("admin/acceptationPanel");
+        mv.setViewName("admin/acceptation-panel");
         return mv;
     }
 
-    @RequestMapping(value = "/admin/acceptationPanel/accept", params = "id", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptation-panel/accept", params = "id", method = RequestMethod.GET)
     public ModelAndView acceptTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         acceptationService.changeTripStatus(id, 1);
         modelAndView.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
-        modelAndView.setViewName("admin/acceptationPanel");
+        modelAndView.setViewName("admin/acceptation-panel");
         return modelAndView;
     }
-    @RequestMapping(value = "/admin/acceptationPanel/show", params = "id", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptation-panel/show", params = "id", method = RequestMethod.GET)
     public ModelAndView showTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         Trip trip = acceptationService.fetchTripById(id);
         modelAndView.addObject("tripInfo", trip);
         modelAndView.addObject("members", trip.getTripMembers());
-        modelAndView.setViewName("admin/tripInfo");
+        modelAndView.setViewName("admin/trip-info");
         return modelAndView;
     }
 
     //      
 
-    @RequestMapping(value = "/admin/acceptationPanel/reject", params = "id", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/acceptation-panel/reject", params = "id", method = RequestMethod.GET)
     public ModelAndView rejectTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         acceptationService.changeTripStatus(id, 2);
         modelAndView.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
-        modelAndView.setViewName("admin/acceptationPanel");
+        modelAndView.setViewName("admin/acceptation-panel");
         return modelAndView;
     }
 }
