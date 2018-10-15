@@ -2,6 +2,7 @@ package pl.jointrip.controllers.logged.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,41 +32,27 @@ public class TripController {
     UserService userService;
 
 
-    @RequestMapping(value = "/add_trip", method = RequestMethod.GET)
+    @RequestMapping(value = "/addTrip", method = RequestMethod.GET)
     public ModelAndView addTripForm() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trip_form", new Trip());
-        modelAndView.setViewName("trip/add_trip_form");
+        modelAndView.setViewName("trip/add-trip-form");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add_trip", method = RequestMethod.POST)
+    @RequestMapping(value = "/addTrip", method = RequestMethod.POST)
     public ModelAndView addTripForm(@Valid Trip tripEntity) {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trip_form", new Trip());
 
-        if(tripService.saveTrip(tripEntity)){
+        if (tripService.saveTrip(tripEntity)) {
             modelAndView.addObject("message", "Wycieczkę dodano pomyślnie!");
-        }
-        else{
+        } else {
             modelAndView.addObject("message", "Nie udało się dodać wycieczki");
         }
-        modelAndView.setViewName("trip/add_trip_form");
+        modelAndView.setViewName("trip/add-trip-form");
         return modelAndView;
-
-    }
-
-
-    @RequestMapping(value = "/show_trips", method = RequestMethod.GET)
-    public ModelAndView showTrips() {
-        ModelAndView modelAndView = new ModelAndView();
-        Iterable<Trip> trips = tripRepository.findAll();
-        modelAndView.addObject("userInfo", userService.getLoggedUser());
-        modelAndView.addObject("show_trips", trips);
-        modelAndView.setViewName("trip/trips");
-        return modelAndView;
-
 
     }
 
@@ -76,8 +63,7 @@ public class TripController {
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("tripInfo", tripRepository.findById(id));
         modelAndView.addObject("commentForm", new Comments());
-        modelAndView.addObject("comments", comments);
-        modelAndView.setViewName("trip/showTrip");
+        modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
 
@@ -85,21 +71,53 @@ public class TripController {
     public ModelAndView addCommentForm(@Valid Comments commentEntity, @RequestParam("ide") int tripId) {
 
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("commentsForm", new Comments());
         modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
+        modelAndView.addObject("commentForm", new Comments());
 
-        commentEntity.getId();
-
-        if(tripService.saveComment(commentEntity, tripId)){
+        if (tripService.saveComment(commentEntity, tripId)) {
             modelAndView.addObject("message", "Wycieczkę dodano pomyślnie!");
-        }
-        else{
+        } else {
             modelAndView.addObject("message", "Nie udało się dodać wycieczki");
         }
-        modelAndView.setViewName("trip/showTrip");
-        Iterable<Comments> comments = commentsRepository.findAll();
-        modelAndView.addObject("comments", comments);
-        return modelAndView;
 
+        modelAndView.setViewName("trip/show-trip");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/showTrip", params = "join", method = RequestMethod.GET)
+    public ModelAndView joinToTrip(@RequestParam("join") int id) {
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("commentForm", new Comments());
+        modelAndView.addObject("tripInfo", tripRepository.findById(id));
+
+        if (tripService.joinToTripByUser(id)) {
+            modelAndView.addObject("message", "Dołączyłeś do wycieczki");
+        } else {
+            modelAndView.addObject("message", "Nie możesz dołączyć do własnej wycieczki");
+        }
+
+        modelAndView.setViewName("trip/show-trip");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/showTrips", method = RequestMethod.GET)
+    public ModelAndView showTrips() {
+        ModelAndView modelAndView = new ModelAndView();
+        Iterable<Trip> trips = tripRepository.findAll();
+        modelAndView.addObject("userInfo", userService.getLoggedUser());
+        modelAndView.addObject("show_trips", trips);
+        modelAndView.setViewName("trip/trips");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/myTrips", method = RequestMethod.GET)
+    public ModelAndView myTrips() {
+        ModelAndView modelAndView = new ModelAndView();
+        Iterable<Trip> trips = tripService.joinedTripByUser();
+        modelAndView.addObject("userInfo", userService.getLoggedUser());
+        modelAndView.addObject("show_trips", trips);
+        modelAndView.setViewName("trip/trips");
+        return modelAndView;
     }
 }

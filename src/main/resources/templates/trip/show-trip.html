@@ -24,6 +24,14 @@
                 <span th:utext="${tripInfo.tripPriceMember}"></span>
             </div>
 
+            <td class="packageTd">
+                <ul class="list-inline listingsInfo text-center">
+                    <li>
+                        <a th:href="@{../showTrip(join=${tripInfo.id})}"><h4>Dołącz do wycieczki</h4></a>
+                    </li>
+                </ul>
+            </td>
+
             <!--<div>-->
                 <!--<b>Data utworzenia wycieczki</b>-->
                 <!--<br />-->

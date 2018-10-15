@@ -20,7 +20,7 @@ public class TripAcceptationController {
     public ModelAndView showTripsToAccept() {
         ModelAndView mv = new ModelAndView();
         mv.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
-        mv.setViewName("admin/acceptationPanel");
+        mv.setViewName("admin/acceptation-panel");
         return mv;
     }
 
@@ -29,7 +29,7 @@ public class TripAcceptationController {
         ModelAndView modelAndView = new ModelAndView();
         acceptationService.changeTripStatus(id, 1);
         modelAndView.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
-        modelAndView.setViewName("admin/acceptationPanel");
+        modelAndView.setViewName("admin/acceptation-panel");
         return modelAndView;
     }
     @RequestMapping(value = "/admin/acceptationPanel/show", params = "id", method = RequestMethod.GET)
@@ -38,7 +38,7 @@ public class TripAcceptationController {
         Trip trip = acceptationService.fetchTripById(id);
         modelAndView.addObject("tripInfo", trip);
         modelAndView.addObject("members", trip.getTripMembers());
-        modelAndView.setViewName("admin/tripInfo");
+        modelAndView.setViewName("admin/trip-info");
         return modelAndView;
     }
 
@@ -49,7 +49,7 @@ public class TripAcceptationController {
         ModelAndView modelAndView = new ModelAndView();
         acceptationService.changeTripStatus(id, 2);
         modelAndView.addObject("notAcceptedTrips", acceptationService.fetchTripsToActivate(0));
-        modelAndView.setViewName("admin/acceptationPanel");
+        modelAndView.setViewName("admin/acceptation-panel");
         return modelAndView;
     }
 }

@@ -10,8 +10,11 @@ import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.Comments;
 import pl.jointrip.models.Trip;
 import pl.jointrip.models.User;
+import pl.jointrip.services.userService.UserService;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class TripServiceImpl implements TripService {
@@ -22,19 +25,16 @@ public class TripServiceImpl implements TripService {
     TripRepository tripRepository;
     @Autowired
     CommentsRepository commentsRepository;
+    @Autowired
+    UserService userService;
 
     @Override
     public boolean saveTrip(Trip trip) {
 
-        UserDetails userDetails =
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
-
-
         trip.setTripCreateDate(new Date());
         trip.setTripEditDate(new Date());
         trip.setTripStatus(0);
-        trip.setUserByUserId(user);
+        trip.setUserByUserId(userService.getLoggedUser());
         try {
             tripRepository.save(trip);
         } catch (Exception e) {
@@ -47,9 +47,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public boolean saveComment(Comments comment, int tripId) {
 
-        UserDetails userDetails =
-                (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userService.getLoggedUser();
 
         comment.setUserId(user.getUserId());
         comment.setTripId(tripId);
@@ -60,5 +58,42 @@ public class TripServiceImpl implements TripService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public boolean joinToTripByUser(int id) {
+
+        User user = userService.getLoggedUser();
+
+        if (tripRepository.findById(id).getUserByUserId().getUserId() != user.getUserId()) {
+            Trip trip = tripRepository.findById(id);
+            try {
+                trip.getTripMembers().add(user);
+                tripRepository.save(trip);
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public List<Trip> joinedTripByUser() {
+        User user = userService.getLoggedUser();
+
+        Iterable<Trip> allTrips = tripRepository.findAll();
+
+        List<Trip> tripsWhereUserIsAMember = new ArrayList<>();
+
+        for (Trip signleTrip : allTrips) {
+            for (User userInfo : signleTrip.getTripMembers()) {
+                if (user.getUserId() == userInfo.getUserId()) {
+                    tripsWhereUserIsAMember.add(signleTrip);
+                }
+            }
+        }
+        return tripsWhereUserIsAMember;
     }
 }
