@@ -7,19 +7,18 @@ import pl.jointrip.models.Trip;
 import pl.jointrip.models.User;
 
 import java.util.Collection;
+import java.util.List;
 
 //@Repository
 public interface TripRepository extends CrudRepository<Trip, Integer> {
+
     Collection<Trip> findTripByTripStatus(Integer status);
+
     Trip findById(int id);
 
-    //    Collection<Trip> findTripByUserByUserId(User user);
-//    Trip findTripById(Integer id);
-//
-//
-//    @Query("SELECT p FROM Person p WHERE LOWER(p.lastName) = LOWER(:lastName)")
-//    Collection<Trip> findTripByUserByUserId2(@Param("user_id") Integer user_id);
+    List<Trip> findTripByTripMembers(User user);
 
+    List<Trip> findTripByTripMembersNotContains(User user);
 
 
 }
