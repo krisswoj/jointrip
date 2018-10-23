@@ -14,5 +14,13 @@ public interface TripService {
 
     boolean joinToTripByUser(int id);
 
-    List<Trip> joinedTripByUser();
+    String addedTripNotification(Trip trip);
+
+    String addedCommentNotification(Comments comment, int tripId);
+
+    String joinedTripNotification(int id);
+
+    List<Trip> joinedTripsByUser();
+
+    List<Trip> findTripByTripMembersNot();
 }

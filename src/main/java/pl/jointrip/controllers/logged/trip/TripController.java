@@ -2,7 +2,6 @@ package pl.jointrip.controllers.logged.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +15,7 @@ import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class TripController {
@@ -42,15 +42,9 @@ public class TripController {
 
     @RequestMapping(value = "/addTrip", method = RequestMethod.POST)
     public ModelAndView addTripForm(@Valid Trip tripEntity) {
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trip_form", new Trip());
-
-        if (tripService.saveTrip(tripEntity)) {
-            modelAndView.addObject("message", "Wycieczkę dodano pomyślnie!");
-        } else {
-            modelAndView.addObject("message", "Nie udało się dodać wycieczki");
-        }
+        modelAndView.addObject("message", tripService.addedTripNotification(tripEntity));
         modelAndView.setViewName("trip/add-trip-form");
         return modelAndView;
 
@@ -68,18 +62,11 @@ public class TripController {
     }
 
     @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.POST)
-    public ModelAndView addCommentForm(@Valid Comments commentEntity, @RequestParam("ide") int tripId) {
-
+    public ModelAndView addCommentForm(@Valid Comments comment, @RequestParam("ide") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
         modelAndView.addObject("commentForm", new Comments());
-
-        if (tripService.saveComment(commentEntity, tripId)) {
-            modelAndView.addObject("message", "Wycieczkę dodano pomyślnie!");
-        } else {
-            modelAndView.addObject("message", "Nie udało się dodać wycieczki");
-        }
-
+        modelAndView.addObject("message", tripService.addedCommentNotification(comment, tripId));
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
@@ -90,13 +77,7 @@ public class TripController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("commentForm", new Comments());
         modelAndView.addObject("tripInfo", tripRepository.findById(id));
-
-        if (tripService.joinToTripByUser(id)) {
-            modelAndView.addObject("message", "Dołączyłeś do wycieczki");
-        } else {
-            modelAndView.addObject("message", "Nie możesz dołączyć do własnej wycieczki");
-        }
-
+        modelAndView.addObject("message", tripService.joinedTripNotification(id));
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
@@ -104,7 +85,7 @@ public class TripController {
     @RequestMapping(value = "/showTrips", method = RequestMethod.GET)
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        Iterable<Trip> trips = tripRepository.findAll();
+        Iterable<Trip> trips = tripService.findTripByTripMembersNot();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("show_trips", trips);
         modelAndView.setViewName("trip/trips");
@@ -114,7 +95,7 @@ public class TripController {
     @RequestMapping(value = "/myTrips", method = RequestMethod.GET)
     public ModelAndView myTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        Iterable<Trip> trips = tripService.joinedTripByUser();
+        List<Trip> trips = tripService.joinedTripsByUser();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("show_trips", trips);
         modelAndView.setViewName("trip/trips");
