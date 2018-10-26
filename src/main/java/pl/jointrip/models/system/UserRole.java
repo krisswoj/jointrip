@@ -1,16 +1,18 @@
-package pl.jointrip.models;
+package pl.jointrip.models.system;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import java.io.Serializable;
+import javax.persistence.*;
 import java.util.Objects;
 
-public class UserRolePK implements Serializable {
+@Entity
+@Table(name = "user_role", schema = "jointrip_home", catalog = "")
+@IdClass(UserRolePK.class)
+public class UserRole {
     private int userId;
     private int roleId;
 
-    @Column(name = "user_id")
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     public int getUserId() {
         return userId;
     }
@@ -19,8 +21,8 @@ public class UserRolePK implements Serializable {
         this.userId = userId;
     }
 
-    @Column(name = "role_id")
     @Id
+    @Column(name = "role_id")
     public int getRoleId() {
         return roleId;
     }
@@ -33,9 +35,9 @@ public class UserRolePK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserRolePK that = (UserRolePK) o;
-        return userId == that.userId &&
-                roleId == that.roleId;
+        UserRole userRole = (UserRole) o;
+        return userId == userRole.userId &&
+                roleId == userRole.roleId;
     }
 
     @Override

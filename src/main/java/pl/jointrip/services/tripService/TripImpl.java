@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import pl.jointrip.dao.CommentsRepository;
+import pl.jointrip.dao.TripMemberRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.Comments;
 import pl.jointrip.models.Trip;
+import pl.jointrip.models.TripMember;
 import pl.jointrip.models.User;
 import pl.jointrip.services.userService.UserService;
 
@@ -25,6 +27,8 @@ public class TripImpl implements TripService {
     CommentsRepository commentsRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    TripMemberRepository tripMemberRepository;
 
     @Value("${TRIP_ADDED_POSITIVE}")
     private String tripPositive;
@@ -44,14 +48,14 @@ public class TripImpl implements TripService {
     @Value("${MEMBER_JOINED_TRIP_NEGATIVE}")
     private String tripJoinNegative;
 
-
     @Override
     public boolean saveTrip(Trip trip) {
 
+        User loggedUser = userService.getLoggedUser();
         trip.setTripCreateDate(new Date());
         trip.setTripEditDate(new Date());
         trip.setTripStatus(0);
-        trip.setUserByUserId(userService.getLoggedUser());
+        trip.setUserByUserId(loggedUser);
 
         try {
             tripRepository.save(trip);
@@ -65,9 +69,8 @@ public class TripImpl implements TripService {
     @Override
     public boolean saveComment(Comments comment, int tripId) {
 
-        User user = userService.getLoggedUser();
-
-        comment.setUserId(user.getUserId());
+        User loggedUser = userService.getLoggedUser();
+        comment.setUserId(loggedUser.getUserId());
         comment.setTripId(tripId);
 
         try {
@@ -82,20 +85,31 @@ public class TripImpl implements TripService {
     @Override
     public boolean joinToTripByUser(int id) {
 
-        User user = userService.getLoggedUser();
+        User loggedUser = userService.getLoggedUser();
         Trip trip = tripRepository.findById(id);
 
-        if (tripRepository.findById(id).getUserByUserId().getUserId() == user.getUserId())
+        if (tripRepository.findById(id).getUserByUserId().getUserId() == loggedUser.getUserId())
             return false;
 
         try {
-            trip.getTripMembers().add(user);
+            trip.getTripMembers().add(addNewMember(trip));
             tripRepository.save(trip);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public TripMember addNewMember(Trip trip){
+        User loggedUser = userService.getLoggedUser();
+
+        TripMember tripMember = new TripMember();
+        tripMember.setTripMember(loggedUser);
+        tripMember.setStatus(1);
+        tripMember.setTrip(trip);
+        return tripMember;
     }
 
     @Override
@@ -115,13 +129,20 @@ public class TripImpl implements TripService {
 
     @Override
     public List<Trip> joinedTripsByUser() {
-        User user = userService.getLoggedUser();
-        return tripRepository.findTripByTripMembers(user);
+        User loggedUser = userService.getLoggedUser();
+        return tripRepository.findTripByTripMembersContains(loggedUser);
+
     }
 
     @Override
     public List<Trip> findTripByTripMembersNot() {
-        User user = userService.getLoggedUser();
-        return tripRepository.findTripByTripMembersNotContains(user);
+        User loggedUser = userService.getLoggedUser();
+        return tripRepository.findTripByTripMembersNotContains(loggedUser);
+    }
+
+    @Override
+    public  List<Trip>findTripByUserByUserId(){
+        User loggedUser = userService.getLoggedUser();
+        return tripRepository.findTripByUserByUserId(loggedUser);
     }
 }

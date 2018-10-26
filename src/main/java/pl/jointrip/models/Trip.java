@@ -16,8 +16,14 @@ public class Trip {
     private Integer tripStatus;
     private String tripTitle;
     private User userByUserId;
-    private List<User> tripMembers;
+    private List<TripMember> tripMembers;
     private List<Comments> comments;
+
+    private String tripStreet;
+    private String tripCountry;
+    private String tripCity;
+    private String organizatorPhoneNumber;
+    private String organizatorEmail;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -153,12 +159,12 @@ public class Trip {
         this.userByUserId = userByUserId;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
-    public List<User> getTripMembers() {
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    public List<TripMember> getTripMembers() {
         return tripMembers;
     }
 
-    public void setTripMembers(List<User> tripMembers) {
+    public void setTripMembers(List<TripMember> tripMembers) {
         this.tripMembers = tripMembers;
     }
 
@@ -169,5 +175,55 @@ public class Trip {
 
     public void setComments(List<Comments> comments) {
         this.comments = comments;
+    }
+
+    @Basic
+    @Column(name = "trip_street")
+    public String getTripStreet() {
+        return tripStreet;
+    }
+
+    public void setTripStreet(String tripStreet) {
+        this.tripStreet = tripStreet;
+    }
+
+    @Basic
+    @Column(name = "trip_country")
+    public String getTripCountry() {
+        return tripCountry;
+    }
+
+    public void setTripCountry(String tripCountry) {
+        this.tripCountry = tripCountry;
+    }
+
+    @Basic
+    @Column(name = "trip_city")
+    public String getTripCity() {
+        return tripCity;
+    }
+
+    public void setTripCity(String tripCity) {
+        this.tripCity = tripCity;
+    }
+
+    @Basic
+    @Column(name = "trip_organizator_phone_number")
+    public String getOrganizatorPhoneNumber() {
+        return organizatorPhoneNumber;
+    }
+
+    public void setOrganizatorPhoneNumber(String organizatorPhoneNumber) {
+        this.organizatorPhoneNumber = organizatorPhoneNumber;
+    }
+
+    @Basic
+    @Column(name = "trip_organizator_email")
+    public String getOrganizatorEmail() {
+        return organizatorEmail;
+    }
+
+    public void setOrganizatorEmail(String organizatorEmail) {
+        this.organizatorEmail = organizatorEmail;
     }
 }

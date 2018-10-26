@@ -25,11 +25,18 @@
                     <li sec:authorize="isAnonymous()"><a href="/login">Zaloguj</a></li>
 
                     <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
-                        <a >Wycieczki</a>
+                        <a>Wycieczki</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li class=""><a href="/addTrip">Dodaj wycieczkę</a></li>
                             <li class=""><a href="/showTrips">Pokaż wycieczki</a></li>
                             <li class=""><a href="/myTrips">Moje wycieczki</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
+                        <a>Organizator</a>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li class=""><a href="/addTrip">Dodaj wycieczkę</a></li>
+                            <li class=""><a href="/myTripsManagment">Zarządzaj wycieczkami</a></li>
                         </ul>
                     </li>
 
