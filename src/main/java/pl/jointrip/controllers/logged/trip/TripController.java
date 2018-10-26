@@ -32,31 +32,21 @@ public class TripController {
     UserService userService;
 
 
-    @RequestMapping(value = "/addTrip", method = RequestMethod.GET)
-    public ModelAndView addTripForm() {
+    @RequestMapping(value = "/showTrips", method = RequestMethod.GET)
+    public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("trip_form", new Trip());
-        modelAndView.setViewName("trip/add-trip-form");
+        modelAndView.addObject("userInfo", userService.getLoggedUser());
+        modelAndView.addObject("show_trips", tripService.findTripByTripMembersNot());
+        modelAndView.setViewName("trip/trips");
         return modelAndView;
-    }
-
-    @RequestMapping(value = "/addTrip", method = RequestMethod.POST)
-    public ModelAndView addTripForm(@Valid Trip tripEntity) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("trip_form", new Trip());
-        modelAndView.addObject("message", tripService.addedTripNotification(tripEntity));
-        modelAndView.setViewName("trip/add-trip-form");
-        return modelAndView;
-
     }
 
     @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.GET)
     public ModelAndView showTrip(@RequestParam("ide") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        Iterable<Comments> comments = commentsRepository.findAll();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("tripInfo", tripRepository.findById(id));
-        modelAndView.addObject("commentForm", new Comments());
+        modelAndView.addObject("commentForm",commentsRepository.findAll());
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
@@ -73,7 +63,6 @@ public class TripController {
 
     @RequestMapping(value = "/showTrip", params = "join", method = RequestMethod.GET)
     public ModelAndView joinToTrip(@RequestParam("join") int id) {
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("commentForm", new Comments());
         modelAndView.addObject("tripInfo", tripRepository.findById(id));
@@ -82,22 +71,11 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/showTrips", method = RequestMethod.GET)
-    public ModelAndView showTrips() {
-        ModelAndView modelAndView = new ModelAndView();
-        Iterable<Trip> trips = tripService.findTripByTripMembersNot();
-        modelAndView.addObject("userInfo", userService.getLoggedUser());
-        modelAndView.addObject("show_trips", trips);
-        modelAndView.setViewName("trip/trips");
-        return modelAndView;
-    }
-
     @RequestMapping(value = "/myTrips", method = RequestMethod.GET)
     public ModelAndView myTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        List<Trip> trips = tripService.joinedTripsByUser();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
-        modelAndView.addObject("show_trips", trips);
+        modelAndView.addObject("show_trips", tripService.joinedTripsByUser());
         modelAndView.setViewName("trip/trips");
         return modelAndView;
     }

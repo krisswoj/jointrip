@@ -5,95 +5,154 @@
 
 <div th:fragment="content">
 
-    <div class="panel-group" style="margin-top:40px">
-        <div class="panel panel-primary">
-            <div>
-                <b>Tytul wycieczki</b>
-                <br />
-                <span th:utext="${tripInfo.tripTitle}"></span>
-            </div>
-            <div>
-                <b>Opis wycieczki</b>
-                <br />
-                <span th:utext="${tripInfo.tripFullDesc}"></span>
-            </div>
 
-            <div>
-                <b>Cena od osoby za wycieczke</b>
-                <br />
-                <span th:utext="${tripInfo.tripPriceMember}"></span>
-            </div>
-
-            <td class="packageTd">
-                <ul class="list-inline listingsInfo text-center">
-                    <li>
-                        <a th:href="@{../showTrip(join=${tripInfo.id})}"><h4>Dołącz do wycieczki</h4></a>
-                    </li>
-                </ul>
-            </td>
-
-            <!--<div>-->
-                <!--<b>Data utworzenia wycieczki</b>-->
-                <!--<br />-->
-                <!--<span th:utext="${#dates.format(tripInfo.tripCreateDate, 'dd-MM-yyyy')}"></span>-->
-            <!--</div>-->
-
-
-            <!--<div>-->
-                <!--<b>Data ostatniej edycji wycieczki</b>-->
-                <!--<br />-->
-                <!--<span th:utext="${#dates.format(tripInfo.tripEditDate, 'dd-MM-yyyy')}"></span>-->
-            <!--</div>-->
-
-            <!--<div>-->
-                <!--<b>Data zakończenia wycieczki</b>-->
-                <!--<br />-->
-                <!--<span th:utext="${#dates.format(tripInfo.tripEndDate, 'dd-MM-yyyy')}"></span>-->
-            <!--</div>-->
-
-
-        </div>
-    </div>
-
-    <div class="review-aria">
-        <div class="sectionTitle2">
-            <h2>Komentarze</h2>
-        </div>
-        <div class="reviewContent">
-
-            <div class="reviewMedia" th:each="count : ${comments}">
-                <ul class="media-list">
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#">
-                                <img class="media-object" src="img/blog/comments-02.jpg" alt="Image">
-                            </a>
+    <section class="mainContentSection singleHotel">
+        <div class="container">
+            <div class="row ">
+                <div class="col-sm-8 col-xs-12">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div id="package-carousel" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#package-carousel" data-slide-to="0" class="active"></li>
+                                    <li data-target="#package-carousel" data-slide-to="1" class=""></li>
+                                    <li data-target="#package-carousel" data-slide-to="2" class=""></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img alt="First slide" src="img/holets/hotel-slider-01.jpg">
+                                    </div>
+                                    <div class="item">
+                                        <img alt="Second slide" src="img/holets/hotel-slider-02.jpg">
+                                    </div>
+                                    <div class="item">
+                                        <img alt="Third slide" src="img/holets/hotel-slider-03.jpg">
+                                    </div>
+                                </div>
+                                <a class="left carousel-control" href="#package-carousel" data-slide="prev"><span
+                                        class="glyphicon glyphicon-menu-left"></span></a>
+                                <a class="right carousel-control" href="#package-carousel" data-slide="next"><span
+                                        class="glyphicon glyphicon-menu-right"></span></a>
+                            </div>
                         </div>
-                        <div class="media-body">
-                            <h5 class="media-heading" th:utext="${count.user.name}"></h5>
-                            <p th:utext="${count.text}"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="description-aria">
+                                <div class="sectionTitle2">
+                                    <h2 th:text="${tripInfo.tripTitle}"/>
+                                    <p th:text="${tripInfo.tripShortDesc}" />
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                </ul>
-            </div>
-
-            <form action="#" method="post" role="form" class="commentsForm" th:object="${commentForm}" th:action="@{/showTrip(ide=${tripInfo.id})}">
-
-                <h3 class="reviewTitle">Dodaj komentarz</h3>
-
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="form-group">
-                            <textarea type="text" th:field="*{text}" class="form-control" rows="3" placeholder="Dodaj komentarz..."></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="location-aria">
+                                <div class="sectionTitle2">
+                                    <h2>Lokalizacja</h2>
+                                </div>
+                                <div class="google-maps">
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12097.002861286059!2d-74.01154310416635!3d40.71249695811257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY!5e0!3m2!1sen!2s!4v1502716241862"
+                                            width="100%" height="400px" scrolling="no" frameborder="0" style="border:0"
+                                            allowfullscreen=""></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="review-aria">
+                                    <form action="" method="POST" role="form" class="commentsForm">
+                                        <h3 class="reviewTitle">Zadaj pytanie organizatorowi</h3>
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="3"
+                                                              placeholder="Comment"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn buttonCustomPrimary">submit</button>
+                                    </form>
+                                <div class="reviewContent">
+                                    <div class="reviewMedia">
+                                        <ul class="media-list">
+                                            <li class="media">
+                                                <div class="media-body">
+                                                    <h5 class="media-heading">krisswoj</h5>
+                                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                                                        accusantium doloremque laudan totam rem ape riam</p><h6><strong>Tak, jest taka możliwość. </strong></h6>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <aside class="col-sm-4 col-xs-12">
+                    <div class="singleCartSidebar">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Szczegóły wycieczki</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <form class="form-horizontal">
+                                            <div class="contactInfo">
 
-                <button type="submit" class="btn buttonCustomPrimary">Dodaj</button>
 
-            </form>
+                                                <div class="media">
+                                                    <a class="media-left" href="#">
+                                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Adres</h4>
+                                                        <p th:text="${tripInfo.tripCountry}" />
+                                                        <p th:text="${tripInfo.tripStreet}" />
+                                                        <p th:text="${tripInfo.tripCity}" />
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="media-left" href="#">
+                                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Telefon</h4>
+                                                        <p th:text="${tripInfo.organizatorPhoneNumber}" />
+                                                    </div>
+                                                </div>
+                                                <div class="media">
+                                                    <a class="media-left" href="#">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">E-mail</h4>
+                                                        <p th:text="${tripInfo.organizatorEmail}" />
+                                                    </div>
+                                                </div>
+                                            </div>
 
+
+                                            <div class="totalCost">
+                                                <div class="col-xs-8 totalCostLeft">
+                                                    <p>Koszt za osobę</p>
+                                                </div>
+                                                <div class="col-xs-4 totalCostRight" th:text="${tripInfo.tripPriceMember} + ' zł'"></div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <a href="#" class="btn btn-block buttonTransparent">Jestem zainteresowany<i
+                                                        class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
         </div>
-    </div>
-
+    </section>
 </div>

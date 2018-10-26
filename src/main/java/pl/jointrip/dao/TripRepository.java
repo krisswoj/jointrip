@@ -3,22 +3,32 @@ package pl.jointrip.dao;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 import pl.jointrip.models.Trip;
+import pl.jointrip.models.TripMember;
 import pl.jointrip.models.User;
 
 import java.util.Collection;
 import java.util.List;
 
-//@Repository
-public interface TripRepository extends CrudRepository<Trip, Integer> {
+@Repository
+public interface TripRepository extends CrudRepository<Trip, Integer>{
 
     Collection<Trip> findTripByTripStatus(Integer status);
 
     Trip findById(int id);
 
-    List<Trip> findTripByTripMembers(User user);
+    @Query("select t from Trip t inner join TripMember as tm on t.id = tm.id where tm.tripMember = :user_id")
+    List<Trip> findTripByTripMembersContains(@Param("user_id") User user);
 
-    List<Trip> findTripByTripMembersNotContains(User user);
+    @Query("select t from Trip t left join TripMember as tm on t.id = tm.id where tm.tripMember is null or tm.tripMember <> :user_id")
+    List<Trip> findTripByTripMembersNotContains(@Param("user_id") User user);
+
+    List<Trip>findTripByUserByUserId(User user);
+
+//    @Query("select u from User u where u.firstname = :firstname or u.lastname = :lastname")
+//    User findByLastnameOrFirstname(@Param("lastname") String lastname,
+//                                   @Param("firstname") String firstname);
 
 
 }

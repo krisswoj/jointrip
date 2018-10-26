@@ -1,5 +1,7 @@
 package pl.jointrip.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +18,7 @@ public class User {
     private String name;
     private String password;
     private Collection<Trip> tripsByUserId;
+    private List<TripMember> tripMember;
     private Set<Role> roles;
     private List<Comments> comments;
 
@@ -116,6 +119,16 @@ public class User {
 
     public void setTripsByUserId(Collection<Trip> tripsByUserId) {
         this.tripsByUserId = tripsByUserId;
+    }
+
+    @OneToMany(mappedBy = "tripMember", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    public List<TripMember> getTripMember() {
+        return tripMember;
+    }
+
+    public void setTripMember(List<TripMember> tripMember) {
+        this.tripMember = tripMember;
     }
 
     @OneToMany(mappedBy="user")

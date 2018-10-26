@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<div th:fragment="content">
+
+    <!-- BOOKING TYPE SECTION -->
+    <section class="bookingTypeSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="bookingType bg-ash">
+                        <ul class="bookingList">
+                            <!--<li><a class="active" href="">All Types</a></li>-->
+                            <li><a href="">Aktywne</a></li>
+                            <li><a href="">W trakcie</a></li>
+                            <li><a href="">Zakończone</a></li>
+                            <li><a href="">Wszystkie</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAGE CONTENT -->
+
+    <section class="recentActivitySection">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="recentActivityContent bg-ash">
+                        <div class="dashboardPageTitle">
+                            <h2>Aktywne</h2>
+                        </div>
+                        <div class="table-responsive" data-pattern="priority-columns"
+                             th:each="count : ${managmentTrips}">
+                            <table class="table listingsTable">
+                                <tbody>
+                                <tr class="rowItem">
+
+                                    <td class="dateTd">
+                                        <ul class="text-center">
+                                            <li>
+                                                <h4 th:text="${#dates.format(count.tripCreateDate, 'dd/MM/yyyy')}" />
+                                            </li>
+                                        </ul>
+                                    </td>
+
+                                    <td class="packageTd">
+                                        <ul class="list-inline listingsInfo">
+                                            <li>
+                                                <h4 th:text="${count.tripTitle}"/>
+                                                <p th:text="${count.tripCountry} + ', ' + ${count.tripCity}" />
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="priceTd">
+                                        <ul class="list-inline listingsInfo text-right">
+                                            <li>
+                                                <h4 th:text="${count.tripPriceMember} + ' zł'" />
+                                                <p th:text="'Ilość członków: ' + ${count.tripMembers.size()} + ' / ' + ${count.tripMembersAmount}" />
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="bookingTd">
+                                        <ul class="list-inline listingsInfo text-left">
+                                            <li>
+                                                <h4>ID WYCIEKCZKI</h4>
+                                                <p th:text="${count.id} "/>
+                                                <h4>OSOBY DO WERYFIKACJI</h4>
+                                                <p>2</p>
+                                                <h4>KOMENTARZE DO ODPOWIEDZI</h4>
+                                                <p>0</p>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--<section class="mainContentSection packagesSection">-->
+    <!--<div class="container">-->
+    <!--<div class="row">-->
+
+
+    <!--<div class="col-sm-3 col-xs-12">-->
+    <!--<aside>-->
+    <!--<div class="panel panel-default packagesFilter">-->
+    <!--<div class="panel-heading">-->
+    <!--<h3 class="panel-title">search</h3>-->
+    <!--</div>-->
+    <!--<div class="panel-body">-->
+    <!--<div class="row">-->
+    <!--<div class="col-xs-12">-->
+    <!--<div class="searchFilter">-->
+    <!--<select name="guiest_id3" id="guiest_id3" class="select-drop">-->
+    <!--<option value="0">Destinations</option>-->
+    <!--<option value="1">USA</option>-->
+    <!--<option value="2">UK</option>-->
+    <!--<option value="3">Canada</option>-->
+    <!--</select>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-xs-12">-->
+    <!--<div class="input-group date ed-datepicker filterDate" data-provide="datepicker">-->
+    <!--<input type="text" class="form-control" placeholder="MM/DD/YYYY">-->
+    <!--<div class="input-group-addon">-->
+    <!--<span class="fa fa-calendar"></span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-xs-12">-->
+    <!--<div class="input-group date ed-datepicker filterDate" data-provide="datepicker">-->
+    <!--<input type="text" class="form-control" placeholder="MM/DD/YYYY">-->
+    <!--<div class="input-group-addon">-->
+    <!--<span class="fa fa-calendar"></span>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="col-sm-12">-->
+    <!--<a href="#" class="btn btn-block buttonTransparent">Search</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</aside>-->
+    <!--</div>-->
+
+
+    <!--<div class="col-sm-9  col-xs-12">-->
+    <!--<div class="row sidebarPage">-->
+    <!--<div class="col-xs-12">-->
+    <!--<div class="media packagesList" th:each="count : ${managmentTrips}">-->
+    <!--<a class="media-left fancybox-pop" href="../images/packages/package-list-01.jpg">-->
+    <!--<img class="media-object" src="../images/packages/package-list-01.jpg" alt="Image">-->
+    <!--</a>-->
+    <!--<div class="media-body">-->
+    <!--<div class="bodyLeft">-->
+    <!--<h4 class="media-heading"><a href="/showTrip" th:href="@{/showTrip(ide=${count.id})}" th:text="${count.tripTitle}"></a></h4>-->
+    <!--<span><b>Asia to do</b></span>-->
+    <!--<p th:text="${count.tripShortDesc}"/>-->
+    <!--<ul class="list-inline detailsBtn">-->
+    <!--<li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i><span style="padding-left: 5px;font-weight: bold" th:text="${#dates.format(count.tripCreateDate, 'dd/MM/yyyy')}"></span></span></li>-->
+    <!--<li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i>to do</span></li>-->
+    <!--<li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i>to do</span></li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--<div class="bodyRight">-->
+    <!--<div class="bookingDetails">-->
+    <!--<h2 th:text="${count.tripPriceMember}"/>-->
+    <!--<p>ZŁ/OSOBA</p>-->
+    <!--<a href="/showTrip" th:href="@{/showTrip(ide=${count.id})}" class="btn buttonTransparent clearfix">Szczegóły</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</section>-->
+
+</div>
