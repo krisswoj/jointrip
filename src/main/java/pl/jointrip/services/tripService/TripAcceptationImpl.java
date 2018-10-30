@@ -13,7 +13,6 @@ public class TripAcceptationImpl implements TripAcceptationService {
     TripRepository tripRepository;
 
     public Trip fetchTripById(Integer id) {
-
         return tripRepository.findById(id).orElse(null);
     }
 

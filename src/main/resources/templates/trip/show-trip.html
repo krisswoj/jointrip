@@ -20,13 +20,13 @@
                                 </ol>
                                 <div class="carousel-inner">
                                     <div class="item active">
-                                        <img alt="First slide" src="img/holets/hotel-slider-01.jpg">
+                                        <img alt="First slide" src="../img/holets/hotel-slider-01.jpg">
                                     </div>
                                     <div class="item">
-                                        <img alt="Second slide" src="img/holets/hotel-slider-02.jpg">
+                                        <img alt="Second slide" src="../img/holets/hotel-slider-02.jpg">
                                     </div>
                                     <div class="item">
-                                        <img alt="Third slide" src="img/holets/hotel-slider-03.jpg">
+                                        <img alt="Third slide" src="../img/holets/hotel-slider-03.jpg">
                                     </div>
                                 </div>
                                 <a class="left carousel-control" href="#package-carousel" data-slide="prev"><span
@@ -63,26 +63,29 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="review-aria">
-                                    <form action="" method="POST" role="form" class="commentsForm">
+                                <form th:action="@{/showTrip/addedComment(ide=${tripInfo.id})}" method="POST"
+                                      role="form" class="commentsForm" th:object="${commentForm}">
                                         <h3 class="reviewTitle">Zadaj pytanie organizatorowi</h3>
                                         <div class="row">
                                             <div class="col-xs-12">
                                                 <div class="form-group">
                                                     <textarea class="form-control" rows="3"
-                                                              placeholder="Comment"></textarea>
+                                                              placeholder="Wprowadź swoje zapytanie" th:field="*{userQuestion}"></textarea>
                                                 </div>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn buttonCustomPrimary">submit</button>
                                     </form>
+
+
                                 <div class="reviewContent">
                                     <div class="reviewMedia">
                                         <ul class="media-list">
-                                            <li class="media">
+                                            <li class="media"th:each="count : ${commentList}">
                                                 <div class="media-body">
-                                                    <h5 class="media-heading">krisswoj</h5>
-                                                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                                                        accusantium doloremque laudan totam rem ape riam</p><h6><strong>Tak, jest taka możliwość. </strong></h6>
+                                                    <p th:text="${count.userQuestion}" />
+                                                    <h6><strong th:text="${count.organisationAnswer}" /></h6>
+
                                                 </div>
                                             </li>
                                         </ul>

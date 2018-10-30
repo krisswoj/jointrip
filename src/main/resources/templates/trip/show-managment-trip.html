@@ -45,98 +45,76 @@
 
                             <div class="row">
                                 <div class="form-group col-xs-12">
-
-
+                                    <div class="form-group">
+                                        <label>Lista użytkowników</label>
+                                    </div>
                                     <table class="table table-striped">
                                         <tr>
                                             <th>Email</th>
-                                            <th>Status</th>
                                             <th>Operacje</th>
                                         </tr>
-                                        <tr th:each="count : ${tripInfo.tripMembers}">
-                                            <td th:text="${count.tripMember.email}"></td>
-                                            <td th:text="${count.status}"></td>
-                                            <td>
+
+                                        <form th:action="@{/myTripManagment(ids=${tripInfo.id})}" method="POST"
+                                              role="form" class="form" th:object="${form}">
 
 
-                                                <form action="" method="POST" role="form" class="form">
+                                            <tr th:each="trip, itemStat : ${form.tripMemberList}">
+                                                <td th:text="${trip.tripMember.email}"></td>
+                                                <td>
+
+
                                                     <div class="bookingDrop">
-                                                        <select name="guiest_id3" id="guiest_id3"
-                                                                class="select-drop" sb="46037008"
-                                                                style="display: none;">
-                                                            <option value="1">Zainteresowany</option>
-                                                            <option value="2">Zatwierdzony, do opłacenia</option>
-                                                            <option value="3">Opłacony</option>
+                                                        <select th:field="*{tripMemberList[__${itemStat.index}__].status}"
+                                                                class="select-drop" style="display: none;">
+                                                            <option value="1" th:value="1">1 - Zainteresowany</option>
+                                                            <option value="2" th:value="2">2 - Zatwierdzony, do
+                                                                opłacenia
+                                                            </option>
+                                                            <option value="3" th:value="3">3 - Opłacony</option>
                                                         </select>
+                                                        <input type="hidden"
+                                                               th:field="*{tripMemberList[__${itemStat.index}__].id}"/>
                                                     </div>
-                                                    <button type="submit" class="btn buttonCustomPrimary">Zmień
-                                                    </button>
-                                                </form>
-                                            </td>
-                                        </tr>
+                                                    <button type="submit" class="btn buttonCustomPrimary">Zmień</button>
+                                                </td>
+
+
+                                            </tr>
+                                        </form>
+
                                     </table>
                                 </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="form-group col-xs-12">
+                                    <div class="form-group">
+                                        <label>Komentarze</label>
+                                    </div>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Zapytanie</th>
+                                            <th>Odpowiedź</th>
+                                            <th>Operacje</th>
+                                        </tr>
+
+                                        <form th:action="@{/myTripManagment/updatedComment(ids=${tripInfo.id})}" method="POST"
+                                              role="form" class="form" th:object="${commentsForm}">
+
+
+                                            <tr th:each="comment, itemStat : ${commentsForm.commentsList}">
+                                                <input type="hidden" th:field="*{commentsList[__${itemStat.index}__].id}"/>
+                                                <td th:text="${comment.userQuestion}"></td>
+                                                <td><input type="text" th:field="*{commentsList[__${itemStat.index}__].organisationAnswer}" /></td>
+                                                <td><button type="submit" class="btn buttonCustomPrimary">Odpowiedz</button></td>
+                                            </tr>
+                                        </form>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
-
-
-                        <!--<div th:if="${not #lists.isEmpty(tripInfo.tripMembers)}">-->
-                        <!--<div class="bookingDrop">-->
-                        <!--<table class="table table-striped">-->
-                        <!--<tr>-->
-                        <!--<th>Email</th>-->
-                        <!--<th>Status</th>-->
-                        <!--<th>Operacje</th>-->
-                        <!--</tr>-->
-                        <!--<tr th:each="count : ${tripInfo.tripMembers}">-->
-                        <!--<td th:text="${count.tripMember.email}"></td>-->
-                        <!--<td th:text="${count.status}"></td>-->
-                        <!--<td>-->
-
-                        <!--<form autocomplete="off" action="#"-->
-                        <!--th:action="@{/myTripManagment}+'?ids='+${tripInfo.id}"-->
-                        <!--method="post" th:object="${tripInfo2}"-->
-                        <!--class="form-horizontal" role="form">-->
-                        <!--<div>-->
-                        <!--<input type="hidden" name="id" th:value="${count.id}">-->
-                        <!--&lt;!&ndash;<select class="select-drop" th:field="*{status}">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option name="status" th:value="1">1 -Zainteresowany&ndash;&gt;-->
-                        <!--&lt;!&ndash;</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option name="status" th:value="2">2 - Zatwierdzony, do opłacenia&ndash;&gt;-->
-                        <!--&lt;!&ndash;</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<option name="status" th:value="3">3 - Opłacony&ndash;&gt;-->
-                        <!--&lt;!&ndash;</option>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</select>&ndash;&gt;-->
-
-
-                        <!--<div id="sbHolder_48531557" class="sbHolder"><a-->
-                        <!--id="sbToggle_48531557" href="#" class="sbToggle"></a><a-->
-                        <!--id="sbSelector_48531557" href="#"-->
-                        <!--class="sbSelector">Month</a>-->
-                        <!--<ul id="sbOptions_48531557" class="sbOptions"-->
-                        <!--style="display: none;">-->
-                        <!--<li><a href="#0" rel="0">Month</a></li>-->
-                        <!--<li><a href="#1" rel="1">July</a></li>-->
-                        <!--<li><a href="#2" rel="2">August</a></li>-->
-                        <!--<li><a href="#3" rel="3">September</a></li>-->
-                        <!--</ul>-->
-                        <!--</div>-->
-
-
-                        <!--</div>-->
-                        <!--<div>-->
-                        <!--<button type="submit" class="btn buttonCustomPrimary">Zmień-->
-                        <!--</button>-->
-                        <!--</div>-->
-                        <!--</form>-->
-                        <!---->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--</table>-->
-                        <!--</div>-->
-                        <!--</div>-->
-
-
                     </div>
                 </div>
             </div>

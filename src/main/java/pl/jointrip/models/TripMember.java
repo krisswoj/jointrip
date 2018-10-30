@@ -28,8 +28,10 @@ public class TripMember {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JsonBackReference
-    public User getTripMember() {
-        return tripMember;
+    public User getTripMember() { return tripMember; }
+
+    public void setTripMember(User tripMember) {
+        this.tripMember = tripMember;
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -42,15 +44,9 @@ public class TripMember {
         this.trip = trip;
     }
 
-    public void setTripMember(User tripMember) {
-        this.tripMember = tripMember;
-    }
-
     @Basic
     @Column(name = "status")
-    public int getStatus() {
-        return status;
-    }
+    public int getStatus() { return status; }
 
     public void setStatus(int status) {
         this.status = status;

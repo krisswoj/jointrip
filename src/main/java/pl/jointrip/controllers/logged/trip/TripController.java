@@ -2,20 +2,14 @@ package pl.jointrip.controllers.logged.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.CommentsRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.Comments;
-import pl.jointrip.models.Trip;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class TripController {
@@ -32,7 +26,7 @@ public class TripController {
     UserService userService;
 
 
-    @RequestMapping(value = "/showTrips", method = RequestMethod.GET)
+    @GetMapping(value = "/showTrips")
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
@@ -41,37 +35,41 @@ public class TripController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.GET)
-    public ModelAndView showTrip(@RequestParam("ide") int id) {
+    @GetMapping(value = "/showTrip", params = "ide")
+    public ModelAndView showTrip(@RequestParam("ide") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
-        modelAndView.addObject("tripInfo", tripRepository.findById(id));
-        modelAndView.addObject("commentForm",commentsRepository.findAll());
-        modelAndView.setViewName("trip/show-trip");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/showTrip", params = "ide", method = RequestMethod.POST)
-    public ModelAndView addCommentForm(@Valid Comments comment, @RequestParam("ide") int tripId) {
-        ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
         modelAndView.addObject("commentForm", new Comments());
-        modelAndView.addObject("message", tripService.addedCommentNotification(comment, tripId));
+        modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(tripId), 1));
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/showTrip", params = "join", method = RequestMethod.GET)
+    @PostMapping(value = "/showTrip/addedComment", params = "ide")
+    public ModelAndView addCommentForm(@ModelAttribute Comments commentForm, @RequestParam("ide") int tripId) {
+        ModelAndView modelAndView = new ModelAndView();
+        tripService.addedCommentNotification(commentForm, tripId);
+        modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
+        modelAndView.addObject("commentForm", new Comments());
+        modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(tripId), 1));
+
+        modelAndView.setViewName("trip/show-trip");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/showTrip", params = "join")
     public ModelAndView joinToTrip(@RequestParam("join") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("commentForm", new Comments());
         modelAndView.addObject("tripInfo", tripRepository.findById(id));
+        modelAndView.addObject("commentForm", new Comments());
+        modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(id), 1));
         modelAndView.addObject("message", tripService.joinedTripNotification(id));
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/myTrips", method = RequestMethod.GET)
+    @GetMapping(value = "/myTrips")
     public ModelAndView myTrips() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());

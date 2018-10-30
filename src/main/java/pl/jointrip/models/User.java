@@ -20,7 +20,6 @@ public class User {
     private Collection<Trip> tripsByUserId;
     private List<TripMember> tripMember;
     private Set<Role> roles;
-    private List<Comments> comments;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -129,14 +128,5 @@ public class User {
 
     public void setTripMember(List<TripMember> tripMember) {
         this.tripMember = tripMember;
-    }
-
-    @OneToMany(mappedBy="user")
-    public List<Comments> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comments> comments) {
-        this.comments = comments;
     }
 }

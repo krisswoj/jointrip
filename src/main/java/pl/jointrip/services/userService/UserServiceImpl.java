@@ -15,7 +15,7 @@ import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.Role;
 import pl.jointrip.models.User;
 
-@Service("userService")
+@Service
 public class UserServiceImpl implements UserService{
 
     @Autowired
