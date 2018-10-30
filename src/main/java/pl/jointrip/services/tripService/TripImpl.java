@@ -7,14 +7,10 @@ import pl.jointrip.dao.CommentsRepository;
 import pl.jointrip.dao.TripMemberRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
-import pl.jointrip.models.Comments;
-import pl.jointrip.models.Trip;
-import pl.jointrip.models.TripMember;
-import pl.jointrip.models.User;
+import pl.jointrip.models.*;
 import pl.jointrip.services.userService.UserService;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TripImpl implements TripService {
@@ -67,22 +63,6 @@ public class TripImpl implements TripService {
     }
 
     @Override
-    public boolean saveComment(Comments comment, int tripId) {
-
-        User loggedUser = userService.getLoggedUser();
-        comment.setUserId(loggedUser.getUserId());
-        comment.setTripId(tripId);
-
-        try {
-            commentsRepository.save(comment);
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-    @Override
     public boolean joinToTripByUser(int id) {
 
         User loggedUser = userService.getLoggedUser();
@@ -102,28 +82,99 @@ public class TripImpl implements TripService {
     }
 
     @Override
-    public TripMember addNewMember(Trip trip){
-        User loggedUser = userService.getLoggedUser();
+    public boolean saveCommentByUser(Comments comment, int tripId) {
+        comment.setStatus(0);
+        comment.setTrip(tripRepository.findById(tripId));
 
+        try {
+            commentsRepository.save(comment);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    @Override
+    public TripMember addNewMember(Trip trip) {
+        User loggedUser = userService.getLoggedUser();
         TripMember tripMember = new TripMember();
         tripMember.setTripMember(loggedUser);
         tripMember.setStatus(1);
         tripMember.setTrip(trip);
-        return tripMember;
+        return tripMemberRepository.save(tripMember);
     }
 
     @Override
-    public String addedTripNotification(Trip trip){
+    public TripMember tripMemberStatusUpdate(TripMember tripMember) {
+        TripMember tm = tripMemberRepository.findById(tripMember.getId());
+        tm.setStatus(tripMember.getStatus());
+        return tripMemberRepository.save(tm);
+    }
+
+    @Override
+    public CommentsWrapper commentsWrapper(int tripId) {
+        List<Comments> commentsList = new ArrayList<>();
+        tripRepository.findById(tripId).getComments().iterator().forEachRemaining(commentsList::add);
+        commentsList.sort(Comparator.comparing(Comments::getId));
+        return new CommentsWrapper(commentsList);
+    }
+
+    @Override
+    public Comments commentUpdateByOwner(Comments comments) {
+        Comments ct = commentsRepository.findById(comments.getId());
+        ct.setStatus(1);
+        if (comments.getOrganisationAnswer() != null)
+            ct.setOrganisationAnswer(comments.getOrganisationAnswer());
+        return commentsRepository.save(ct);
+    }
+
+    @Override
+    public TripsMemberWrapper tripsMemberWrapper(int tripId) {
+        List<TripMember> tripMembers = new ArrayList<>();
+        tripRepository.findById(tripId).getTripMembers().iterator().forEachRemaining(tripMembers::add);
+        tripMembers.sort(Comparator.comparing(TripMember::getId));
+        return new TripsMemberWrapper(tripMembers);
+    }
+
+    @Override
+    public List<TripWrapper> tripWithStatistics() {
+        User loggedUser = userService.getLoggedUser();
+        List<TripWrapper> tripWrapperList = new ArrayList<>();
+        tripRepository.findTripByUserByUserId(loggedUser).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapper(trip)));
+        return tripWrapperList;
+    }
+
+    @Override
+    public TripWrapper createTripWrapper(Trip trip) {
+        Map<String, Integer> tripStatistic = new HashMap<>();
+        tripStatistic.put("membersToVerify", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 0).count());
+        tripStatistic.put("commentsToAnswer", (int) trip.getComments().stream().filter(c -> c.getStatus() == 0).count());
+        return new TripWrapper(trip, tripStatistic);
+    }
+
+    @Override
+    public void commentsListUpdateByOwner(List<Comments> commentsList) {
+        commentsList.forEach(this::commentUpdateByOwner);
+    }
+
+    @Override
+    public void tripMemberListUpdate(List<TripMember> tripMemberList) {
+        tripMemberList.forEach(this::tripMemberStatusUpdate);
+    }
+
+    @Override
+    public String addedTripNotification(Trip trip) {
         return (saveTrip(trip)) ? tripPositive : tripNegative;
     }
 
     @Override
-    public String addedCommentNotification(Comments comment, int tripId){
-        return (saveComment(comment, tripId)) ? commentPositive : commentNegative;
+    public String addedCommentNotification(Comments comment, int tripId) {
+        return (saveCommentByUser(comment, tripId)) ? commentPositive : commentNegative;
     }
 
     @Override
-    public String joinedTripNotification(int id){
+    public String joinedTripNotification(int id) {
         return (joinToTripByUser(id)) ? tripJoinPositive : tripJoinNegative;
     }
 
@@ -131,7 +182,6 @@ public class TripImpl implements TripService {
     public List<Trip> joinedTripsByUser() {
         User loggedUser = userService.getLoggedUser();
         return tripRepository.findTripByTripMembersContains(loggedUser);
-
     }
 
     @Override
@@ -141,7 +191,7 @@ public class TripImpl implements TripService {
     }
 
     @Override
-    public  List<Trip>findTripByUserByUserId(){
+    public List<Trip> findTripByUserByUserId() {
         User loggedUser = userService.getLoggedUser();
         return tripRepository.findTripByUserByUserId(loggedUser);
     }

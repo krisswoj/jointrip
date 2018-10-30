@@ -168,7 +168,7 @@ public class Trip {
         this.tripMembers = tripMembers;
     }
 
-    @OneToMany(mappedBy="trip")
+    @OneToMany(mappedBy="trip", cascade = CascadeType.ALL)
     public List<Comments> getComments() {
         return comments;
     }

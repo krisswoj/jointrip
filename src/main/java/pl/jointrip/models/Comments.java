@@ -1,17 +1,21 @@
 package pl.jointrip.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
 public class Comments {
     private int id;
-    private String text;
-    private int userId;
-    private int tripId;
-    private User user;
     private Trip trip;
+    private String userQuestion;
+    private String organisationAnswer;
+    private int status;
+    private Date addedQuestionDate;
+    private Date AnswerDate;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,38 +28,8 @@ public class Comments {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "text")
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    @Basic
-    @Column(name = "user_id")
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "trip_id")
-    public int getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(int tripId) {
-        this.tripId = tripId;
-    }
-
-    @ManyToOne
-    @JoinColumn(name="trip_id", nullable=false, insertable = false, updatable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     public Trip getTrip() {
         return trip;
     }
@@ -64,30 +38,43 @@ public class Comments {
         this.trip = trip;
     }
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false, insertable = false, updatable = false)
-    public User getUser() {
-        return user;
+    public String getUserQuestion() {
+        return userQuestion;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserQuestion(String userQuestion) {
+        this.userQuestion = userQuestion;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Comments comments = (Comments) o;
-        return id == comments.id &&
-                userId == comments.userId &&
-                tripId == comments.tripId &&
-                Objects.equals(text, comments.text);
+    public String getOrganisationAnswer() {
+        return organisationAnswer;
     }
 
-    @Override
-    public int hashCode() {
+    public void setOrganisationAnswer(String organisationAnswer) {
+        this.organisationAnswer = organisationAnswer;
+    }
 
-        return Objects.hash(id, text, userId, tripId);
+    public Date getAddedQuestionDate() {
+        return addedQuestionDate;
+    }
+
+    public void setAddedQuestionDate(Date addedQuestionDate) {
+        this.addedQuestionDate = addedQuestionDate;
+    }
+
+    public Date getAnswerDate() {
+        return AnswerDate;
+    }
+
+    public void setAnswerDate(Date answerDate) {
+        AnswerDate = answerDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

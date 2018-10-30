@@ -7,11 +7,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripMemberRepository;
 import pl.jointrip.dao.TripRepository;
+import pl.jointrip.models.CommentsWrapper;
 import pl.jointrip.models.Trip;
-import pl.jointrip.models.TripMember;
+import pl.jointrip.models.TripWrapper;
+import pl.jointrip.models.TripsMemberWrapper;
 import pl.jointrip.services.tripService.TripService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class OrganizerTripController {
@@ -43,7 +46,7 @@ public class OrganizerTripController {
     @GetMapping(value = "/myTripsManagment")
     public ModelAndView tripsManagmentList() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("managmentTrips", tripService.findTripByUserByUserId());
+        modelAndView.addObject("managmentTrips", tripService.tripWithStatistics());
         modelAndView.setViewName("trip/managment-trips");
         return modelAndView;
     }
@@ -52,19 +55,31 @@ public class OrganizerTripController {
     public ModelAndView getCourseDetails(@RequestParam("ids") int ids) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", tripRepository.findById(ids));
+        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
+        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
         modelAndView.setViewName("trip/show-managment-trip");
         return modelAndView;
     }
 
     @PostMapping(value = "/myTripManagment{ids}")
-    public ModelAndView changePaymentStatus(@ModelAttribute("tripInfo2") TripMember tripMember,
-                                            BindingResult result,
-                                            @RequestParam("ids") int ids) {
+    public ModelAndView changeTripMemberStatus(@ModelAttribute TripsMemberWrapper form, BindingResult result, @RequestParam("ids") int ids) {
         ModelAndView modelAndView = new ModelAndView();
+        tripService.tripMemberListUpdate(form.getTripMemberList());
         modelAndView.addObject("tripInfo", tripRepository.findById(ids));
-        modelAndView.addObject("tripInfo2", tripMemberRepository.save(tripMember));
+        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
+        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
         modelAndView.setViewName("trip/show-managment-trip");
         return modelAndView;
     }
 
+    @PostMapping(value = "/myTripManagment/updatedComment{ids}")
+    public ModelAndView CommentAnswerController(@ModelAttribute CommentsWrapper commentsForm, BindingResult result, @RequestParam("ids") int ids) {
+        ModelAndView modelAndView = new ModelAndView();
+        tripService.commentsListUpdateByOwner(commentsForm.getCommentsList());
+        modelAndView.addObject("tripInfo", tripRepository.findById(ids));
+        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
+        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
+        modelAndView.setViewName("trip/show-managment-trip");
+        return modelAndView;
+    }
 }
