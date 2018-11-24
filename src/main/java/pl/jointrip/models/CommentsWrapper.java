@@ -1,7 +1,12 @@
 package pl.jointrip.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
+@Setter
+@Getter
 public class CommentsWrapper {
 
     List<Comments> commentsList;
@@ -10,11 +15,4 @@ public class CommentsWrapper {
         this.commentsList = commentsList;
     }
 
-    public List<Comments> getCommentsList() {
-        return commentsList;
-    }
-
-    public void setCommentsList(List<Comments> commentsList) {
-        this.commentsList = commentsList;
-    }
 }

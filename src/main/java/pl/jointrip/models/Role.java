@@ -1,33 +1,19 @@
 package pl.jointrip.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
+@Setter
+@Getter
 @Entity
 public class Role {
+    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)@Column(name = "role_id")
     private int roleId;
+    @Basic@Column(name = "role")
     private String role;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "role_id")
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    @Basic
-    @Column(name = "role")
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     @Override
     public boolean equals(Object o) {
