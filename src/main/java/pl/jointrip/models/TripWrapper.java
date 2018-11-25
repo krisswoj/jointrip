@@ -1,7 +1,12 @@
 package pl.jointrip.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Map;
 
+@Setter
+@Getter
 public class TripWrapper {
 
     private Trip trip;
@@ -16,19 +21,4 @@ public class TripWrapper {
         this.adminStats = adminStats;
     }
 
-    public Trip getTrip() {
-        return trip;
-    }
-
-    public void setTrip(Trip trip) {
-        this.trip = trip;
-    }
-
-    public Map<String, Integer> getAdminStats() {
-        return adminStats;
-    }
-
-    public void setAdminStats(Map<String, Integer> adminStats) {
-        this.adminStats = adminStats;
-    }
 }
