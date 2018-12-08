@@ -195,4 +195,10 @@ public class TripImpl implements TripService {
         User loggedUser = userService.getLoggedUser();
         return tripRepository.findTripByUserByUserId(loggedUser);
     }
+
+    @Override
+    public List<Trip> findLatestTrips(){
+        List<Trip> trips = tripRepository.findTop3ByTripCreateDateBeforeOrderByTripCreateDateDesc(new Date());
+        return trips;
+    }
 }

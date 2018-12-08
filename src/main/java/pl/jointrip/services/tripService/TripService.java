@@ -41,4 +41,6 @@ public interface TripService {
     List<TripWrapper> tripWithStatistics();
 
     TripWrapper createTripWrapper(Trip trip);
+
+    List<Trip> findLatestTrips();
 }
