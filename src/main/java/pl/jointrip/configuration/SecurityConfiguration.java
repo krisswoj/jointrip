@@ -47,13 +47,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+
+		String[] staticResources  =  {
+				"/css/**",
+				"/images/**",
+				"/img/**",
+				"/js/**",
+				"/plugins/**",
+		};
 		
 		http.
 			authorizeRequests()
+				.antMatchers(staticResources).permitAll()
 				.antMatchers("/").permitAll()
 				.antMatchers("/login").permitAll()
 				.antMatchers("/registration").permitAll()
 				.antMatchers("/index").permitAll()
+				.antMatchers("/showTrip**").permitAll()
 				.antMatchers("/trip/**").authenticated()
 				.antMatchers("/user/**").authenticated()
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
@@ -65,9 +75,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and().logout()
 				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 				.logoutSuccessUrl("/").and().exceptionHandling()
-				.accessDeniedPage("/access-denied");
-		http.formLogin().defaultSuccessUrl("/index", true);
-
+				.accessDeniedPage("/access-denied")
+				.and()
+			.formLogin().defaultSuccessUrl("/index", true);
 	}
 	
 	@Override

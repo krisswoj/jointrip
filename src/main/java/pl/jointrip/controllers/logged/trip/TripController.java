@@ -68,13 +68,4 @@ public class TripController {
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
-
-    @GetMapping(value = "/myTrips")
-    public ModelAndView myTrips() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("userInfo", userService.getLoggedUser());
-        modelAndView.addObject("show_trips", tripService.joinedTripsByUser());
-        modelAndView.setViewName("trip/trips");
-        return modelAndView;
-    }
 }

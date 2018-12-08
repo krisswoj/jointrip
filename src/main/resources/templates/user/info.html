@@ -4,16 +4,34 @@
       th:include="layout :: page">
 
 <div th:fragment="content">
-    <div>
-        <b>Użytkownik</b>
-        <br />
-        <span th:utext="${userInfo.name}"></span>
 
-        <span th:utext="${userInfo.lastName}"></span>
+    <div class="well">
+        <div class="row">
+            <div class="col-sm-3 col-xs-12">
+                <div class="infoImage"><img th:src="@{/images/about-us/team-02.jpg}" alt="Zdjęcie profilowe"></div>
+            </div>
+            <div class="col-sm-6 col-xs-12">
+                <div class="packageInfo">
+                    <h4>Informacje</h4>
+                    <dl class="dl-horizontal">
+                        <dt>Imię:</dt>
+                        <dd th:text="${userInfo.name}"></dd>
+                        <dt>Nazwisko:</dt>
+                        <dd th:text="${userInfo.lastName}"></dd>
+                        <dt>E-mail:</dt>
+                        <dd th:text="${userInfo.email}"></dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="col-sm-3 col-xs-12">
+                <div class="packageInfo">
+                    <h4>Zmiana hasła</h4>
+                    <p>Ostatnia zmiana hasła <span>15 dni temu</span></p>
+                    <a href="/" class="btn buttonCustomPrimary">ZMIEŃ HASŁO</a>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <b>Użytkownik</b>
-        <br />
-        <span th:utext="${userInfo.email}"></span>
-    </div>
+
 </div>
+</html>
