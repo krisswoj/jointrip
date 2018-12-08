@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.w3.org/1999/xhtml"
       th:include="layout :: page">
 
 <div th:fragment="content">
@@ -66,7 +67,7 @@
                                 <form th:action="@{/showTrip/addedComment(ide=${tripInfo.id})}" method="POST"
                                       role="form" class="commentsForm" th:object="${commentForm}">
                                         <h3 class="reviewTitle">Zadaj pytanie organizatorowi</h3>
-                                        <div class="row">
+                                        <div class="row" sec:authorize="isAuthenticated()">
                                             <div class="col-xs-12">
                                                 <div class="form-group">
                                                     <textarea class="form-control" rows="3"
@@ -74,7 +75,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn buttonCustomPrimary">submit</button>
+                                        <button type="submit" class="btn buttonCustomPrimary" sec:authorize="isAuthenticated()">submit</button>
                                     </form>
 
 
@@ -144,8 +145,8 @@
                                                 </div>
                                                 <div class="col-xs-4 totalCostRight" th:text="${tripInfo.tripPriceMember} + ' zł'"></div>
                                             </div>
-                                            <div class="col-sm-12">
-                                                <a href="#" class="btn btn-block buttonTransparent">Jestem zainteresowany<i
+                                            <div class="col-sm-12" sec:authorize="isAuthenticated()">
+                                                <a href="/showTrip" th:href="@{/showTrip(join=${tripInfo.id})}" class="btn btn-block buttonTransparent">Jestem zainteresowany<i
                                                         class="fa fa-angle-right" aria-hidden="true"></i></a>
                                             </div>
                                         </form>
