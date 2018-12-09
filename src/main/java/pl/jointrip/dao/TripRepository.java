@@ -18,7 +18,7 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
 
     Trip findById(int id);
 
-    @Query("select t from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id")
+    @Query("select t from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id and tm.status > 1")
     List<Trip> findTripByTripMembersContains(@Param("user_id") User user);
 
     @Query("select t from Trip t left join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and t.userByUserId <> :user_id and tm.tripMember is null or tm.tripMember <> :user_id")
