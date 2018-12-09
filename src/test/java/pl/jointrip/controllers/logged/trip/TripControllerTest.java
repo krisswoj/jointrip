@@ -23,6 +23,7 @@ import java.util.Map;
 
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -33,8 +34,6 @@ public class TripControllerTest {
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-    @Resource
-    private FilterChainProxy springSecurityFilterChain;
 
     @Before
     public void setup() {
@@ -54,6 +53,12 @@ public class TripControllerTest {
         Map<String,Object> modelMap = result.getModelAndView().getModel();
         List<Trip> trips = (List<Trip>) modelMap.get("show_trips");
         assertNotNull(trips);
+    }
+
+    @WithMockUser(username = "admin@gmail.com", password = "qwe123")
+    @Test
+    public void addCommentForm() throws Exception{
+
     }
 
     @Test
