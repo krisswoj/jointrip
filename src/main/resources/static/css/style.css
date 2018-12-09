@@ -10209,7 +10209,6 @@ header {
   position: relative;
   min-height: 90px;
   margin-bottom: 50px;
-  background-image: url("../images/booking/alert-check.png");
   background-position: 0 0;
   background-size: 50px 90px;
   background-repeat: no-repeat;
@@ -10235,7 +10234,6 @@ header {
   position: absolute;
   top: 0;
   right: 20px;
-  color: #60a662;
   height: 90px;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=$value)";
   filter: alpha(opacity=1);

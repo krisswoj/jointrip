@@ -70,6 +70,10 @@
                                                 <p th:text="${count.trip.id}"/>
                                                 <h4>OSOBY DO WERYFIKACJI</h4>
                                                 <p th:text="${count.adminStats.get('membersToVerify')}"/>
+                                                <h4>OCZUEKUJĄCE NA ZAPŁATĘ</h4>
+                                                <p th:text="${count.adminStats.get('waitingForPayment')}"/>
+                                                <h4>OSOBY OPŁACONE</h4>
+                                                <p th:text="${count.adminStats.get('paidMembers')}"/>
                                                 <h4>KOMENTARZE DO ODPOWIEDZI</h4>
                                                 <p th:text="${count.adminStats.get('commentsToAnswer')}"/>
                                             </li>

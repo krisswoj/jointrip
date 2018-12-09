@@ -29,8 +29,15 @@ public class TripController {
     @GetMapping(value = "/showTrips")
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("show_trips", tripService.findTripByTripMembersNot());
+        modelAndView.setViewName("trip/trips");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/trips")
+    public ModelAndView showTripsForUnlogged() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("show_trips", tripService.findAllActiveTrips());
         modelAndView.setViewName("trip/trips");
         return modelAndView;
     }
@@ -40,6 +47,7 @@ public class TripController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
+        modelAndView.addObject("userIsAMember", tripRepository.existsTripByTripMembers(tripRepository.findById(tripId), userService.getLoggedUser()));
         modelAndView.addObject("commentForm", new Comments());
         modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(tripId), 1));
         modelAndView.setViewName("trip/show-trip");
@@ -47,7 +55,7 @@ public class TripController {
     }
 
     @PostMapping(value = "/showTrip/addedComment", params = "ide")
-    public ModelAndView addCommentForm(@ModelAttribute Comments commentForm, @RequestParam("ide") int tripId) {
+    public ModelAndView addCommentForm(@ModelAttribute("comment") Comments commentForm, @RequestParam("ide") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         tripService.addedCommentNotification(commentForm, tripId);
         modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
