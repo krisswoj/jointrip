@@ -29,7 +29,6 @@ public class TripController {
     @GetMapping(value = "/showTrips")
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("show_trips", tripService.findTripByTripMembersNot());
         modelAndView.setViewName("trip/trips");
         return modelAndView;
