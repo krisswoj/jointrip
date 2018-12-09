@@ -73,6 +73,7 @@ public class TripController {
         modelAndView.addObject("commentForm", new Comments());
         modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(id), 1));
         modelAndView.addObject("message", tripService.joinedTripNotification(id));
+        modelAndView.addObject("userIsAMember", tripRepository.existsTripByTripMembers(tripRepository.findById(id), userService.getLoggedUser()));
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
