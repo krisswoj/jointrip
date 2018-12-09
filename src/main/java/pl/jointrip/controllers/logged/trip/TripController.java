@@ -34,11 +34,20 @@ public class TripController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/trips")
+    public ModelAndView showTripsForUnlogged() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("show_trips", tripService.findAllActiveTrips());
+        modelAndView.setViewName("trip/trips");
+        return modelAndView;
+    }
+
     @GetMapping(value = "/showTrip", params = "ide")
     public ModelAndView showTrip(@RequestParam("ide") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
+        modelAndView.addObject("userIsAMember", tripRepository.existsTripByTripMembers(tripRepository.findById(tripId), userService.getLoggedUser()));
         modelAndView.addObject("commentForm", new Comments());
         modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(tripId), 1));
         modelAndView.setViewName("trip/show-trip");

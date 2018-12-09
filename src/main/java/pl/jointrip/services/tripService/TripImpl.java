@@ -71,6 +71,9 @@ public class TripImpl implements TripService {
         if (tripRepository.findById(id).getUserByUserId().getUserId() == loggedUser.getUserId())
             return false;
 
+        if (tripRepository.existsTripByTripMembers(trip, loggedUser))
+            return false;
+
         try {
             trip.getTripMembers().add(addNewMember(trip));
             tripRepository.save(trip);
@@ -148,7 +151,9 @@ public class TripImpl implements TripService {
     @Override
     public TripWrapper createTripWrapper(Trip trip) {
         Map<String, Integer> tripStatistic = new HashMap<>();
-        tripStatistic.put("membersToVerify", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 0).count());
+        tripStatistic.put("membersToVerify", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 1).count());
+        tripStatistic.put("waitingForPayment", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 2).count());
+        tripStatistic.put("paidMembers", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 3).count());
         tripStatistic.put("commentsToAnswer", (int) trip.getComments().stream().filter(c -> c.getStatus() == 0).count());
         return new TripWrapper(trip, tripStatistic);
     }
@@ -174,14 +179,19 @@ public class TripImpl implements TripService {
     }
 
     @Override
-    public String joinedTripNotification(int id) {
-        return (joinToTripByUser(id)) ? tripJoinPositive : tripJoinNegative;
+    public SystemNotification joinedTripNotification(int id) {
+        return (joinToTripByUser(id)) ? new SystemNotification("true", tripJoinPositive) : new SystemNotification("fail", tripJoinNegative);
     }
 
     @Override
     public List<Trip> joinedTripsByUser() {
         User loggedUser = userService.getLoggedUser();
         return tripRepository.findTripByTripMembersContains(loggedUser);
+    }
+
+    @Override
+    public List<Trip> findAllActiveTrips(){
+        return tripRepository.findTripByTripStatus(1);
     }
 
     @Override
@@ -197,7 +207,7 @@ public class TripImpl implements TripService {
     }
 
     @Override
-    public List<Trip> findLatestTrips(){
+    public List<Trip> findLatestTrips() {
         List<Trip> trips = tripRepository.findTop3ByTripCreateDateBeforeOrderByTripCreateDateDesc(new Date());
         return trips;
     }

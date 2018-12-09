@@ -30,9 +30,11 @@ public interface TripService {
 
     String addedCommentNotification(Comments comment, int tripId);
 
-    String joinedTripNotification(int id);
+    abstract SystemNotification joinedTripNotification(int id);
 
     List<Trip> joinedTripsByUser();
+
+    List<Trip> findAllActiveTrips();
 
     List<Trip> findTripByTripMembersNot();
 
