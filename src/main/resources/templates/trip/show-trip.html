@@ -10,6 +10,20 @@
     <section class="mainContentSection singleHotel">
         <div class="container">
             <div class="row ">
+                <div class="row bookingConfirmed col-xs-12" }>
+                    <div class="alert alert-success alert-dismissible" role="alert"
+                         th:if="${message?.systemNotification?.containsKey('true')}">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Dismiss</span>
+                        </button>
+                        <span th:text="${message.systemNotification.get('true')}"/>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible" role="alert"
+                         th:if="${message?.systemNotification?.containsKey('fail')}">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Dismiss</span>
+                        </button>
+                        <span th:text="${message.systemNotification.get('fail')}"/>
+                    </div>
+                </div>
                 <div class="col-sm-8 col-xs-12">
                     <div class="row">
                         <div class="col-xs-12">
@@ -42,7 +56,7 @@
                             <div class="description-aria">
                                 <div class="sectionTitle2">
                                     <h2 th:text="${tripInfo.tripTitle}"/>
-                                    <p th:text="${tripInfo.tripShortDesc}" />
+                                    <p th:text="${tripInfo.tripShortDesc}"/>
                                 </div>
                             </div>
                         </div>
@@ -66,26 +80,29 @@
                             <div class="review-aria">
                                 <form th:action="@{/showTrip/addedComment(ide=${tripInfo.id})}" method="POST"
                                       role="form" class="commentsForm" th:object="${commentForm}">
-                                        <h3 class="reviewTitle">Zadaj pytanie organizatorowi</h3>
-                                        <div class="row" sec:authorize="isAuthenticated()">
-                                            <div class="col-xs-12">
-                                                <div class="form-group">
+                                    <h3 class="reviewTitle">Zadaj pytanie organizatorowi</h3>
+                                    <div class="row" sec:authorize="isAuthenticated()">
+                                        <div class="col-xs-12">
+                                            <div class="form-group">
                                                     <textarea class="form-control" rows="3"
-                                                              placeholder="Wprowadź swoje zapytanie" th:field="*{userQuestion}"></textarea>
-                                                </div>
+                                                              placeholder="Wprowadź swoje zapytanie"
+                                                              th:field="*{userQuestion}"></textarea>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn buttonCustomPrimary" sec:authorize="isAuthenticated()">submit</button>
-                                    </form>
+                                    </div>
+                                    <button type="submit" class="btn buttonCustomPrimary"
+                                            sec:authorize="isAuthenticated()">submit
+                                    </button>
+                                </form>
 
 
                                 <div class="reviewContent">
                                     <div class="reviewMedia">
                                         <ul class="media-list">
-                                            <li class="media"th:each="count : ${commentList}">
+                                            <li class="media" th:each="count : ${commentList}">
                                                 <div class="media-body">
-                                                    <p th:text="${count.userQuestion}" />
-                                                    <h6><strong th:text="${count.organisationAnswer}" /></h6>
+                                                    <p th:text="${count.userQuestion}"/>
+                                                    <h6><strong th:text="${count.organisationAnswer}"/></h6>
 
                                                 </div>
                                             </li>
@@ -113,9 +130,9 @@
                                                     </a>
                                                     <div class="media-body">
                                                         <h4 class="media-heading">Adres</h4>
-                                                        <p th:text="${tripInfo.tripCountry}" />
-                                                        <p th:text="${tripInfo.tripStreet}" />
-                                                        <p th:text="${tripInfo.tripCity}" />
+                                                        <p th:text="${tripInfo.tripCountry}"/>
+                                                        <p th:text="${tripInfo.tripStreet}"/>
+                                                        <p th:text="${tripInfo.tripCity}"/>
                                                     </div>
                                                 </div>
                                                 <div class="media">
@@ -124,7 +141,7 @@
                                                     </a>
                                                     <div class="media-body">
                                                         <h4 class="media-heading">Telefon</h4>
-                                                        <p th:text="${tripInfo.organizatorPhoneNumber}" />
+                                                        <p th:text="${tripInfo.organizatorPhoneNumber}"/>
                                                     </div>
                                                 </div>
                                                 <div class="media">
@@ -133,7 +150,7 @@
                                                     </a>
                                                     <div class="media-body">
                                                         <h4 class="media-heading">E-mail</h4>
-                                                        <p th:text="${tripInfo.organizatorEmail}" />
+                                                        <p th:text="${tripInfo.organizatorEmail}"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -143,11 +160,15 @@
                                                 <div class="col-xs-8 totalCostLeft">
                                                     <p>Koszt za osobę</p>
                                                 </div>
-                                                <div class="col-xs-4 totalCostRight" th:text="${tripInfo.tripPriceMember} + ' zł'"></div>
+                                                <div class="col-xs-4 totalCostRight"
+                                                     th:text="${tripInfo.tripPriceMember} + ' zł'"></div>
                                             </div>
                                             <div class="col-sm-12" sec:authorize="isAuthenticated()">
-                                                <a href="/showTrip" th:href="@{/showTrip(join=${tripInfo.id})}" class="btn btn-block buttonTransparent">Jestem zainteresowany<i
-                                                        class="fa fa-angle-right" aria-hidden="true"></i></a>
+                                                <span th:if="${userIsAMember}" class="btn btn-block buttonTransparent disabled">Jesteś już uczestnikiem</span>
+                                                <span th:unless="${userIsAMember}"><a href="/showTrip"
+                                                                                      th:href="@{/showTrip(join=${tripInfo.id})}"
+                                                                                      class="btn btn-block buttonTransparent">Jestem zainteresowany<i
+                                                        class="fa fa-angle-right" aria-hidden="true"></i></a></span>
                                             </div>
                                         </form>
                                     </div>
