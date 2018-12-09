@@ -27,7 +27,8 @@
                     <li class="dropdown singleDrop">
                         <a>Wycieczki</a>
                         <ul class="dropdown-menu dropdown-menu-right">
-                            <li class=""><a href="/showTrips">Pokaż wycieczki</a></li>
+                            <li class="" sec:authorize="isAnonymous()"><a href="/trips">Pokaż wycieczki</a></li>
+                            <li class="" sec:authorize="isAuthenticated()"><a href="/showTrips">Pokaż wycieczki</a></li>
                             <li class="" sec:authorize="isAuthenticated()"><a href="/myTrips">Moje wycieczki</a></li>
                         </ul>
                     </li>
