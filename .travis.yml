@@ -1,0 +1,4 @@
+language: java
+script:
+- sleep 1
+- cd ..; mvn test
