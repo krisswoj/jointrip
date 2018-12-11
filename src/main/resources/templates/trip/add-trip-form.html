@@ -46,6 +46,15 @@
                             </div>
 
                             <div class="col-sm-12">
+                                <input type="date" th:field="*{tripStartDate}"
+                                       class="form-control" th:required="required"/>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="date" th:field="*{tripEndDate}"
+                                       class="form-control" th:required="required"/>
+                            </div>
+
+                            <div class="col-sm-12">
                                 <input type="text" th:field="*{tripCountry}" placeholder="Kraj podróży"
                                        class="form-control" th:maxlength="255" th:required="required"/>
                             </div>

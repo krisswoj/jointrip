@@ -2,6 +2,7 @@ package pl.jointrip.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.*;
@@ -20,6 +21,11 @@ public class Trip {
     @Basic
     @Column(name = "trip_edit_date")
     private Date tripEditDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Basic
+    @Column(name = "trip_start_date")
+    private Date tripStartDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Basic
     @Column(name = "trip_end_date")
     private Date tripEndDate;
