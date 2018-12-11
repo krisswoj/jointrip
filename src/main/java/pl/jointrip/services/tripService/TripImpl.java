@@ -208,7 +208,7 @@ public class TripImpl implements TripService {
 
     @Override
     public List<Trip> findLatestTrips() {
-        List<Trip> trips = tripRepository.findTop3ByTripCreateDateBeforeOrderByTripCreateDateDesc(new Date());
+        List<Trip> trips = tripRepository.findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0);
         return trips;
     }
 }
