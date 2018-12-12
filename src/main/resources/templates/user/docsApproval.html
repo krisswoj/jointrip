@@ -39,7 +39,6 @@
                 <h4>Przesłane dokumenty</h4>
                 <div class="row" th:each="document : ${doc.documentstoreList}">
                     <p th:text="${document.filename}"></p>
-                    <br/>
                     <p th:text="${document.filestatus}"></p>
                 </div>
             </div>
