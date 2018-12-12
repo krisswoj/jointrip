@@ -1,9 +1,10 @@
-package pl.jointrip.services.tripService;
+package pl.jointrip.services.tripService.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.models.Trip;
+import pl.jointrip.services.tripService.TripAcceptationService;
 
 @Service
 public class TripAcceptationImpl implements TripAcceptationService {

@@ -54,7 +54,6 @@ public class Trip {
     private List<TripMember> tripMembers;
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
     private List<Comments> comments;
-
     @Basic
     @Column(name = "trip_street")
     private String tripStreet;
@@ -70,7 +69,6 @@ public class Trip {
     @Basic
     @Column(name = "trip_organizator_email")
     private String organizatorEmail;
-
 
     @Override
     public boolean equals(Object o) {
