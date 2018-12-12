@@ -4,21 +4,45 @@
       th:include="layout :: page">
 
 <div th:fragment="content">
-    <form autocomplete="off" enctype="multipart/form-data" action="/" th:action="@{/user/docsApproval}"
-          th:object="${doc}" method="post" class="form-horizontal" role="form">
-        <div style="width: 30%">
-            <input type="file" th:field="*{file}" placeholder="Imię"
-                   class="form-control"/>
+    <section class="settingSection">
+        <div class="container">
+            <div class="settingContent bg-ash">
+                <h4>Dodawanie dokumentów</h4>
+                <div class="row">
+                    <form autocomplete="off" enctype="multipart/form-data" action="#"
+                          th:action="@{/user/docsApproval}"
+                          th:object="${doc}" method="post" class="form-horizontal" role="form">
+                        <div class="col-sm-12">
+                            <input type="file" th:field="*{file}" placeholder="Imię"
+                                   class="form-control"/>
+                        </div>
+                        <div class="col-sm-12">
+                            <select class="form-control" th:field="*{documentKind}" id="dropOperator">
+                                <option value="0">Wybierz rodzaj dokumentu</option>
+                                <option value="1">Prawo jazdy</option>
+                                <option value="2">Dowód osobisty</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn buttonTransparent">Wyślij plik</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div style="width: 30%">
-            <select class="form-control" th:field="*{documentKind}"  id="dropOperator">
-                <option value="0">Wybierz rodzaj dokumentu</option>
-                <option value="1">Prawo jazdy</option>
-                <option value="2">Dowód osobisty</option>
-            </select>
+    </section>
+
+
+    <section class="settingSection">
+        <div class="container">
+            <div class="settingContent bg-ash">
+                <h4>Przesłane dokumenty</h4>
+                <div class="row" th:each="document : ${doc.documentstoreList}">
+                    <p th:text="${document.filename}"></p>
+                    <br/>
+                    <p th:text="${document.filestatus}"></p>
+                </div>
+            </div>
         </div>
-        <div style="width: 30%">
-            <button type="submit" class="btn buttonTransparent">Wyślij plik</button>
-        </div>
-    </form>
+    </section>
 </div>

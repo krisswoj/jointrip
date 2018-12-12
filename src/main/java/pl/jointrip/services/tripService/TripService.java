@@ -6,6 +6,7 @@ import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripMember;
 import pl.jointrip.models.entities.trip.TripWrapper;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
+import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.system.SystemNotification;
 
 import java.util.List;
@@ -51,4 +52,10 @@ public interface TripService {
     TripWrapper createTripWrapper(Trip trip);
 
     List<Trip> findLatestTrips();
+
+    Trip findById(int id);
+
+    boolean existsTripByTripMembers(Trip trip, User user);
+
+    List<Comments> findByTripAndStatusIs(Trip trip, int status);
 }
