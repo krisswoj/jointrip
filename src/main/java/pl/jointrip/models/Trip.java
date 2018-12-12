@@ -93,4 +93,10 @@ public class Trip {
         return Objects.hash(id, tripCreateDate, tripEditDate, tripEndDate, tripFullDesc, tripMembersAmount, tripPriceMember, tripShortDesc, tripStatus, tripTitle);
     }
 
+    public Trip(int id){
+          this.id = id;
+    }
+
+    public Trip() {
+    }
 }

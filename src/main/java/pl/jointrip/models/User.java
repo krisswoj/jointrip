@@ -64,4 +64,10 @@ public class User {
         return Objects.hash(userId, active, email, lastName, name, password);
     }
 
+    public User() {
+    }
+
+    public User(Integer userId) {
+        this.userId = userId;
+    }
 }

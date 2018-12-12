@@ -3,100 +3,87 @@ package pl.jointrip.controllers.logged.trip;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.mockito.*;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
+import pl.jointrip.dao.CommentsRepository;
+import pl.jointrip.dao.RoleRepository;
 import pl.jointrip.dao.TripRepository;
-import pl.jointrip.models.Comments;
+import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.Trip;
-
-import static org.junit.Assert.*;
-
-import javax.annotation.Resource;
-
-import java.util.Date;
+import pl.jointrip.models.User;
+import pl.jointrip.services.tripService.TripImpl;
+import pl.jointrip.services.userService.UserServiceImpl;
 import java.util.List;
-import java.util.Map;
-
-import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
 public class TripControllerTest {
 
-    private MockMvc mockMvc;
+    @InjectMocks
+    private TripImpl tripImpl;
 
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @Autowired
+    @Mock
+    private UserServiceImpl userServiceImpl;
+    @Mock
     private TripRepository tripRepository;
+    @Mock
+    private CommentsRepository commentsRepository;
+    @Mock
+    private UserRepository userRepository;
+    @Mock
+    private RoleRepository roleRepository;
+    @Mock
+    private User user;
+    @Mock
+    private Trip trip;
+    @Mock
+    private List<User> users;
+    @Mock
+    private List<Trip> trips;
 
     @Before
     public void setup() {
-        mockMvc = MockMvcBuilders
-                .webAppContextSetup(webApplicationContext)
-                .apply(springSecurity())
-                .build();
+        user.setUserId(1);
+        user.setEmail("admin@gmail.com");
+        user.setPassword("qwe123");
+
+        trip.setId(1);
+        trip.setTripStatus(1);
+
+        users.add(user);
+
+        trips.add(trip);
+
+        MockitoAnnotations.initMocks(this);
     }
 
     @WithMockUser(username = "admin@gmail.com", password = "qwe123")
     @Test
-    public void showTrips() throws Exception{
-        MvcResult result = mockMvc.perform(get("/showTrips"))
-                .andExpect(status().isOk())
-                .andReturn();
+    public void showTrips() {
 
-        Map<String,Object> modelMap = result.getModelAndView().getModel();
-        List<Trip> trips = (List<Trip>) modelMap.get("show_trips");
-        assertNotNull(trips);
-        assertEquals("trip/trips", result.getModelAndView().getViewName());
     }
 
     @WithMockUser(username = "admin@gmail.com", password = "qwe123")
     @Test
-    public void showTrip() throws Exception{
-        MvcResult result = mockMvc.perform(get("/showTrip")
-                .param("ide", "1"))
-                .andExpect(status().isOk())
-                .andReturn();
+    public void showTrip() {
+        when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
+        when(userServiceImpl.getLoggedUser()).thenReturn(user);
+        when(tripRepository.findTripByTripMembersNotContains(user)).thenReturn(trips);
 
-        Map<String,Object> modelMap = result.getModelAndView().getModel();
-        Trip trip = (Trip) modelMap.get("tripInfo");
-        assertNotNull(trip);
-        assertEquals("trip/show-trip", result.getModelAndView().getViewName());
+        assertEquals(trips,tripImpl.findTripByTripMembersNot());
+
+        verify(tripRepository, times(1)).findTripByTripMembersNotContains(any());
+
     }
 
     @WithMockUser(username = "admin@gmail.com", password = "qwe123")
     @Test
-    public void addCommentForm() throws Exception{
-        //todo ogarnąć mockami
-        Trip trip = new Trip();
-        Comments comments = new Comments();
-        trip = tripRepository.findById(3);
-        Date date = new Date();
-        comments.setTrip(trip);
-        comments.setId(230);
-        comments.setStatus(1);
-        comments.setOrganisationAnswer("asd");
-        comments.setUserQuestion("asd");
-        comments.setAddedQuestionDate(date);
-        comments.setAnswerDate(date);
-        mockMvc.perform(post("/showTrip/addedComment")
-                .param("ide","3")
-                .flashAttr("comment", comments))
-                .andExpect(status().isOk());
+    public void addCommentForm() {
+
     }
 
 }
