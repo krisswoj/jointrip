@@ -7,8 +7,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.jointrip.dao.RoleRepository;
 import pl.jointrip.dao.UserRepository;
-import pl.jointrip.models.Role;
-import pl.jointrip.models.User;
+import pl.jointrip.models.entities.user.Role;
+import pl.jointrip.models.entities.user.User;
 import pl.jointrip.services.userService.UserService;
 
 import java.util.Arrays;

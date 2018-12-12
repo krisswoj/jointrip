@@ -11,6 +11,13 @@
                    class="form-control"/>
         </div>
         <div style="width: 30%">
+            <select class="form-control" th:field="*{documentKind}"  id="dropOperator">
+                <option value="0">Wybierz rodzaj dokumentu</option>
+                <option value="1">Prawo jazdy</option>
+                <option value="2">Dowód osobisty</option>
+            </select>
+        </div>
+        <div style="width: 30%">
             <button type="submit" class="btn buttonTransparent">Wyślij plik</button>
         </div>
     </form>

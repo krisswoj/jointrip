@@ -2,9 +2,8 @@ package pl.jointrip.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import pl.jointrip.models.Trip;
-import pl.jointrip.models.TripMember;
-import pl.jointrip.models.User;
+import pl.jointrip.models.entities.trip.TripMember;
+import pl.jointrip.models.entities.user.User;
 
 import java.util.List;
 

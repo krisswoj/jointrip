@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import pl.jointrip.dao.TripRepository;
-import pl.jointrip.models.Trip;
+import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.services.tripService.TripAcceptationService;
 
 @Controller

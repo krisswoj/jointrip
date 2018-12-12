@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import pl.jointrip.models.User;
+import pl.jointrip.models.entities.user.User;
 import pl.jointrip.services.userService.UserService;
 
 import javax.validation.Valid;

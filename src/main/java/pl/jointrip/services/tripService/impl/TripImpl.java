@@ -7,7 +7,14 @@ import pl.jointrip.dao.CommentsRepository;
 import pl.jointrip.dao.TripMemberRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
-import pl.jointrip.models.*;
+import pl.jointrip.models.entities.comments.Comments;
+import pl.jointrip.models.entities.comments.CommentsWrapper;
+import pl.jointrip.models.entities.trip.Trip;
+import pl.jointrip.models.entities.trip.TripMember;
+import pl.jointrip.models.entities.trip.TripWrapper;
+import pl.jointrip.models.entities.trip.TripsMemberWrapper;
+import pl.jointrip.models.entities.user.User;
+import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import pl.jointrip.models.Trip;
+import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.services.tripService.TripService;
 
 import javax.validation.Valid;

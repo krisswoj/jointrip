@@ -8,7 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import pl.jointrip.configuration.WebMvcConfig;
-import pl.jointrip.models.TripWrapper;
+import pl.jointrip.models.entities.trip.TripWrapper;
 import pl.jointrip.services.tripService.impl.TripImpl;
 
 import java.util.List;

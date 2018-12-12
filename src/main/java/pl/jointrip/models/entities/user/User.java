@@ -1,8 +1,11 @@
-package pl.jointrip.models;
+package pl.jointrip.models.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.entities.trip.Trip;
+import pl.jointrip.models.entities.trip.TripMember;
 
 import javax.persistence.*;
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package pl.jointrip.models.system;
+package pl.jointrip.models.entities.user;
 
 import lombok.Getter;
 import lombok.Setter;

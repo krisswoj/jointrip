@@ -3,7 +3,9 @@ package pl.jointrip.controllers.logged.trip;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -11,12 +13,14 @@ import pl.jointrip.dao.CommentsRepository;
 import pl.jointrip.dao.RoleRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
-import pl.jointrip.models.Trip;
-import pl.jointrip.models.User;
-import pl.jointrip.services.tripService.TripImpl;
-import pl.jointrip.services.userService.UserServiceImpl;
+import pl.jointrip.models.entities.trip.Trip;
+import pl.jointrip.models.entities.user.User;
+import pl.jointrip.services.tripService.impl.TripImpl;
+import pl.jointrip.services.userService.impl.UserServiceImpl;
+
 import java.util.List;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

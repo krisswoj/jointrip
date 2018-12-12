@@ -2,10 +2,9 @@ package pl.jointrip.services.documentsService.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import pl.jointrip.dao.DocumentsRepository;
-import pl.jointrip.models.Documentstore;
-import pl.jointrip.models.User;
+import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
 import pl.jointrip.services.documentsService.DocumentsService;
 
 import java.io.IOException;
@@ -16,8 +15,8 @@ public class DocumentsServiceImpl implements DocumentsService {
     @Autowired
     DocumentsRepository documentsRepository;
 
-    public boolean saveDocument(byte[] content, User loggedUser, String fileName, String contentType) {
-        Documentstore documentstore = documentStoreMapper(content, loggedUser, fileName, contentType);
+    public boolean saveDocument(DocumentsApprovalViewModel viewModel) {
+        Documentstore documentstore = documentStoreMapper(viewModel);
         try {
             documentsRepository.save(documentstore);
         } catch (Exception e) {
@@ -27,25 +26,20 @@ public class DocumentsServiceImpl implements DocumentsService {
         return true;
     }
 
-    public byte[] handleUploadFile(MultipartFile file) {
-        byte[] bytes;
+    public Documentstore documentStoreMapper(DocumentsApprovalViewModel viewModel) {
+        Documentstore docStore = new Documentstore();
         try {
-            bytes = file.getBytes();
-            return bytes;
+            docStore.setFile(viewModel.getFile().getBytes());
+            docStore.setUserId(viewModel.getLoggedUser());
+            docStore.setFilename(viewModel.getFile().getOriginalFilename());
+            docStore.setCreatedate(new Date());
+            docStore.setModifydate(new Date());
+            docStore.setContentType(viewModel.getFile().getContentType());
+            docStore.setFilestatus(0);
+            docStore.setDocumentKind(viewModel.getDocumentKind());
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
         }
-    }
-
-    public Documentstore documentStoreMapper(byte[] content, User loggedUser, String fileName, String contentType) {
-        Documentstore docStore = new Documentstore();
-        docStore.setFile(content);
-        docStore.setUserId(loggedUser);
-        docStore.setFilename(fileName);
-        docStore.setCreatedate(new Date());
-        docStore.setModifydate(new Date());
-        docStore.setContentType(contentType);
         return docStore;
     }
 }
