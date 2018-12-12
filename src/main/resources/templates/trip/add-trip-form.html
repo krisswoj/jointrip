@@ -19,55 +19,64 @@
                                 <label th:if="${#fields.hasErrors('tripShortDesc')}" th:errors="*{tripShortDesc}"
                                        class="validation-message"></label>
                                 <input type="text" th:field="*{tripTitle}" placeholder="Dodaj tytul wycieczki"
-                                       class="form-control"/>
+                                       class="form-control" th:maxlength="255" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <label th:if="${#fields.hasErrors('tripShortDesc')}" th:errors="*{tripShortDesc}"
                                        class="validation-message"></label>
                                 <input type="text" th:field="*{tripShortDesc}" placeholder="Dodaj opis wycieczki"
-                                       class="form-control"/>
+                                       class="form-control" th:maxlength="255" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="text" th:field="*{tripFullDesc}" placeholder="Pelen opis wycieczki"
-                                       class="form-control"/>
+                                       class="form-control" th:maxlength="255" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="number" th:field="*{tripMembersAmount}"
                                        placeholder="Ilosc czlonkow wycieczki"
-                                       class="form-control"/>
+                                       class="form-control" th:max="50" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="number" th:field="*{tripPriceMember}" placeholder="Cena za osobe"
-                                       class="form-control"/>
+                                       class="form-control" th:required="required"/>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <input type="date" th:field="*{tripStartDate}"
+                                       class="form-control" th:required="required"/>
+                            </div>
+                            <div class="col-sm-12">
+                                <input type="date" th:field="*{tripEndDate}"
+                                       class="form-control" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="text" th:field="*{tripCountry}" placeholder="Kraj podróży"
-                                       class="form-control"/>
+                                       class="form-control" th:maxlength="255" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="text" th:field="*{tripStreet}" placeholder="Ulica oraz numer bloku (Nieobowiązkowe)"
-                                       class="form-control"/>
+                                       class="form-control" th:maxlength="255"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="text" th:field="*{tripCity}" placeholder="Miasto (Nieobowiązkowe)"
-                                       class="form-control"/>
+                                       class="form-control" th:maxlength="255"/>
                             </div>
 
                             <div class="col-sm-12">
-                                <input type="number" th:field="*{organizatorPhoneNumber}" placeholder="Telefon kontaktowy"
-                                       class="form-control"/>
+                                <input type="tel" th:field="*{organizatorPhoneNumber}" placeholder="Telefon kontaktowy"
+                                       class="form-control" pattern="[0-9]{9}" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">
                                 <input type="email" th:field="*{organizatorEmail}" placeholder="E-mail"
-                                       class="form-control"/>
+                                       class="form-control" th:required="required"/>
                             </div>
 
                             <div class="col-sm-12">

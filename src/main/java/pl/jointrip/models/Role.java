@@ -10,9 +10,12 @@ import java.util.Objects;
 @Getter
 @Entity
 public class Role {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)@Column(name = "role_id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private int roleId;
-    @Basic@Column(name = "role")
+    @Basic
+    @Column(name = "role")
     private String role;
 
     @Override

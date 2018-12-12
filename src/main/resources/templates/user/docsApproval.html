@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<div th:fragment="content">
+    <form autocomplete="off" enctype="multipart/form-data" action="/" th:action="@{/user/docsApproval}"
+          th:object="${doc}" method="post" class="form-horizontal" role="form">
+        <div style="width: 30%">
+            <input type="file" th:field="*{file}" placeholder="Imię"
+                   class="form-control"/>
+        </div>
+        <div style="width: 30%">
+            <button type="submit" class="btn buttonTransparent">Wyślij plik</button>
+        </div>
+    </form>
+</div>

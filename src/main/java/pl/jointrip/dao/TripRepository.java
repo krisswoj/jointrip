@@ -31,6 +31,6 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
 
     List<Trip> findTripByUserByUserId(User user);
 
-    List<Trip> findTop3ByTripCreateDateBeforeOrderByTripCreateDateDesc(Date date);
+    List<Trip> findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(Integer status);
 
 }

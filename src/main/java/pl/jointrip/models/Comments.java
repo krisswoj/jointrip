@@ -11,9 +11,12 @@ import java.util.Date;
 @Getter
 @Entity
 public class Comments {
-    @Id@GeneratedValue(strategy = GenerationType.IDENTITY)@Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
-    @ManyToOne(cascade = CascadeType.ALL)@JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     private Trip trip;
     private String userQuestion;
     private String organisationAnswer;

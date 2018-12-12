@@ -1,4 +1,4 @@
-package pl.jointrip.services.tripService;
+package pl.jointrip.services.tripService.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,6 +8,7 @@ import pl.jointrip.dao.TripMemberRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.*;
+import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
 
 import java.util.*;
@@ -208,7 +209,7 @@ public class TripImpl implements TripService {
 
     @Override
     public List<Trip> findLatestTrips() {
-        List<Trip> trips = tripRepository.findTop3ByTripCreateDateBeforeOrderByTripCreateDateDesc(new Date());
+        List<Trip> trips = tripRepository.findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0);
         return trips;
     }
 }

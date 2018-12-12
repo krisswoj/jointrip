@@ -10,7 +10,7 @@ import java.util.Map;
 @Getter
 public class SystemNotification {
 
-    private Map<String, String>  systemNotification;
+    private Map<String, String> systemNotification;
 
     public SystemNotification(String key, String value) {
         this.systemNotification = new HashMap<>();

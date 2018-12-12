@@ -1,22 +1,21 @@
-package pl.jointrip.services.userService;
-
-import java.util.Arrays;
-import java.util.HashSet;
+package pl.jointrip.services.userService.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import pl.jointrip.dao.RoleRepository;
 import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.Role;
 import pl.jointrip.models.User;
+import pl.jointrip.services.userService.UserService;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
