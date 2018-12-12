@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.services.userService.UserService;
 
@@ -16,8 +15,6 @@ public class UserInfoController {
 
     @Autowired
     UserService userService;
-    @Autowired
-    UserRepository userRepository;
 
     @GetMapping(value = "/user/edit")
     public ModelAndView fetchUserEdit() {
@@ -33,7 +30,7 @@ public class UserInfoController {
         User userToEdit = userService.getLoggedUser();
         userToEdit.setName(user.getName());
         userToEdit.setLastName(user.getLastName());
-        userRepository.save(userToEdit);
+        //userRepository.save(userToEdit);
         modelAndView.setViewName("user/edit");
         return modelAndView;
     }

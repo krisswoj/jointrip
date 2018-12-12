@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jointrip.dao.DocumentsRepository;
 import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
 import pl.jointrip.services.documentsService.DocumentsService;
 
@@ -41,5 +42,10 @@ public class DocumentsServiceImpl implements DocumentsService {
             e.printStackTrace();
         }
         return docStore;
+    }
+    public DocumentsApprovalViewModel findUserDocuments(User user){
+        DocumentsApprovalViewModel viewModel = new DocumentsApprovalViewModel();
+        viewModel.setDocumentstoreList(documentsRepository.findAllByUserId(user));
+        return viewModel;
     }
 }

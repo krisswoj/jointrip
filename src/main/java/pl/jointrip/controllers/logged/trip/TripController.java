@@ -2,11 +2,11 @@ package pl.jointrip.controllers.logged.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import pl.jointrip.dao.CommentsRepository;
-import pl.jointrip.dao.TripRepository;
-import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
@@ -14,12 +14,6 @@ import pl.jointrip.services.userService.UserService;
 @Controller
 public class TripController {
 
-    @Autowired
-    TripRepository tripRepository;
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    CommentsRepository commentsRepository;
     @Autowired
     TripService tripService;
     @Autowired
@@ -46,10 +40,10 @@ public class TripController {
     public ModelAndView showTrip(@RequestParam("ide") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
-        modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
-        modelAndView.addObject("userIsAMember", tripRepository.existsTripByTripMembers(tripRepository.findById(tripId), userService.getLoggedUser()));
+        modelAndView.addObject("tripInfo", tripService.findById(tripId));
+        modelAndView.addObject("userIsAMember", tripService.existsTripByTripMembers(tripService.findById(tripId), userService.getLoggedUser()));
         modelAndView.addObject("commentForm", new Comments());
-        modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(tripId), 1));
+        modelAndView.addObject("commentList", tripService.findByTripAndStatusIs(tripService.findById(tripId), 1));
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }
@@ -58,9 +52,9 @@ public class TripController {
     public ModelAndView addCommentForm(@ModelAttribute("comment") Comments commentForm, @RequestParam("ide") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         tripService.addedCommentNotification(commentForm, tripId);
-        modelAndView.addObject("tripInfo", tripRepository.findById(tripId));
+        modelAndView.addObject("tripInfo", tripService.findById(tripId));
         modelAndView.addObject("commentForm", new Comments());
-        modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(tripId), 1));
+        modelAndView.addObject("commentList", tripService.findByTripAndStatusIs(tripService.findById(tripId), 1));
 
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
@@ -69,11 +63,11 @@ public class TripController {
     @GetMapping(value = "/showTrip", params = "join")
     public ModelAndView joinToTrip(@RequestParam("join") int id) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tripInfo", tripRepository.findById(id));
+        modelAndView.addObject("tripInfo", tripService.findById(id));
         modelAndView.addObject("commentForm", new Comments());
-        modelAndView.addObject("commentList", commentsRepository.findByTripAndStatusIs(tripRepository.findById(id), 1));
+        modelAndView.addObject("commentList", tripService.findByTripAndStatusIs(tripService.findById(id), 1));
         modelAndView.addObject("message", tripService.joinedTripNotification(id));
-        modelAndView.addObject("userIsAMember", tripRepository.existsTripByTripMembers(tripRepository.findById(id), userService.getLoggedUser()));
+        modelAndView.addObject("userIsAMember", tripService.existsTripByTripMembers(tripService.findById(id), userService.getLoggedUser()));
         modelAndView.setViewName("trip/show-trip");
         return modelAndView;
     }

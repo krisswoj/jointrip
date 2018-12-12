@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import pl.jointrip.dao.TripMemberRepository;
-import pl.jointrip.dao.TripRepository;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.services.tripService.TripService;
@@ -19,10 +17,6 @@ public class OrganizerTripController {
 
     @Autowired
     TripService tripService;
-    @Autowired
-    TripRepository tripRepository;
-    @Autowired
-    TripMemberRepository tripMemberRepository;
 
     @GetMapping(value = "/myTripsManagment")
     public ModelAndView tripsManagmentList() {
@@ -35,7 +29,7 @@ public class OrganizerTripController {
     @GetMapping(value = "/myTripManagment{ids}")
     public ModelAndView getCourseDetails(@RequestParam("ids") int ids) {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tripInfo", tripRepository.findById(ids));
+        modelAndView.addObject("tripInfo", tripService.findById(ids));
         modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
         modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
         modelAndView.setViewName("trip/show-managment-trip");
@@ -46,7 +40,7 @@ public class OrganizerTripController {
     public ModelAndView changeTripMemberStatus(@ModelAttribute TripsMemberWrapper form, BindingResult result, @RequestParam("ids") int ids) {
         ModelAndView modelAndView = new ModelAndView();
         tripService.tripMemberListUpdate(form.getTripMemberList());
-        modelAndView.addObject("tripInfo", tripRepository.findById(ids));
+        modelAndView.addObject("tripInfo", tripService.findById(ids));
         modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
         modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
         modelAndView.setViewName("trip/show-managment-trip");
@@ -57,7 +51,7 @@ public class OrganizerTripController {
     public ModelAndView CommentAnswerController(@ModelAttribute CommentsWrapper commentsForm, BindingResult result, @RequestParam("ids") int ids) {
         ModelAndView modelAndView = new ModelAndView();
         tripService.commentsListUpdateByOwner(commentsForm.getCommentsList());
-        modelAndView.addObject("tripInfo", tripRepository.findById(ids));
+        modelAndView.addObject("tripInfo", tripService.findById(ids));
         modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
         modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
         modelAndView.setViewName("trip/show-managment-trip");

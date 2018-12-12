@@ -219,4 +219,16 @@ public class TripImpl implements TripService {
         List<Trip> trips = tripRepository.findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0);
         return trips;
     }
+    @Override
+    public Trip findById(int tripId){
+        return tripRepository.findById(tripId);
+    }
+    @Override
+    public boolean existsTripByTripMembers(Trip trip, User user){
+        return tripRepository.existsTripByTripMembers(trip, user);
+    }
+    @Override
+    public List<Comments> findByTripAndStatusIs(Trip trip, int status){
+        return commentsRepository.findByTripAndStatusIs(trip, status);
+    }
 }
