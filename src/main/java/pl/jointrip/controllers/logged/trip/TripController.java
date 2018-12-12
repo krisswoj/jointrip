@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.CommentsRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
-import pl.jointrip.models.Comments;
+import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
 

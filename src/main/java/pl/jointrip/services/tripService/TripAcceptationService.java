@@ -1,6 +1,6 @@
 package pl.jointrip.services.tripService;
 
-import pl.jointrip.models.Trip;
+import pl.jointrip.models.entities.trip.Trip;
 
 public interface TripAcceptationService {
     Iterable<Trip> fetchAllTrips();

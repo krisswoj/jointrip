@@ -1,10 +1,10 @@
-package pl.jointrip.models;
+package pl.jointrip.models.entities.documents;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.jointrip.models.entities.user.User;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;

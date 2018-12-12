@@ -1,9 +1,7 @@
 package pl.jointrip.services.documentsService;
 
-import org.springframework.web.multipart.MultipartFile;
-import pl.jointrip.models.User;
+import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
 
 public interface DocumentsService {
-    boolean saveDocument(byte[] content, User loggedUser, String fileName, String contentType, Integer documentKind);
-    byte[] handleUploadFile(MultipartFile file);
+    boolean saveDocument(DocumentsApprovalViewModel viewModel);
 }

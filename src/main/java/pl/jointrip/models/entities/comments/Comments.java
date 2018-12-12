@@ -1,8 +1,9 @@
-package pl.jointrip.models;
+package pl.jointrip.models.entities.comments;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
+import pl.jointrip.models.entities.trip.Trip;
 
 import javax.persistence.*;
 import java.util.Date;

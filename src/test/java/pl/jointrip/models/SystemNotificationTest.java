@@ -1,10 +1,8 @@
 package pl.jointrip.models;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
+import pl.jointrip.models.system.SystemNotification;
 
-import static org.junit.Assert.*;
 //@RunWith(SpringRunner.class)
 public class SystemNotificationTest {
 

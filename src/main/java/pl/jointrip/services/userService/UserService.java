@@ -1,7 +1,7 @@
 package pl.jointrip.services.userService;
 
 import org.springframework.stereotype.Service;
-import pl.jointrip.models.User;
+import pl.jointrip.models.entities.user.User;
 
 @Service
 public interface UserService {

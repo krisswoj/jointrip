@@ -1,6 +1,12 @@
 package pl.jointrip.services.tripService;
 
-import pl.jointrip.models.*;
+import pl.jointrip.models.entities.comments.Comments;
+import pl.jointrip.models.entities.comments.CommentsWrapper;
+import pl.jointrip.models.entities.trip.Trip;
+import pl.jointrip.models.entities.trip.TripMember;
+import pl.jointrip.models.entities.trip.TripWrapper;
+import pl.jointrip.models.entities.trip.TripsMemberWrapper;
+import pl.jointrip.models.system.SystemNotification;
 
 import java.util.List;
 

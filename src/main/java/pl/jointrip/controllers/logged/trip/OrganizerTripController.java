@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripMemberRepository;
 import pl.jointrip.dao.TripRepository;
-import pl.jointrip.models.CommentsWrapper;
-import pl.jointrip.models.TripsMemberWrapper;
+import pl.jointrip.models.entities.comments.CommentsWrapper;
+import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.services.tripService.TripService;
 
 @Controller

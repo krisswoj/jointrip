@@ -5,8 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
-import pl.jointrip.models.Documentstore;
-import pl.jointrip.models.User;
+import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
 import pl.jointrip.services.documentsService.DocumentsService;
 import pl.jointrip.services.userService.UserService;
 
@@ -37,9 +37,8 @@ public class DocsApprovalController {
     public ModelAndView handleFileUpload(DocumentsApprovalViewModel viewModel) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("doc", new DocumentsApprovalViewModel());
-        User loggedUser = userService.getLoggedUser();
-        byte[] content = documentsService.handleUploadFile(viewModel.getFile());
-        boolean result = documentsService.saveDocument(content, loggedUser, viewModel.getFile().getOriginalFilename(), viewModel.getFile().getContentType(), viewModel.getDocumentKind());
+        viewModel.setLoggedUser(userService.getLoggedUser());
+        boolean result = documentsService.saveDocument(viewModel);
 
         modelAndView.setViewName("user/docsApproval");
         return modelAndView;

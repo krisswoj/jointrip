@@ -4,11 +4,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import pl.jointrip.models.Trip;
-import pl.jointrip.models.User;
+import pl.jointrip.models.entities.trip.Trip;
+import pl.jointrip.models.entities.user.User;
 
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 @Repository

@@ -1,8 +1,10 @@
-package pl.jointrip.models;
+package pl.jointrip.models.entities.trip;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
+import pl.jointrip.models.entities.user.User;
+import pl.jointrip.models.entities.comments.Comments;
 
 import javax.persistence.*;
 import java.util.*;
