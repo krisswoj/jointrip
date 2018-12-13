@@ -38,8 +38,17 @@
             <div class="settingContent bg-ash">
                 <h4>Przesłane dokumenty</h4>
                 <div class="row" th:each="document : ${doc.documentstoreList}">
-                    <p th:text="${document.filename}"></p>
-                    <p th:text="${document.documentKind}"></p>
+                    <div class="col-sm-4">
+                        <a th:href="@{/user/docsApprovalDownload(id=${document.id})}"><span
+                                th:text="${document.filename}"></span></a>
+                    </div>
+                    <div class="col-sm-8">
+                    <span th:switch="${document.documentKind}">
+                        <p th:case="1">Prawo jazdy</p>
+                        <p th:case="2">Dowód osobisty</p>
+                        <p th:case="0">Nieokreślony</p>
+                    </span>
+                    </div>
                 </div>
             </div>
         </div>

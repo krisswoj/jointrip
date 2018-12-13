@@ -3,11 +3,15 @@ package pl.jointrip.models.entities.trip;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.entities.comments.Comments;
+import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.entities.user.User;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Setter
 @Getter
@@ -71,6 +75,8 @@ public class Trip {
     @Basic
     @Column(name = "trip_organizator_email")
     private String organizatorEmail;
+    @OneToMany(mappedBy = "tripId")
+    private List<Documentstore> documentstoreList;
 
     @Override
     public boolean equals(Object o) {
