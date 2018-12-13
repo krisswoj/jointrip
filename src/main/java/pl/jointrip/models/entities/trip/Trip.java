@@ -56,6 +56,10 @@ public class Trip {
     private List<TripMember> tripMembers;
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
     private List<Comments> comments;
+
+    @OneToMany(mappedBy = "tripId")
+    private List<DailyTripPlan> dailyTripPlans;
+
     @Basic
     @Column(name = "trip_street")
     private String tripStreet;

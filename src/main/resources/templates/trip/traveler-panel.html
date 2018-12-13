@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<div th:fragment="content">
+
+    <sectio class="mainContentSection singlePackage">
+        <div class="container">
+            <div><div>
+                <div class="col-xs-12">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="infoImage"><img src="img/packages/package-info-01.png" alt="Info Image"></div>
+                            </div>
+                            <div class="col-sm-5 col-xs-12">
+                                <div class="packageInfo">
+                                    <h4>Informacje</h4>
+                                    <dl class="dl-horizontal">
+                                        <dt>Lokalizacja:</dt>
+                                        <dd>Maldives</dd>
+                                        <dt>Data:</dt>
+                                        <dd>jul 15, 2016 - Jul 18, 2016</dd>
+                                        <dt>Ilość członków:</dt>
+                                        <dd>17</dd>
+                                    </dl>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xs-12">
+                                <div class="packageInfo">
+                                    <h4>Dodatkowe koszta</h4>
+                                    <p>Wiza<span>$50,00</span></p>
+                                    <p>Opłata klimatyczna<span>$10,00</span></p>
+                                    <p>Wejścówki<span>$30,00</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <div class="col-sm-8">
+                    <div class="col-xs-12">
+                        <div class="sectionTitle">
+                            <h2><span class="lightBg">PLAN WYCIECZKI</span></h2>
+                        </div>
+                        <div class="panel-group" id="accordionIcons">
+                            <div class="panel panel-default">
+                                <a class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordionIcons" href="#collapseThree11">
+                                    <span>Dzień pierwszy - Spotkanie na lotnisku</span>
+                                    <i class="indicator fa fa-plus  pull-right"></i>
+                                </a>
+                                <div id="collapseThree11" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <a class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordionIcons" href="#collapseThree22">
+                                    <span>Dzień drugi - Wyjazd</span>
+                                    <i class="indicator fa fa-plus  pull-right"></i>
+                                </a>
+                                <div id="collapseThree22" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <a class="panel-heading accordion-toggle" data-toggle="collapse" data-parent="#accordionIcons" href="#collapseThree33">
+                                    <span>Dzień trzeci - Zwiedzanie zamku</span>
+                                    <i class="indicator fa fa-plus  pull-right"></i>
+                                </a>
+                                <div id="collapseThree33" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col-xs-12 accordionsTransparent">
+                        <div class="sectionTitle">
+                            <h2><span class="lightBg">DO POBRANIA</span></h2>
+                        </div>
+                        <div class="solidBgTitle">
+                            <div class="panel-group" id="accordionSolid">
+
+
+                                <div class="panel panel-default" th:each="count : ${tripContent.getDailyTripPlanList()}">
+                                    <a class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordionSolid" href="#collapse-bb1" aria-expanded="false">
+                                        <span style="color:white" th:text="*{count.getTitle()}" />
+                                        <i style="color:white" class="indicator fa  pull-right fa-plus"></i>
+                                    </a>
+                                    <div id="collapse-bb1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                        <div class="panel-body">
+                                            <div class="media">
+                                                <div class="media-body">
+                                                    <p th:text="*{count.getDescription()}" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+
+                    <div class="relatedProduct">
+                        <h2>you may also like</h2>
+                        <div class="row">
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="relatedItem">
+                                    <img src="img/packages/package-related-01.png" alt="related image">
+                                    <div class="maskingInfo">
+                                        <h4>maldives tour</h4>
+                                        <p>Lorem Ipsum</p>
+                                        <a href="#" class="btn buttonTransparent">view more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="relatedItem">
+                                    <img src="img/packages/package-related-02.png" alt="related image">
+                                    <div class="maskingInfo">
+                                        <h4>maldives tour</h4>
+                                        <p>Lorem Ipsum</p>
+                                        <a href="#" class="btn buttonTransparent">view more</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-xs-12">
+                                <div class="relatedItem">
+                                    <img src="img/packages/package-related-03.png" alt="related image">
+                                    <div class="maskingInfo">
+                                        <h4>maldives tour</h4>
+                                        <p>Lorem Ipsum</p>
+                                        <a href="#" class="btn buttonTransparent">view more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </sectio>
+
+</div>

@@ -23,6 +23,7 @@ public class DocsApprovalController {
         modelAndView.setViewName("user/docsApproval");
         return modelAndView;
     }
+
     @PostMapping(value = "/user/docsApproval")
     public ModelAndView handleFileUpload(DocumentsApprovalViewModel viewModel) {
         ModelAndView modelAndView = new ModelAndView();
