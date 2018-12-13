@@ -46,7 +46,7 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
     @OneToMany(mappedBy = "userId")
-    private Collection<Documentstore> user_id;
+    private Collection<Documentstore> documentstoreCollection;
 
     @Override
     public boolean equals(Object o) {

@@ -27,7 +27,7 @@ public class DocumentsServiceImpl implements DocumentsService {
         return true;
     }
 
-    public Documentstore documentStoreMapper(DocumentsApprovalViewModel viewModel) {
+    private Documentstore documentStoreMapper(DocumentsApprovalViewModel viewModel) {
         Documentstore docStore = new Documentstore();
         try {
             docStore.setFile(viewModel.getFile().getBytes());
@@ -47,5 +47,9 @@ public class DocumentsServiceImpl implements DocumentsService {
         DocumentsApprovalViewModel viewModel = new DocumentsApprovalViewModel();
         viewModel.setDocumentstoreList(documentsRepository.findAllByUserId(user));
         return viewModel;
+    }
+
+    public Documentstore findById(int id){
+        return documentsRepository.findById(id);
     }
 }
