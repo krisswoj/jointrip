@@ -2,6 +2,7 @@ package pl.jointrip.models.entities.documents;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.user.User;
 
 import javax.persistence.*;
@@ -41,6 +42,9 @@ public class Documentstore {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User userId;
+    @ManyToOne
+    @JoinColumn(name = "trip_id", referencedColumnName = "id")
+    private Trip tripId;
 
     @Override
     public boolean equals(Object o) {

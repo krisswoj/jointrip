@@ -32,4 +32,13 @@ public class DocsApprovalController {
         modelAndView.setViewName("user/docsApproval");
         return modelAndView;
     }
+
+//    @GetMapping(value = "/user/docsApproval")
+//    public ResponseEntity<byte[]> getImageAsResponseEntity(@Param(value="id") int id) {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setCacheControl(CacheControl.noCache().getHeaderValue());
+//        Documentstore documentstore = documentsService.findById(id);
+//        ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(documentstore.getFile(), headers, HttpStatus.OK);
+//        return responseEntity;
+//    }
 }
