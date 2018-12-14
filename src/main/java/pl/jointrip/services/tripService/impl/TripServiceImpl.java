@@ -21,7 +21,7 @@ import pl.jointrip.services.userService.UserService;
 import java.util.*;
 
 @Service
-public class TripImpl implements TripService {
+public class TripServiceImpl implements TripService {
 
     @Autowired
     UserRepository userRepository;
