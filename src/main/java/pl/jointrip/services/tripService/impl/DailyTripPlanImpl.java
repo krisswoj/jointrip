@@ -3,6 +3,7 @@ package pl.jointrip.services.tripService.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.jointrip.dao.DailyTripPlanRepository;
+import pl.jointrip.dao.DocumentsRepository;
 import pl.jointrip.dao.TripRepository;
 import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripWrapper;
@@ -20,11 +21,14 @@ public class DailyTripPlanImpl implements DailyTripPlanService {
     TripRepository tripRepository;
 
     @Autowired
+    DocumentsRepository documentsRepository;
+
+    @Autowired
     UserService userService;
 
     @Override
     public TripWrapper tripWithDailyPlan(Trip trip) {
-        return new TripWrapper(trip, dailyTripPlanRepository.findAllByTripId(trip));
+        return new TripWrapper(trip, dailyTripPlanRepository.findAllByTripId(trip), documentsRepository.findAllByTripId(trip));
     }
 
     @Override
