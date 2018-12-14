@@ -2,9 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       th:include="layout :: page">
-
 <div th:fragment="content">
-
     <sectio class="mainContentSection singlePackage">
         <div class="container">
             <div><div>
@@ -87,19 +85,25 @@
                             <h2><span class="lightBg">DO POBRANIA</span></h2>
                         </div>
                         <div class="solidBgTitle">
+                            <!--<div class="panel-group" id="accordionSolid" th:each="count : ${tripContent.getDailyTripPlanList()}">-->
                             <div class="panel-group" id="accordionSolid">
 
 
+
                                 <div class="panel panel-default" th:each="count : ${tripContent.getDailyTripPlanList()}">
-                                    <a class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordionSolid" href="#collapse-bb1" aria-expanded="false">
+                                    <!--<a class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordionSolid" th:href="*{count.getId()}" aria-expanded="false">-->
+                                    <a class="panel-heading accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordionSolid" th:href="*{'#' + count.getId()}" aria-expanded="false">
                                         <span style="color:white" th:text="*{count.getTitle()}" />
+                                        <!--<span style="color:white">sadfrdtfyukhiljo;ilukyt</span>-->
                                         <i style="color:white" class="indicator fa  pull-right fa-plus"></i>
                                     </a>
-                                    <div id="collapse-bb1" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+                                    <!--<div th:id="*{count.getId()}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">-->
+                                    <div th:id="*{count.getId()}" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
                                         <div class="panel-body">
                                             <div class="media">
                                                 <div class="media-body">
                                                     <p th:text="*{count.getDescription()}" />
+                                                    <!--<p>sfadgfdhgjhkhkjhhgghfg</p>-->
                                                 </div>
                                             </div>
                                         </div>
@@ -155,5 +159,4 @@
             </div>
         </div>
     </sectio>
-
 </div>
