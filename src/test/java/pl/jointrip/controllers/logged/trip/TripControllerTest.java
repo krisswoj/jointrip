@@ -17,7 +17,7 @@ import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripMember;
 import pl.jointrip.models.entities.user.User;
-import pl.jointrip.services.tripService.impl.TripImpl;
+import pl.jointrip.services.tripService.impl.TripServiceImpl;
 import pl.jointrip.services.userService.impl.UserServiceImpl;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 public class TripControllerTest {
 
     @InjectMocks
-    private TripImpl tripImpl;
+    private TripServiceImpl tripServiceImpl;
 
     @Mock
     private UserServiceImpl userServiceImpl;
@@ -120,7 +120,7 @@ public class TripControllerTest {
         when(userServiceImpl.getLoggedUser()).thenReturn(user);
         when(tripRepository.findTripByTripMembersNotContains(user)).thenReturn(trips);
 
-        assertEquals(trips,tripImpl.findTripByTripMembersNot());
+        assertEquals(trips, tripServiceImpl.findTripByTripMembersNot());
 
         verify(tripRepository, times(1)).findTripByTripMembersNotContains(any());
     }
@@ -134,8 +134,8 @@ public class TripControllerTest {
 
         when(tripRepository.findTripByTripStatus(1)).thenReturn(trips);
 
-        assertEquals(trips,tripImpl.findAllActiveTrips());
-        assertEquals(trip.getTripStatus(),tripImpl.findAllActiveTrips().get(0).getTripStatus());
+        assertEquals(trips, tripServiceImpl.findAllActiveTrips());
+        assertEquals(trip.getTripStatus(), tripServiceImpl.findAllActiveTrips().get(0).getTripStatus());
 
         verify(tripRepository, times(2)).findTripByTripStatus(anyInt());
     }
@@ -150,12 +150,12 @@ public class TripControllerTest {
         when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
         when(userServiceImpl.getLoggedUser()).thenReturn(user);
         when(tripRepository.findById(2)).thenReturn(trip2);
-        assertEquals(tripImpl.findById(2).getId(), tripRepository.findById(2).getId());
+        assertEquals(tripServiceImpl.findById(2).getId(), tripRepository.findById(2).getId());
         when(tripRepository.existsTripByTripMembers(trip2, user)).thenReturn(true);
-        assertEquals(tripImpl.existsTripByTripMembers(trip2,user), tripRepository.existsTripByTripMembers(trip2, user));
-        assertNotEquals(false,tripImpl.existsTripByTripMembers(trip2,user));
+        assertEquals(tripServiceImpl.existsTripByTripMembers(trip2,user), tripRepository.existsTripByTripMembers(trip2, user));
+        assertNotEquals(false, tripServiceImpl.existsTripByTripMembers(trip2,user));
         when(commentsRepository.findByTripAndStatusIs(trip2, 1)).thenReturn(commentsList);
-        assertEquals(tripImpl.findByTripAndStatusIs(trip2,1),commentsRepository.findByTripAndStatusIs(trip2,1));
+        assertEquals(tripServiceImpl.findByTripAndStatusIs(trip2,1),commentsRepository.findByTripAndStatusIs(trip2,1));
 
     }
 
@@ -166,9 +166,9 @@ public class TripControllerTest {
         commentsList.add(comments);
 
         when(tripRepository.findById(1)).thenReturn(trip);
-        assertEquals(tripImpl.findById(1), tripRepository.findById(1));
+        assertEquals(tripServiceImpl.findById(1), tripRepository.findById(1));
         when(commentsRepository.findByTripAndStatusIs(trip3, 2)).thenReturn(commentsList);
-        assertEquals(tripImpl.findByTripAndStatusIs(trip3,2),commentsRepository.findByTripAndStatusIs(trip3,2));
+        assertEquals(tripServiceImpl.findByTripAndStatusIs(trip3,2),commentsRepository.findByTripAndStatusIs(trip3,2));
     }
 
     @WithMockUser(username = "admin@gmail.com", password = "qwe123")
@@ -179,9 +179,9 @@ public class TripControllerTest {
         commentsList.add(comments2);
 
         when(tripRepository.findById(2)).thenReturn(trip2);
-        assertEquals(tripImpl.findById(2), tripRepository.findById(2));
+        assertEquals(tripServiceImpl.findById(2), tripRepository.findById(2));
         when(commentsRepository.findByTripAndStatusIs(trip, 1)).thenReturn(commentsList);
-        assertEquals(tripImpl.findByTripAndStatusIs(trip,1),commentsRepository.findByTripAndStatusIs(trip,1));
+        assertEquals(tripServiceImpl.findByTripAndStatusIs(trip,1),commentsRepository.findByTripAndStatusIs(trip,1));
 
 
 

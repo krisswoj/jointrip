@@ -7,7 +7,7 @@ import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.services.tripService.TripAcceptationService;
 
 @Service
-public class TripAcceptationImpl implements TripAcceptationService {
+public class TripAcceptationServiceImpl implements TripAcceptationService {
 
 
     @Autowired
