@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<div th:fragment="content">
+
+    <!-- PAGE CONTENT -->
+    <section class="recentActivitySection">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <div class="recentActivityContent bg-ash">
+                        <div class="dashboardPageTitle">
+                            <h2>Aktywne</h2>
+                        </div>
+                        <div class="table-responsive" data-pattern="priority-columns"
+                             th:each="trip : ${trips}">
+                            <table class="table listingsTable">
+                                <tbody>
+                                <tr class="rowItem">
+
+                                    <td class="dateTd">
+                                        <ul class="text-center">
+                                            <li>
+                                                <h4 th:text="${#dates.format(trip.tripCreateDate, 'dd/MM/yyyy')}"/>
+                                            </li>
+                                        </ul>
+                                    </td>
+
+                                    <td class="packageTd">
+                                        <ul class="list-inline listingsInfo">
+                                            <li>
+                                                <h4><a th:href="@{/showTrip(ide=${trip.id})}"
+                                                       th:text="${trip.tripTitle}"/></h4>
+                                                <p th:text="${trip.tripCountry} + ', ' + ${trip.tripCity}"/>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="priceTd">
+                                        <ul class="list-inline listingsInfo text-right">
+                                            <li>
+                                                <h4 th:text="${trip.tripPriceMember} + ' zł'"/>
+                                                <p th:text="'Ilość członków: ' + ${trip.tripMembers.size()} + ' / ' + ${trip.tripMembersAmount}"/>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td class="bookingTd">
+                                        <ul class="list-inline listingsInfo text-left">
+                                            <li>
+                                                <h4>ID WYCIEKCZKI</h4>
+                                                <p th:text="${trip.id}"/>
+                                                <a href="/admin/allTripsPanel" th:href="@{/admin/allTripsPanel/block(id=${trip.id})}" ><h4>Zablokuj</h4></a>
+                                                <a href="/admin/allTripsPanel" th:href="@{/admin/allTripsPanel/remove(id=${trip.id})}" ><h4>Usuń</h4></a>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

@@ -95,6 +95,7 @@ public class TripServiceImpl implements TripService {
     @Override
     public boolean saveCommentByUser(Comments comment, int tripId) {
         comment.setStatus(0);
+        comment.setAddedQuestionDate(new Date());
         comment.setTrip(tripRepository.findById(tripId));
 
         try {
@@ -135,8 +136,10 @@ public class TripServiceImpl implements TripService {
     public Comments commentUpdateByOwner(Comments comments) {
         Comments ct = commentsRepository.findById(comments.getId());
         ct.setStatus(1);
-        if (comments.getOrganisationAnswer() != null)
+        if (comments.getOrganisationAnswer() != null) {
             ct.setOrganisationAnswer(comments.getOrganisationAnswer());
+            ct.setAnswerDate(new Date());
+        }
         return commentsRepository.save(ct);
     }
 
@@ -230,5 +233,17 @@ public class TripServiceImpl implements TripService {
     @Override
     public List<Comments> findByTripAndStatusIs(Trip trip, int status){
         return commentsRepository.findByTripAndStatusIs(trip, status);
+    }
+
+    @Override
+    public boolean removeTrip(int id){
+        try{
+            tripRepository.deleteById(id);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }
