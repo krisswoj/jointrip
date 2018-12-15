@@ -76,7 +76,7 @@ public class TripServiceImpl implements TripService {
         User loggedUser = userService.getLoggedUser();
         Trip trip = tripRepository.findById(id);
 
-        if (tripRepository.findById(id).getUserByUserId().getUserId() == loggedUser.getUserId())
+        if (trip.getUserByUserId().getUserId() == loggedUser.getUserId())
             return false;
 
         if (tripRepository.existsTripByTripMembers(trip, loggedUser))

@@ -17,14 +17,14 @@ import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripMember;
 import pl.jointrip.models.entities.user.User;
+import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.services.tripService.impl.TripServiceImpl;
 import pl.jointrip.services.userService.impl.UserServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -94,7 +94,7 @@ public class TripControllerTest {
         trip3.setOrganizatorEmail("michal@wp.pl");
         trip3.setTripTitle("Dookola swiata");
         trip3.setTripMembers(tripMembers);
-        trip3.setUserByUserId(user);
+        trip3.setUserByUserId(user2);
 
         comments.setId(1);
         comments.setStatus(1);
@@ -183,12 +183,21 @@ public class TripControllerTest {
         when(commentsRepository.findByTripAndStatusIs(trip, 1)).thenReturn(commentsList);
         assertEquals(tripServiceImpl.findByTripAndStatusIs(trip,1),commentsRepository.findByTripAndStatusIs(trip,1));
 
+        //todo
 
 
         when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
         when(userServiceImpl.getLoggedUser()).thenReturn(user);
         when(tripRepository.findById(3)).thenReturn(trip3);
-        when(tripRepository.existsTripByTripMembers(trip, user)).thenReturn(false);
+
+        when(tripRepository.existsTripByTripMembers(trip3, user)).thenReturn(false);
+        when(tripRepository.save(trip3)).thenReturn(trip3);
+        when(tripServiceImpl.joinToTripByUser(3)).thenReturn(true);
+        doReturn(new SystemNotification("true", "${MEMBER_JOINED_TRIP_POSITIVE}")).when(tripServiceImpl.joinToTripByUser(3));
+        assertEquals(tripServiceImpl.joinToTripByUser(3), tripServiceImpl.joinedTripNotification(3));
+
+
+
     }
 
 }
