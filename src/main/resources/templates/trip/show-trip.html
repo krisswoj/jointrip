@@ -56,7 +56,13 @@
                             <div class="description-aria">
                                 <div class="sectionTitle2">
                                     <h2 th:text="${tripInfo.tripTitle}"/>
-                                    <p th:text="${tripInfo.tripShortDesc}"/>
+                                    <p th:text="${tripInfo.tripFullDesc}"/>
+                                </div>
+                            </div>
+                            <div class="description-aria">
+                                <div class="sectionTitle2">
+                                    <h2>Czas trwania wycieczki </h2>
+                                    <p th:text="${#dates.format(tripInfo.tripStartDate, 'dd/MM/yyyy')} + ' - ' + ${#dates.format(tripInfo.tripEndDate, 'dd/MM/yyyy')}"/>
                                 </div>
                             </div>
                         </div>

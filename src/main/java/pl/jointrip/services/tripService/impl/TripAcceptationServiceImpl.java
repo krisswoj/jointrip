@@ -29,7 +29,7 @@ public class TripAcceptationServiceImpl implements TripAcceptationService {
         try {
             Trip trip = this.fetchTripById(id);
             if (trip != null) {
-                trip.setTripStatus(1);
+                trip.setTripStatus(status);
                 tripRepository.save(trip);
             } else
                 return false;
