@@ -12,7 +12,7 @@
                 <div class="changePassword">
                     <div class="row">
 
-                        <span th:utext="${message}"></span>
+                        <span id="message" th:utext="${message}"></span>
                         <form autocomplete="off" action="#" th:action="@{/addTrip}"
                               th:object="${trip_form}" method="post" class="form-horizontal" role="form">
                             <div class="col-sm-12">
@@ -80,7 +80,7 @@
                             </div>
 
                             <div class="col-sm-12">
-                                <button type="submit" class="btn buttonTransparent">Dodaj</button>
+                                <button type="submit" name="Submit" class="btn buttonTransparent">Dodaj</button>
                             </div>
 
 
