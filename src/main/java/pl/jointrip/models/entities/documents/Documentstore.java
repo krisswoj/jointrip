@@ -45,6 +45,9 @@ public class Documentstore {
     @ManyToOne
     @JoinColumn(name = "trip_id", referencedColumnName = "id")
     private Trip tripId;
+    @Basic
+    @Column(name = "documenttitle")
+    private String documenttitle;
 
     @Override
     public boolean equals(Object o) {
