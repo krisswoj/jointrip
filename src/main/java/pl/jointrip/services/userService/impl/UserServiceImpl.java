@@ -13,6 +13,7 @@ import pl.jointrip.services.userService.UserService;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -49,6 +50,28 @@ public class UserServiceImpl implements UserService {
         }
         User user = userRepository.findByEmail(username);
         return user;
+    }
+
+    public List<User> allUsersByStatus(int status){
+        return userRepository.findAllByActive(status);
+    }
+
+    public void changeUserStatus(int id, int status){
+        User user = userRepository.findByUserId(id);
+        user.setActive(status);
+        userRepository.save(user);
+    }
+
+    public boolean removeUser(int id){
+        User user = userRepository.findByUserId(id);
+        try{
+            userRepository.delete(user);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
 }
