@@ -14,16 +14,15 @@
 
                         <form th:action="@{/login}" method="POST">
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" name="email" id="email"
-                                       th:placeholder="Email">
+                                <input type="email" class="form-control" name="email" id="email"
+                                       th:placeholder="Email" th:required="required">
                             </div>
                             <div class="col-sm-12">
                                 <input type="password" th:placeholder="Password"
-                                       id="password" name="password" class="form-control">
+                                       id="password" name="password" class="form-control" th:required="required">
                             </div>
-                            <div class="col-sm-12" align="center" th:if="${param.error}">
-                                <p style="font-size: 20; color: #FF1C19;">Email or Password invalid, please
-                                    verify</p>
+                            <div class="col-sm-12" align="left" th:if="${param.error != null}">
+                                <p id="message" style="font-size: 20; color: #FF1C19;">Email lub haslo nieprawidlowe</p>
                             </div>
                             <div class="col-sm-12">
                                 <button type="submit" class="btn buttonTransparent" name="Submit" value="Login"
