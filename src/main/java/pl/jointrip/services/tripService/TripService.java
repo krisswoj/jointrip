@@ -58,4 +58,6 @@ public interface TripService {
     boolean existsTripByTripMembers(Trip trip, User user);
 
     List<Comments> findByTripAndStatusIs(Trip trip, int status);
+
+    boolean removeTrip(int id);
 }
