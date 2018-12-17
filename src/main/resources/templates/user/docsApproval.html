@@ -12,9 +12,15 @@
                     <form autocomplete="off" enctype="multipart/form-data" action="#"
                           th:action="@{/user/docsApproval}"
                           th:object="${doc}" method="post" class="form-horizontal" role="form">
+                        <div class="col-sm-12" align="left" th:if="${result != null && result.booleanValue()}">
+                            <label id="messageSuccess" style="font-size: 20; color: forestgreen;">Dodano nowy dokument</label>
+                        </div>
+                        <div class="col-sm-12" align="left" th:if="${result != null && result.booleanValue() == false}">
+                            <label id="messageFailed" style="font-size: 20; color: #FF1C19;">Dodawanie nowego dokumentu nie powiodlo sie</label>
+                        </div>
                         <div class="col-sm-12">
                             <input type="file" th:field="*{file}" placeholder="Imię"
-                                   class="form-control"/>
+                                   class="form-control" th:required="required"/>
                         </div>
                         <div class="col-sm-12">
                             <select class="form-control" th:field="*{documentKind}" id="dropOperator">
@@ -24,7 +30,7 @@
                             </select>
                         </div>
                         <div class="col-sm-12">
-                            <button type="submit" class="btn buttonTransparent">Wyślij plik</button>
+                            <button type="submit" name="Submit" class="btn buttonTransparent">Wyślij plik</button>
                         </div>
                     </form>
                 </div>
