@@ -9,6 +9,7 @@ import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.system.SystemNotification;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface TripService {
@@ -29,6 +30,14 @@ public interface TripService {
 
     Comments commentUpdateByOwner(Comments comments);
 
+    List<TripWrapper> tripsWithStatisicForNoMemberUsers();
+
+    TripWrapper createTripWrapperForNewUsers(Trip trip);
+
+//    TripWrapper createTripWrapperForNewUsers(Trip trip, User user);
+
+    int daysAmountInTrip(Trip trip) throws ParseException;
+
     void commentsListUpdateByOwner(List<Comments> commentsList);
 
     void tripMemberListUpdate(List<TripMember> tripMemberList);
@@ -39,17 +48,17 @@ public interface TripService {
 
     abstract SystemNotification joinedTripNotification(int id);
 
-    List<Trip> joinedTripsByUser();
+    List<TripWrapper> findAllActiveTripsForNoLogUser();
 
-    List<Trip> findAllActiveTrips();
+    List<TripWrapper> joinedTripsByUserByTripMemberStatus(int tripMemberStatus);
 
     List<Trip> findTripByTripMembersNot();
 
     List<Trip> findTripByUserByUserId();
 
-    List<TripWrapper> tripWithStatistics();
+    List<TripWrapper> tripWithStatisticsForOrganisator();
 
-    TripWrapper createTripWrapper(Trip trip);
+    TripWrapper createTripWrapperForOrganisator(Trip trip);
 
     List<Trip> findLatestTrips();
 

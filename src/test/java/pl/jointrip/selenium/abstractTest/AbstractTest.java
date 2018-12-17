@@ -1,10 +1,12 @@
 package pl.jointrip.selenium.abstractTest;
 
-import java.util.concurrent.TimeUnit;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+
+import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractTest {
     protected WebDriver driver;

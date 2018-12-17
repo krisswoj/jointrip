@@ -12,7 +12,7 @@ import java.util.Map;
 public class TripWrapper {
 
     private Trip trip;
-    private Map<String, Integer> adminStats;
+    private Map<String, Integer> statistics;
     private List<DailyTripPlan> dailyTripPlanList;
     private List<Documentstore> documentstoreList;
 
@@ -20,9 +20,9 @@ public class TripWrapper {
         this.trip = trip;
     }
 
-    public TripWrapper(Trip trip, Map<String, Integer> adminStats) {
+    public TripWrapper(Trip trip, Map<String, Integer> statistics) {
         this.trip = trip;
-        this.adminStats = adminStats;
+        this.statistics = statistics;
     }
 
     public TripWrapper(Trip trip, List<DailyTripPlan> dailyTripPlanList, List<Documentstore> documentstoreList) {

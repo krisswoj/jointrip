@@ -17,8 +17,11 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
 
     Trip findById(int id);
 
-    @Query("select t from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id and tm.status > 1")
-    List<Trip> findTripByTripMembersContains(@Param("user_id") User user);
+    @Query("select t from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id and tm.status = :trip_member_status")
+    List<Trip> findTripByTripMembersContains(@Param("user_id") User user, @Param("trip_member_status") int tripMemberStatus);
+
+    @Query("select COUNT (t) from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id and tm.status = :trip_member_status")
+    int findTripByTripMembersContainsAmount(@Param("user_id") User user, @Param("trip_member_status") int tripMemberStatus);
 
     @Query("select t from Trip t left join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and t.userByUserId <> :user_id and tm.tripMember is null or tm.tripMember <> :user_id")
     List<Trip> findTripByTripMembersNotContains(@Param("user_id") User user);
@@ -37,5 +40,7 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
     List<Trip> findTripByUserByUserId(User user);
 
     List<Trip> findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(Integer status);
+
+
 
 }

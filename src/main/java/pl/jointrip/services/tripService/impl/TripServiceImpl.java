@@ -18,6 +18,9 @@ import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 @Service
@@ -152,21 +155,65 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<TripWrapper> tripWithStatistics() {
+    public List<TripWrapper> joinedTripsByUserByTripMemberStatus(int tripMemberStatus) {
         User loggedUser = userService.getLoggedUser();
         List<TripWrapper> tripWrapperList = new ArrayList<>();
-        tripRepository.findTripByUserByUserId(loggedUser).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapper(trip)));
+        tripRepository.findTripByTripMembersContains(loggedUser, tripMemberStatus).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
         return tripWrapperList;
     }
 
     @Override
-    public TripWrapper createTripWrapper(Trip trip) {
+    public List<TripWrapper> findAllActiveTripsForNoLogUser() {
+        List<TripWrapper> tripWrapperList = new ArrayList<>();
+        tripRepository.findTripByTripStatus(1).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
+        return tripWrapperList;
+    }
+
+    @Override
+    public List<TripWrapper> tripWithStatisticsForOrganisator() {
+        User loggedUser = userService.getLoggedUser();
+        List<TripWrapper> tripWrapperList = new ArrayList<>();
+        tripRepository.findTripByUserByUserId(loggedUser).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForOrganisator(trip)));
+        return tripWrapperList;
+    }
+
+    @Override
+    public List<TripWrapper> tripsWithStatisicForNoMemberUsers() {
+        List<TripWrapper> tripWrapperList = new ArrayList<>();
+        this.findTripByTripMembersNot().iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
+        return tripWrapperList;
+    }
+
+    @Override
+    public TripWrapper createTripWrapperForOrganisator(Trip trip) {
         Map<String, Integer> tripStatistic = new HashMap<>();
         tripStatistic.put("membersToVerify", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 1).count());
         tripStatistic.put("waitingForPayment", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 2).count());
         tripStatistic.put("paidMembers", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 3).count());
         tripStatistic.put("commentsToAnswer", (int) trip.getComments().stream().filter(c -> c.getStatus() == 0).count());
         return new TripWrapper(trip, tripStatistic);
+    }
+
+    @Override
+    public TripWrapper createTripWrapperForNewUsers(Trip trip) {
+        Map<String, Integer> tripStatistic = new HashMap<>();
+        tripStatistic.put("daysAmount", daysAmountInTrip(trip));
+        tripStatistic.put("membersAmount", trip.getTripMembers().size());
+
+        User loggedUser = userService.getLoggedUser();
+        if (loggedUser != null) {
+            tripStatistic.put("memberToVerify", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 1));
+            tripStatistic.put("memberWaitForPayment", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 2));
+            tripStatistic.put("paidMember", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 3));
+        }
+        return new TripWrapper(trip, tripStatistic);
+    }
+
+    @Override
+    public int daysAmountInTrip(Trip trip) {
+        LocalDate date1 = trip.getTripEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate date2 = trip.getTripStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        return (int) ChronoUnit.DAYS.between(date2, date1);
     }
 
     @Override
@@ -194,16 +241,6 @@ public class TripServiceImpl implements TripService {
         return (joinToTripByUser(id)) ? new SystemNotification("true", tripJoinPositive) : new SystemNotification("fail", tripJoinNegative);
     }
 
-    @Override
-    public List<Trip> joinedTripsByUser() {
-        User loggedUser = userService.getLoggedUser();
-        return tripRepository.findTripByTripMembersContains(loggedUser);
-    }
-
-    @Override
-    public List<Trip> findAllActiveTrips(){
-        return tripRepository.findTripByTripStatus(1);
-    }
 
     @Override
     public List<Trip> findTripByTripMembersNot() {
@@ -222,25 +259,27 @@ public class TripServiceImpl implements TripService {
         List<Trip> trips = tripRepository.findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0);
         return trips;
     }
+
     @Override
-    public Trip findById(int tripId){
+    public Trip findById(int tripId) {
         return tripRepository.findById(tripId);
     }
+
     @Override
-    public boolean existsTripByTripMembers(Trip trip, User user){
+    public boolean existsTripByTripMembers(Trip trip, User user) {
         return tripRepository.existsTripByTripMembers(trip, user);
     }
+
     @Override
-    public List<Comments> findByTripAndStatusIs(Trip trip, int status){
+    public List<Comments> findByTripAndStatusIs(Trip trip, int status) {
         return commentsRepository.findByTripAndStatusIs(trip, status);
     }
 
     @Override
-    public boolean removeTrip(int id){
-        try{
+    public boolean removeTrip(int id) {
+        try {
             tripRepository.deleteById(id);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
