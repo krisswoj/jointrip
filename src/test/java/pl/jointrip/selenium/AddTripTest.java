@@ -13,6 +13,116 @@ public class AddTripTest extends AbstractTest{
         login();
         actions.moveToElement(driver.findElement(By.id("organiserLink"))).perform();
         driver.findElement(By.id("addTripLink")).click();
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripTitle")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripTitle")),255, "maxlength"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripShortDesc")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripShortDesc")),255, "maxlength"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripFullDesc")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripFullDesc")),255, "maxlength"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripMembersAmount")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripMembersAmount")),50, "max"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripPriceMember")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripStartDate")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtueType(driver.findElement(By.id("tripStartDate")),"type", "date"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripEndDate")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtueType(driver.findElement(By.id("tripEndDate")),"type", "date"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("tripCountry")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripCountry")),255, "maxlength"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripCity")),255, "maxlength"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripStreet")),255, "maxlength"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("organizatorPhoneNumber")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtueType(driver.findElement(By.id("organizatorPhoneNumber")),"type", "tel"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtueType(driver.findElement(By.id("organizatorPhoneNumber")),"pattern", "[0-9]{9}"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("organizatorEmail")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        try {
+            assertTrue(isAttribtueType(driver.findElement(By.id("organizatorEmail")),"type", "email"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
         driver.findElement(By.id("tripTitle")).click();
         driver.findElement(By.id("tripTitle")).clear();
         driver.findElement(By.id("tripTitle")).sendKeys("Wyjazd do Norwegii");
@@ -59,46 +169,6 @@ public class AddTripTest extends AbstractTest{
         }
     }
 
-    @After
-    public void tearDown() throws Exception {
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
-        }
-    }
 
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
-
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
-        }
-    }
 }
 

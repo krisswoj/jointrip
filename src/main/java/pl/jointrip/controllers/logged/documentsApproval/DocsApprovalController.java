@@ -33,10 +33,12 @@ public class DocsApprovalController {
     @PostMapping(value = "/user/docsApproval")
     public ModelAndView handleFileUpload(DocumentsApprovalViewModel viewModel) {
         ModelAndView modelAndView = new ModelAndView();
+        Boolean result = new Boolean(false);
         if (viewModel.getFile().getSize() > 0) {
             viewModel.setLoggedUser(userService.getLoggedUser());
-            boolean result = documentsService.saveDocument(viewModel);
+            result = documentsService.saveDocument(viewModel);
         }
+        modelAndView.addObject("result", result);
         modelAndView.addObject("doc", documentsService.findUserDocuments(userService.getLoggedUser()));
         modelAndView.setViewName("user/docsApproval");
         return modelAndView;
