@@ -1,5 +1,6 @@
 package pl.jointrip.selenium.abstractTest;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import org.openqa.selenium.*;
@@ -16,6 +17,7 @@ public abstract class AbstractTest {
     protected String baseUrl;
     protected boolean acceptNextAlert = true;
     protected StringBuffer verificationErrors = new StringBuffer();
+    protected Random generator;
 
     @Before
     public void setUp() throws Exception {
@@ -24,6 +26,7 @@ public abstract class AbstractTest {
         actions = new Actions(driver);
         baseUrl = "http://localhost:5000";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        generator = new Random();
     }
 
     @Test
@@ -35,7 +38,7 @@ public abstract class AbstractTest {
             verificationErrors.append(e.toString());
         }
         try {
-            assertTrue(isAttribtueTypeEmail(driver.findElement(By.id("email")),"type"));
+            assertTrue(isAttribtueType(driver.findElement(By.id("email")),"type", "email"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -45,7 +48,7 @@ public abstract class AbstractTest {
             verificationErrors.append(e.toString());
         }
         try {
-            assertTrue(isAttribtueTypePassword(driver.findElement(By.id("password")),"type"));
+            assertTrue(isAttribtueType(driver.findElement(By.id("password")),"type", "password"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -86,22 +89,22 @@ public abstract class AbstractTest {
         return result;
     }
 
-    public boolean isAttribtueTypeEmail(WebElement element, String attribute) {
+    public boolean isAttribtueType(WebElement element, String attribute, String type) {
         Boolean result = false;
         try {
             String value = element.getAttribute(attribute);
-            if (value.equals("email")){
+            if (value.equals(type)){
                 result = true;
             }
         } catch (Exception e) {}
         return result;
     }
 
-    public boolean isAttribtueTypePassword(WebElement element, String attribute) {
+    public boolean isAttributeMaxEqualToExpected(WebElement element, int expectedValue, String attribute){
         Boolean result = false;
         try {
             String value = element.getAttribute(attribute);
-            if (value.equals("password")){
+            if (value.equals(String.valueOf(expectedValue))){
                 result = true;
             }
         } catch (Exception e) {}
