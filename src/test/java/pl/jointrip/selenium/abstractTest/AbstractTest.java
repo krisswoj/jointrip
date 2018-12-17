@@ -3,13 +3,14 @@ package pl.jointrip.selenium.abstractTest;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
+
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
 
 public abstract class AbstractTest {
     protected WebDriver driver;

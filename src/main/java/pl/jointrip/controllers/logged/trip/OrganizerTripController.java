@@ -21,7 +21,7 @@ public class OrganizerTripController {
     @GetMapping(value = "/myTripsManagment")
     public ModelAndView tripsManagmentList() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("managmentTrips", tripService.tripWithStatistics());
+        modelAndView.addObject("managmentTrips", tripService.tripWithStatisticsForOrganisator());
         modelAndView.setViewName("trip/managment-trips");
         return modelAndView;
     }

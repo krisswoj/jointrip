@@ -22,12 +22,11 @@ public class DailyTripPlanRepositoryTest {
     @Test
     public void addTestPlan(){
 
-        DailyTripPlan dailyTripPlan = new DailyTripPlan();
-        dailyTripPlan.setTitle("wertrytj");
-        dailyTripPlan.setDescription("dfghjgkyu");
-        dailyTripPlan.setTripId(tripService.findById(10));
-        dailyTripPlanRepository.save(dailyTripPlan);
+//        DailyTripPlan dailyTripPlan = new DailyTripPlan();
+//        dailyTripPlan.setTitle("wertrytj");
+//        dailyTripPlan.setDescription("dfghjgkyu");
+//        dailyTripPlan.setTripId(tripService.findById(10));
+//        dailyTripPlanRepository.save(dailyTripPlan);
 
     }
-
 }

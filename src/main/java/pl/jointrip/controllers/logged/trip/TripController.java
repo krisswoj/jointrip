@@ -23,7 +23,7 @@ public class TripController {
     @GetMapping(value = "/showTrips")
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("show_trips", tripService.findTripByTripMembersNot());
+        modelAndView.addObject("showTripsWrapper", tripService.tripsWithStatisicForNoMemberUsers());
         modelAndView.setViewName("trip/trips");
         return modelAndView;
     }
@@ -31,7 +31,7 @@ public class TripController {
     @GetMapping(value = "/trips")
     public ModelAndView showTripsForUnlogged() {
         ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("show_trips", tripService.findAllActiveTrips());
+        modelAndView.addObject("showTripsWrapper", tripService.findAllActiveTripsForNoLogUser());
         modelAndView.setViewName("trip/trips");
         return modelAndView;
     }

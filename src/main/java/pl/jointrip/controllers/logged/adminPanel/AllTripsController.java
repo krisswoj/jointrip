@@ -19,7 +19,7 @@ public class AllTripsController {
     @GetMapping(value = "admin/allTripsPanel")
     public ModelAndView fetchTrips(){
         ModelAndView modelAndView =  new ModelAndView();
-        modelAndView.addObject("trips", tripService.findAllActiveTrips());
+        modelAndView.addObject("trips", tripService.findAllActiveTripsForNoLogUser());
         modelAndView.setViewName("admin/allTripsPanel");
         return modelAndView;
     }
@@ -28,7 +28,7 @@ public class AllTripsController {
     public ModelAndView blockTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         acceptationService.changeTripStatus(id, 2);
-        modelAndView.addObject("trips", tripService.findAllActiveTrips());
+        modelAndView.addObject("trips", tripService.findAllActiveTripsForNoLogUser());
         modelAndView.setViewName("admin/allTripsPanel");
         return modelAndView;
     }
@@ -36,7 +36,7 @@ public class AllTripsController {
     public ModelAndView removeTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();
         boolean result = tripService.removeTrip(id);
-        modelAndView.addObject("trips", tripService.findAllActiveTrips());
+        modelAndView.addObject("trips", tripService.findAllActiveTripsForNoLogUser());
         modelAndView.setViewName("admin/allTripsPanel");
         return modelAndView;
     }

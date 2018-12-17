@@ -385,9 +385,9 @@ a:focus {
   background-color: #ffffff;
 }
 
-.sectionTitle h2 span.lightBg {
-  background-color: whitesmoke;
-}
+/*.sectionTitle h2 span.lightBg {*/
+  /*background-color: whitesmoke;*/
+/*}*/
 
 .sectionTitle h2:before {
   background-color: #e5e5e5;

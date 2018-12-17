@@ -19,11 +19,13 @@
                                         <h4>Informacje</h4>
                                         <dl class="dl-horizontal">
                                             <dt>Lokalizacja:</dt>
-                                            <dd>Maldives</dd>
-                                            <dt>Data:</dt>
-                                            <dd>jul 15, 2016 - Jul 18, 2016</dd>
+                                            <dd th:text="${tripContent.getTrip().getTripCountry()}+' / '+${tripContent.getTrip().getTripCity()}" />
+                                            <dt>Data wyjazdu:</dt>
+                                            <dd th:text="${tripContent.getTrip().getTripCreateDate()}" />
+                                            <dt>Data przyjazdu:</dt>
+                                            <dd th:text="${tripContent.getTrip().getTripCreateDate()}" />
                                             <dt>Ilość członków:</dt>
-                                            <dd>17</dd>
+                                            <dd th:text="${tripContent.getTrip().getTripMembers().size()}" />
                                         </dl>
                                     </div>
                                 </div>
@@ -39,7 +41,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-8">
+                <div class="col-sm-7">
                     <div class="col-xs-12">
                         <div class="sectionTitle">
                             <h2><span class="lightBg">PLAN WYCIECZKI</span></h2>
@@ -58,7 +60,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-5">
                     <div class="col-xs-12 accordionsTransparent">
                         <div class="sectionTitle">
                             <h2><span class="lightBg">DO POBRANIA</span></h2>
@@ -70,7 +72,7 @@
                                     <a class="panel-heading accordion-toggle collapsed" data-toggle="collapse"
                                        data-parent="#accordionSolid" th:href="*{'#' + count.getId()}"
                                        aria-expanded="false">
-                                        <span style="color:white" th:text="*{count.getFilename()}"/>
+                                        <span style="color:white" th:text="*{count.getDocumenttitle()}"/>
                                         <i style="color:white" class="indicator fa  pull-right fa-plus"></i>
                                     </a>
                                     <div th:id="*{count.getId()}" class="panel-collapse collapse" aria-expanded="false"
@@ -79,7 +81,7 @@
                                             <div class="media">
                                                 <div class="media-body">
                                                     <a th:href="@{/user/docsApprovalDownload(id=${count.id})}">
-                                                        <p th:text="*{count.getContentType()}"/></a>
+                                                        <p th:text="*{count.getFilename()}"/></a>
                                                 </div>
                                             </div>
                                         </div>
