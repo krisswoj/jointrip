@@ -69,7 +69,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/user/**").authenticated()
 				.antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
 				.authenticated().and().csrf().disable().formLogin()
-				.loginPage("/login").failureUrl("/login")
+				.loginPage("/login").failureUrl("/login?error=true")
 				.defaultSuccessUrl("/index")
 				.usernameParameter("email")
 				.passwordParameter("password")
