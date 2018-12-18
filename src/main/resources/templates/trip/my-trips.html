@@ -14,7 +14,7 @@
                     <div class="titleTable">
                         <div class="titleTableInner">
                             <div class="pageTitleInfo">
-                                <h1>Wyszukaj wycieczkę</h1>
+                                <h1>Moje wycieczki</h1>
                                 <div class="under-border"></div>
                             </div>
                         </div>
@@ -28,8 +28,6 @@
     <section class="mainContentSection packagesSection">
         <div class="container">
             <div class="row">
-
-
                 <div class="col-sm-3 col-xs-12">
                     <aside>
                         <div class="panel panel-default packagesFilter">
@@ -78,53 +76,135 @@
 
                 <div class="col-sm-9  col-xs-12">
                     <div class="row sidebarPage">
-                        <ul class="nav nav-tabs" role="tablist">
-                            <li role="presentation" class="active">
-                                <a href="#all_places" aria-controls="all_places" role="tab" data-toggle="tab">all places</a>
+                        <ul class="nav nav-tabs" role="tablist" id="tablist">
+                            <li role="presentation">
+                                <a href="#wait" aria-controls="wait" role="tab" data-toggle="tab"
+                                   th:text="'Do weryfikacji (' +${showTripsAmountInfo.get('memberToVerify')}+ ')'"/>
                             </li>
                             <li role="presentation">
-                                <a href="#asia" aria-controls="asia" role="tab" data-toggle="tab">tesowa</a>
+                                <a href="#topaid" aria-controls="topaid" role="tab" data-toggle="tab"
+                                   th:text="'Oczekujące na zapłatę (' +${showTripsAmountInfo.get('memberWaitForPayment')}+ ')'"/>
                             </li>
                             <li role="presentation">
-                                <a href="#america" aria-controls="america" role="tab" data-toggle="tab" th:text="'Do weryfikacji (' +${showTripsWrapper.get(0).statistics.get('memberToVerify')}+ ')'"/>
-                            </li>
-                            <li role="presentation">
-                                <a href="../myTrips?trip-status=2#europe" aria-controls="europe" role="tab" data-toggle="tab" th:text="'Oczekujące na zapłatę (' +${showTripsWrapper.get(0).statistics.get('memberWaitForPayment')}+ ')'"/>
-                            </li>
-                            <li role="presentation">
-                                <a href="../myTrips?trip-status=3#africa" aria-controls="africa" role="tab" data-toggle="tab" th:text="'Opłacone (' +${showTripsWrapper.get(0).statistics.get('paidMember')}+ ')'"/>
+                                <a href="#paid" aria-controls="paid" role="tab" data-toggle="tab"
+                                   th:text="'Opłacone (' +${showTripsAmountInfo.get('paidMember')}+ ')'"/>
                             </li>
                         </ul>
-                        <div class="media packagesList" th:each="element : ${showTripsWrapper}">
-                            <a class="media-left fancybox-pop" href="../images/packages/package-list-01.jpg">
-                                <img class="media-object" src="../images/packages/package-list-01.jpg" alt="Image">
-                            </a>
-                            <div class="media-body">
-                                <div class="bodyLeft">
-                                    <h4 class="media-heading"><a href="/showTrip"
-                                                                 th:href="@{/showTrip(ide=${element.trip.id})}"
-                                                                 th:text="${element.trip.tripTitle}"></a></h4>
-                                    <span><b th:text="${element.trip.tripCountry}"></b></span>
-                                    <p th:text="${element.trip.tripShortDesc}"/>
-                                    <ul class="list-inline detailsBtn">
-                                        <li><span class="textInfo"><i class="fa fa-calendar"
-                                                                      aria-hidden="true"></i><span
-                                                style="padding-left: 5px;font-weight: bold"
-                                                th:text="${#dates.format(element.trip.tripStartDate, 'dd/MM/yyyy')}"></span></span>
-                                        </li>
-                                        <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i><span
-                                                style="padding-left: 5px;font-weight: bold"
-                                                th:text="${element.getStatistics().get('daysAmount')}+' Dni'"></span></span>
-                                        </li>
-                                        <!--<li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i>to do</span></li>-->
-                                    </ul>
+
+                        <div class="tab-content">
+                            <div id="wait" class="tab-pane fade">
+                                <div class="media packagesList"
+                                     th:each="element : ${showTripsWrapper.get('tripsToVerify')}">
+                                    <a class="media-left fancybox-pop" href="../images/packages/package-list-01.jpg">
+                                        <img class="media-object" src="../images/packages/package-list-01.jpg"
+                                             alt="Image">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="bodyLeft">
+                                            <h4 class="media-heading"><a href="/showTrip"
+                                                                         th:href="@{/showTrip(ide=${element.trip.id})}"
+                                                                         th:text="${element.trip.tripTitle}"/></h4>
+                                            <span><b th:text="${element.trip.tripCountry}"/></span>
+                                            <p th:text="${element.trip.tripShortDesc}"/>
+                                            <ul class="list-inline detailsBtn">
+                                                <li><span class="textInfo"><i class="fa fa-calendar"
+                                                                              aria-hidden="true"></i><span
+                                                        style="padding-left: 5px;font-weight: bold"
+                                                        th:text="${#dates.format(element.trip.tripStartDate, 'dd/MM/yyyy')}"></span></span>
+                                                </li>
+                                                <li><span class="textInfo"><i class="fa fa-clock-o"
+                                                                              aria-hidden="true"></i><span
+                                                        style="padding-left: 5px;font-weight: bold"
+                                                        th:text="${element.statistics.get('daysAmount')}+' Dni'"></span></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bodyRight">
+                                            <div class="bookingDetails">
+                                                <h2 th:text="${element.trip.tripPriceMember}"/>
+                                                <p>ZŁ/OSOBA</p>
+                                                <a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}"
+                                                   class="btn buttonTransparent clearfix">Szczegóły</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="bodyRight">
-                                    <div class="bookingDetails">
-                                        <h2 th:text="${element.trip.tripPriceMember}"/>
-                                        <p>ZŁ/OSOBA</p>
-                                        <a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}"
-                                           class="btn buttonTransparent clearfix">Szczegóły</a>
+                            </div>
+                            <div id="topaid" class="tab-pane fade">
+                                <div class="media packagesList"
+                                     th:each="element : ${showTripsWrapper.get('waitForPayment')}">
+                                    <a class="media-left fancybox-pop" href="../images/packages/package-list-01.jpg">
+                                        <img class="media-object" src="../images/packages/package-list-01.jpg"
+                                             alt="Image">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="bodyLeft">
+                                            <h4 class="media-heading"><a href="/showTrip"
+                                                                         th:href="@{/showTrip(ide=${element.trip.id})}"
+                                                                         th:text="${element.trip.tripTitle}"/></h4>
+                                            <span><b th:text="${element.trip.tripCountry}"/></span>
+                                            <p th:text="${element.trip.tripShortDesc}"/>
+                                            <ul class="list-inline detailsBtn">
+                                                <li><span class="textInfo"><i class="fa fa-calendar"
+                                                                              aria-hidden="true"></i><span
+                                                        style="padding-left: 5px;font-weight: bold"
+                                                        th:text="${#dates.format(element.trip.tripStartDate, 'dd/MM/yyyy')}"></span></span>
+                                                </li>
+                                                <li><span class="textInfo"><i class="fa fa-clock-o"
+                                                                              aria-hidden="true"></i><span
+                                                        style="padding-left: 5px;font-weight: bold"
+                                                        th:text="${element.statistics.get('daysAmount')}+' Dni'"></span></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bodyRight">
+                                            <div class="bookingDetails">
+                                                <h2 th:text="${element.trip.tripPriceMember}"/>
+                                                <p>ZŁ/OSOBA</p>
+                                                <a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}"
+                                                   class="btn buttonTransparent clearfix">Szczegóły</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="paid" class="tab-pane fade">
+                                <div class="media packagesList"
+                                     th:each="element : ${showTripsWrapper.get('paidTrips')}">
+                                    <a class="media-left fancybox-pop" href="../images/packages/package-list-01.jpg">
+                                        <img class="media-object" src="../images/packages/package-list-01.jpg"
+                                             alt="Image">
+                                    </a>
+                                    <div class="media-body">
+                                        <div class="bodyLeft">
+                                            <h4 class="media-heading"><a href="/showTrip"
+                                                                         th:href="@{/showTrip(ide=${element.trip.id})}"
+                                                                         th:text="${element.trip.tripTitle}"/></h4>
+                                            <span><b th:text="${element.trip.tripCountry}"/></span>
+                                            <p th:text="${element.trip.tripShortDesc}"/>
+                                            <ul class="list-inline detailsBtn">
+                                                <li><span class="textInfo"><i class="fa fa-calendar"
+                                                                              aria-hidden="true"></i><span
+                                                        style="padding-left: 5px;font-weight: bold"
+                                                        th:text="${#dates.format(element.trip.tripStartDate, 'dd/MM/yyyy')}"></span></span>
+                                                </li>
+                                                <li><span class="textInfo"><i class="fa fa-clock-o"
+                                                                              aria-hidden="true"></i><span
+                                                        style="padding-left: 5px;font-weight: bold"
+                                                        th:text="${element.statistics.get('daysAmount')}+' Dni'"></span></span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="bodyRight">
+                                            <div class="bookingDetails">
+                                                <h2 th:text="${element.trip.tripPriceMember}"/>
+                                                <p>ZŁ/OSOBA</p>
+                                                <a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}"
+                                                   class="btn buttonTransparent clearfix">Szczegóły</a>
+                                                <a href="/travelerPanel" th:href="@{/travelerPanel(tripId=${element.trip.id})}"
+                                                   class="btn buttonTransparent clearfix">Panel</a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -134,5 +214,4 @@
             </div>
         </div>
     </section>
-
 </div>

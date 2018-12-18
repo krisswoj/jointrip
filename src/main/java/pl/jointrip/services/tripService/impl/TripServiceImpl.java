@@ -163,6 +163,15 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public Map<String, List<TripWrapper>> allLoggedUserTrips() {
+        Map<String, List<TripWrapper>> listMap = new HashMap<>();
+        listMap.put("tripsToVerify", joinedTripsByUserByTripMemberStatus(1));
+        listMap.put("waitForPayment", joinedTripsByUserByTripMemberStatus(2));
+        listMap.put("paidTrips", joinedTripsByUserByTripMemberStatus(3));
+        return listMap;
+    }
+
+    @Override
     public List<TripWrapper> findAllActiveTripsForNoLogUser() {
         List<TripWrapper> tripWrapperList = new ArrayList<>();
         tripRepository.findTripByTripStatus(1).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
@@ -199,14 +208,17 @@ public class TripServiceImpl implements TripService {
         Map<String, Integer> tripStatistic = new HashMap<>();
         tripStatistic.put("daysAmount", daysAmountInTrip(trip));
         tripStatistic.put("membersAmount", trip.getTripMembers().size());
-
-        User loggedUser = userService.getLoggedUser();
-        if (loggedUser != null) {
-            tripStatistic.put("memberToVerify", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 1));
-            tripStatistic.put("memberWaitForPayment", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 2));
-            tripStatistic.put("paidMember", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 3));
-        }
         return new TripWrapper(trip, tripStatistic);
+    }
+
+    @Override
+    public Map<String, Integer> amountOfTripsForUser() {
+        User loggedUser = userService.getLoggedUser();
+        Map<String, Integer> tripStatistic = new HashMap<>();
+        tripStatistic.put("memberToVerify", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 1));
+        tripStatistic.put("memberWaitForPayment", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 2));
+        tripStatistic.put("paidMember", tripRepository.findTripByTripMembersContainsAmount(loggedUser, 3));
+        return tripStatistic;
     }
 
     @Override

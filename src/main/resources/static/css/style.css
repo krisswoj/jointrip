@@ -1676,7 +1676,7 @@ a:focus {
 
 .buttonArea.galleryBtnArea {
   text-align: left;
-  padding: 60px 0;
+  /*padding: 60px 0;*/
 }
 
 .buttonArea.galleryBtnArea .buttonTransparent, .buttonArea.galleryBtnArea .paginationCenter .pagination li:first-child a, .paginationCenter .pagination li:first-child .buttonArea.galleryBtnArea a, .buttonArea.galleryBtnArea .paginationCenter .pagination li:last-child a, .paginationCenter .pagination li:last-child .buttonArea.galleryBtnArea a, .buttonArea.galleryBtnArea .isotopeFilters ul.filter > li a, .isotopeFilters ul.filter > li .buttonArea.galleryBtnArea a {
@@ -12157,4 +12157,8 @@ header {
 
 .signupLoging .modal-footer .dontHaveAccount p a {
   color: #ff891e;
+}
+
+.extra-nav{
+  margin-bottom: 15px;
 }

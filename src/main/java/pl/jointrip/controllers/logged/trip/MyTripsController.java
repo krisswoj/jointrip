@@ -15,11 +15,12 @@ public class MyTripsController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/myTrips{trip-status}")
-    public ModelAndView myTrips(@RequestParam("trip-status") int tripMemberStatus) {
+    @GetMapping(value = "/myTrips")
+    public ModelAndView myTrips() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
-        modelAndView.addObject("showTripsWrapper", tripService.joinedTripsByUserByTripMemberStatus(tripMemberStatus));
+        modelAndView.addObject("showTripsWrapper", tripService.allLoggedUserTrips());
+        modelAndView.addObject("showTripsAmountInfo", tripService.amountOfTripsForUser());
         modelAndView.setViewName("trip/my-trips");
         return modelAndView;
     }

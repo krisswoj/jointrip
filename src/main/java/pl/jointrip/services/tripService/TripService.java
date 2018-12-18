@@ -11,6 +11,7 @@ import pl.jointrip.models.system.SystemNotification;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 public interface TripService {
 
@@ -35,6 +36,10 @@ public interface TripService {
     TripWrapper createTripWrapperForNewUsers(Trip trip);
 
 //    TripWrapper createTripWrapperForNewUsers(Trip trip, User user);
+
+    Map<String, Integer> amountOfTripsForUser();
+
+    Map<String, List<TripWrapper>> allLoggedUserTrips();
 
     int daysAmountInTrip(Trip trip) throws ParseException;
 
