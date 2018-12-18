@@ -76,8 +76,6 @@
                                                 </div>
                                                 <button type="submit" class="btn buttonCustomPrimary">Zmień</button>
                                             </td>
-
-
                                         </tr>
                                     </form>
                                 </table>
@@ -130,7 +128,7 @@
                                     <a href="#" class="list-group-item">Komentarze</a>
                                     <a href="#" class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>
-                                    <!--<a href="#" class="list-group-item">Zakończ wycieczkę<span class="badge">(6)</span></a>-->
+                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item" target="_blank">Podgląd wycieczki</a>
                                 </div>
                             </div>
                         </div>
