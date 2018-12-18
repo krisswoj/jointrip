@@ -10,18 +10,18 @@
     <section class="mainContentSection singleHotel">
         <div class="container">
             <div class="row ">
-                <div class="row bookingConfirmed col-xs-12" }>
+                <div class="row bookingConfirmed col-xs-12" style="padding-right: 0;">
                     <div class="alert alert-success alert-dismissible" role="alert"
                          th:if="${message?.systemNotification?.containsKey('true')}">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Dismiss</span>
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Ok</span>
                         </button>
-                        <span th:text="${message.systemNotification.get('true')}"/>
+                        <span id="messageSuccess" th:text="${message.systemNotification.get('true')}"/>
                     </div>
                     <div class="alert alert-danger alert-dismissible" role="alert"
                          th:if="${message?.systemNotification?.containsKey('fail')}">
-                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Dismiss</span>
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Ok</span>
                         </button>
-                        <span th:text="${message.systemNotification.get('fail')}"/>
+                        <span id="messageFailed" th:text="${message.systemNotification.get('fail')}"/>
                     </div>
                 </div>
                 <div class="col-sm-8 col-xs-12">
@@ -96,8 +96,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn buttonCustomPrimary"
-                                            sec:authorize="isAuthenticated()">submit
+                                    <button type="submit" class="btn buttonCustomPrimary" name="Submit"
+                                            sec:authorize="isAuthenticated()">Wyslij
                                     </button>
                                 </form>
 

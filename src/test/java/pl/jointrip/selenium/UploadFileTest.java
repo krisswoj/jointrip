@@ -20,7 +20,8 @@ public class UploadFileTest extends AbstractTest {
         driver.findElement(By.id("docsApprovalLink")).click();
         driver.findElement(By.id("file")).click();
         driver.findElement(By.id("file")).clear();
-        driver.findElement(By.id("file")).sendKeys("/Users/miau/jointrip/wspolne_zmiany.sql");
+        String filePath = System.getProperty("user.dir") + "/TestFileForSeleniumTest";
+        driver.findElement(By.id("file")).sendKeys(filePath);
         driver.findElement(By.id("dropOperator")).click();
         new Select(driver.findElement(By.id("dropOperator"))).selectByVisibleText("Dowód osobisty");
         driver.findElement(By.name("Submit")).click();

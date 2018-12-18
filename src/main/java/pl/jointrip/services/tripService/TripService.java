@@ -49,7 +49,7 @@ public interface TripService {
 
     String addedTripNotification(Trip trip);
 
-    String addedCommentNotification(Comments comment, int tripId);
+    SystemNotification addedCommentNotification(Comments comment, int tripId);
 
     abstract SystemNotification joinedTripNotification(int id);
 
