@@ -51,7 +51,7 @@ public class TripController {
     @PostMapping(value = "/showTrip/addedComment", params = "ide")
     public ModelAndView addCommentForm(@ModelAttribute("comment") Comments commentForm, @RequestParam("ide") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
-        tripService.addedCommentNotification(commentForm, tripId);
+        modelAndView.addObject("message", tripService.addedCommentNotification(commentForm, tripId));
         modelAndView.addObject("tripInfo", tripService.findById(tripId));
         modelAndView.addObject("commentForm", new Comments());
         modelAndView.addObject("commentList", tripService.findByTripAndStatusIs(tripService.findById(tripId), 1));

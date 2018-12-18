@@ -25,7 +25,8 @@
                     <li sec:authorize="isAnonymous()"><a id="loginLink" href="/login">Zaloguj</a></li>
 
                     <li class="dropdown singleDrop">
-                        <a>Wycieczki</a>
+                        <a id="tripsLink" href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">Wycieczki</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li class="" sec:authorize="isAnonymous()"><a id="showTripsUnloggedLink" href="/trips">Pokaż wycieczki</a></li>
                             <li class="" sec:authorize="isAuthenticated()"><a id="showTripsLoggedLink" href="/showTrips">Pokaż wycieczki</a></li>

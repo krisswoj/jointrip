@@ -244,8 +244,8 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public String addedCommentNotification(Comments comment, int tripId) {
-        return (saveCommentByUser(comment, tripId)) ? commentPositive : commentNegative;
+    public SystemNotification addedCommentNotification(Comments comment, int tripId) {
+        return (saveCommentByUser(comment, tripId)) ? new SystemNotification("true", commentPositive) : new SystemNotification("fail", commentNegative);
     }
 
     @Override
