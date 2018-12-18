@@ -21,6 +21,11 @@ public class AddCommentTest extends AbstractTest {
             verificationErrors.append(e.toString());
         }
         driver.findElement(By.xpath("/html/body/div[1]/div[2]/section[2]/div/div/div[2]/div/div/div[1]/div/div[1]/h4/a")).click();
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("userQuestion")),"required"));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
         driver.findElement(By.id("userQuestion")).click();
         driver.findElement(By.id("userQuestion")).clear();
         driver.findElement(By.id("userQuestion")).sendKeys("Pytanie?");
