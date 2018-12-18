@@ -25,35 +25,25 @@
                             <div id="user-list" class="tab-pane fade">
                                 <table class="table table-striped">
                                     <tr>
-                                        <th>Email</th>
+                                        <th>Zapytanie</th>
+                                        <th>Odpowiedź</th>
                                         <th>Operacje</th>
                                     </tr>
 
-                                    <form th:action="@{/myTripManagment(ids=${tripInfo.trip.id})}" method="POST"
-                                          role="form" class="form" th:object="${form}">
+                                    <form th:action="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
+                                          method="POST"
+                                          role="form" class="form" th:object="${commentsForm}">
 
 
-                                        <tr th:each="trip, itemStat : ${form.tripMemberList}">
-                                            <td th:text="${trip.tripMember.email}"></td>
-                                            <td>
-
-
-                                                <div class="bookingDrop">
-                                                    <select th:field="*{tripMemberList[__${itemStat.index}__].status}"
-                                                            class="select-drop" style="display: none;">
-                                                        <option value="1" th:value="1">1 - Zainteresowany</option>
-                                                        <option value="2" th:value="2">2 - Zatwierdzony, do
-                                                            opłacenia
-                                                        </option>
-                                                        <option value="3" th:value="3">3 - Opłacony</option>
-                                                    </select>
-                                                    <input type="hidden"
-                                                           th:field="*{tripMemberList[__${itemStat.index}__].id}"/>
-                                                </div>
-                                                <button type="submit" class="btn buttonCustomPrimary">Zmień</button>
+                                        <tr th:each="comment, itemStat : ${commentsForm.commentsList}">
+                                            <input type="hidden" th:field="*{commentsList[__${itemStat.index}__].id}"/>
+                                            <td th:text="${comment.userQuestion}"></td>
+                                            <td><input type="text"
+                                                       th:field="*{commentsList[__${itemStat.index}__].organisationAnswer}"/>
                                             </td>
-
-
+                                            <td>
+                                                <button type="submit" class="btn buttonCustomPrimary">Odpowiedz</button>
+                                            </td>
                                         </tr>
                                     </form>
                                 </table>
@@ -70,10 +60,10 @@
                             <div class="panel-body">
                                 <div class="list-group">
                                     <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item">Informacje główne</a>
-                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}" class="list-group-item active">Lista użytkowników</a>
+                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}" class="list-group-item">Lista użytkowników</a>
                                     <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}" class="list-group-item">Plan wycieczki</a>
                                     <a href="#" class="list-group-item">Wiadomości</a>
-                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}" class="list-group-item">Komentarze</a>
+                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}" class="list-group-item active">Komentarze</a>
                                     <a href="#" class="list-group-item">Pliki do pobrania</a>
                                     <a href="#" class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>
