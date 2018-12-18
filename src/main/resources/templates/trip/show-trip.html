@@ -129,36 +129,59 @@
                                         <form class="form-horizontal">
                                             <div class="contactInfo">
 
-
                                                 <div class="media">
                                                     <a class="media-left" href="#">
                                                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                                                     </a>
                                                     <div class="media-body">
-                                                        <h4 class="media-heading">Adres</h4>
+                                                        <h4 class="media-heading">Miejsce docelowe</h4>
                                                         <p th:text="${tripInfo.tripCountry}"/>
-                                                        <p th:text="${tripInfo.tripStreet}"/>
                                                         <p th:text="${tripInfo.tripCity}"/>
                                                     </div>
                                                 </div>
+
+                                                <div class="media">
+                                                    <a class="media-left" href="#">
+                                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Kiedy?</h4>
+                                                        <p th:text="'Wyjazd: ' + ${#dates.format(tripInfo.tripStartDate, 'dd/MM/yyyy')}"/>
+                                                        <p th:text="'Powrót: ' + ${#dates.format(tripInfo.tripEndDate, 'dd/MM/yyyy')}"/>
+                                                    </div>
+                                                </div>
+
+                                                <div class="media">
+                                                    <a class="media-left" href="#">
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                    </a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading">Ilość osób</h4>
+                                                        <p th:text="'Ilość miejsc: ' + ${tripInfo.tripMembersAmount}"/>
+                                                        <p th:text="'Zainteresowanych: ' + ${tripInfo.tripMembers.size()}"/>
+                                                    </div>
+                                                </div>
+
                                                 <div class="media">
                                                     <a class="media-left" href="#">
                                                         <i class="fa fa-phone" aria-hidden="true"></i>
                                                     </a>
                                                     <div class="media-body">
-                                                        <h4 class="media-heading">Telefon</h4>
-                                                        <p th:text="${tripInfo.organizatorPhoneNumber}"/>
+                                                        <h4 class="media-heading">Kontakt</h4>
+                                                        <p th:text="'Tel: ' +${tripInfo.organizatorPhoneNumber}"/>
+                                                        <p th:text="'E-mail: ' +${tripInfo.organizatorEmail}"/>
                                                     </div>
                                                 </div>
-                                                <div class="media">
-                                                    <a class="media-left" href="#">
-                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                    </a>
-                                                    <div class="media-body">
-                                                        <h4 class="media-heading">E-mail</h4>
-                                                        <p th:text="${tripInfo.organizatorEmail}"/>
-                                                    </div>
-                                                </div>
+
+                                                <!--<div class="media">-->
+                                                    <!--<a class="media-left" href="#">-->
+                                                        <!--<i class="fa fa-envelope" aria-hidden="true"></i>-->
+                                                    <!--</a>-->
+                                                    <!--<div class="media-body">-->
+                                                        <!--<h4 class="media-heading">E-mail</h4>-->
+                                                        <!--<p th:text="${tripInfo.organizatorEmail}"/>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
                                             </div>
 
 

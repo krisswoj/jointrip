@@ -9,111 +9,130 @@
     <section class="mainContentSection singleHotel">
         <div class="container">
             <div class="row ">
-                <div class="col-sm-8 col-xs-12">
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <div class="form-group">
-                                <fieldset disabled>
-                                    <div class="form-group">
-                                        <label>Wycieczka</label>
-                                        <input type="text" class="form-control" th:value="${tripInfo.tripTitle}">
-                                    </div>
-                                </fieldset>
-                            </div>
+                <div class="col-sm-8">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <fieldset disabled>
+                                <div class="form-group">
+                                    <label>Wycieczka</label>
+                                    <input type="text" class="form-control" th:value="${tripInfo.trip.tripTitle}">
+                                </div>
+                            </fieldset>
+                        </div>
 
-                            <div class="form-group">
-                                <fieldset disabled>
-                                    <div class="form-group">
-                                        <label>Opis wycieczki</label>
-                                        <textarea type="text" class="form-control"
-                                                  th:field="*{tripInfo.tripShortDesc}"
-                                                  rows="2">
+                        <div class="form-group">
+                            <fieldset disabled>
+                                <div class="form-group">
+                                    <label>Opis wycieczki</label>
+                                    <textarea type="text" class="form-control"
+                                              th:field="*{tripInfo.trip.tripShortDesc}"
+                                              rows="2">
                                         </textarea>
-                                    </div>
-                                </fieldset>
-                            </div>
+                                </div>
+                            </fieldset>
+                        </div>
 
-                            <div class="form-group">
-                                <fieldset disabled>
-                                    <div class="form-group">
-                                        <label>Data dodania</label>
-                                        <input type="text" class="form-control" th:value="${tripInfo.tripCreateDate}">
-                                    </div>
-                                </fieldset>
-                            </div>
+                        <div class="form-group">
+                            <fieldset disabled>
+                                <div class="form-group">
+                                    <label>Data dodania</label>
+                                    <input type="text" class="form-control" th:value="${tripInfo.trip.tripCreateDate}">
+                                </div>
+                            </fieldset>
+                        </div>
 
 
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <div class="form-group">
-                                        <label>Lista użytkowników</label>
-                                    </div>
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <th>Email</th>
-                                            <th>Operacje</th>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <div class="form-group">
+                                    <label>Lista użytkowników</label>
+                                </div>
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>Email</th>
+                                        <th>Operacje</th>
+                                    </tr>
+
+                                    <form th:action="@{/myTripManagment(ids=${tripInfo.trip.id})}" method="POST"
+                                          role="form" class="form" th:object="${form}">
+
+
+                                        <tr th:each="trip, itemStat : ${form.tripMemberList}">
+                                            <td th:text="${trip.tripMember.email}"></td>
+                                            <td>
+
+
+                                                <div class="bookingDrop">
+                                                    <select th:field="*{tripMemberList[__${itemStat.index}__].status}"
+                                                            class="select-drop" style="display: none;">
+                                                        <option value="1" th:value="1">1 - Zainteresowany</option>
+                                                        <option value="2" th:value="2">2 - Zatwierdzony, do
+                                                            opłacenia
+                                                        </option>
+                                                        <option value="3" th:value="3">3 - Opłacony</option>
+                                                    </select>
+                                                    <input type="hidden"
+                                                           th:field="*{tripMemberList[__${itemStat.index}__].id}"/>
+                                                </div>
+                                                <button type="submit" class="btn buttonCustomPrimary">Zmień</button>
+                                            </td>
+
+
                                         </tr>
-
-                                        <form th:action="@{/myTripManagment(ids=${tripInfo.id})}" method="POST"
-                                              role="form" class="form" th:object="${form}">
-
-
-                                            <tr th:each="trip, itemStat : ${form.tripMemberList}">
-                                                <td th:text="${trip.tripMember.email}"></td>
-                                                <td>
+                                    </form>
+                                </table>
+                            </div>
+                        </div>
 
 
-                                                    <div class="bookingDrop">
-                                                        <select th:field="*{tripMemberList[__${itemStat.index}__].status}"
-                                                                class="select-drop" style="display: none;">
-                                                            <option value="1" th:value="1">1 - Zainteresowany</option>
-                                                            <option value="2" th:value="2">2 - Zatwierdzony, do
-                                                                opłacenia
-                                                            </option>
-                                                            <option value="3" th:value="3">3 - Opłacony</option>
-                                                        </select>
-                                                        <input type="hidden"
-                                                               th:field="*{tripMemberList[__${itemStat.index}__].id}"/>
-                                                    </div>
-                                                    <button type="submit" class="btn buttonCustomPrimary">Zmień</button>
-                                                </td>
+                        <div class="row">
+                            <div class="form-group col-xs-12">
+                                <div class="form-group">
+                                    <label>Komentarze</label>
+                                </div>
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>Zapytanie</th>
+                                        <th>Odpowiedź</th>
+                                        <th>Operacje</th>
+                                    </tr>
+
+                                    <form th:action="@{/myTripManagment/updatedComment(ids=${tripInfo.trip.id})}"
+                                          method="POST"
+                                          role="form" class="form" th:object="${commentsForm}">
 
 
-                                            </tr>
-                                        </form>
-
-                                    </table>
+                                        <tr th:each="comment, itemStat : ${commentsForm.commentsList}">
+                                            <input type="hidden" th:field="*{commentsList[__${itemStat.index}__].id}"/>
+                                            <td th:text="${comment.userQuestion}"></td>
+                                            <td><input type="text"
+                                                       th:field="*{commentsList[__${itemStat.index}__].organisationAnswer}"/>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn buttonCustomPrimary">Odpowiedz</button>
+                                            </td>
+                                        </tr>
+                                    </form>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Zarządzaj wycieczką</div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}" class="list-group-item active">Panel podróżnika</a>
+                                    <a href="#" class="list-group-item">Lista użytkowników</a>
+                                    <a href="#" class="list-group-item">Wiadomości</a>
+                                    <a href="#" class="list-group-item">Komentarze</a>
+                                    <a href="#" class="list-group-item">Galeria</a>
+                                    <a href="#" class="list-group-item">Zakończ wycieczkę</a>
+                                    <!--<a href="#" class="list-group-item">Zakończ wycieczkę<span class="badge">(6)</span></a>-->
                                 </div>
                             </div>
-
-
-                            <div class="row">
-                                <div class="form-group col-xs-12">
-                                    <div class="form-group">
-                                        <label>Komentarze</label>
-                                    </div>
-                                    <table class="table table-striped">
-                                        <tr>
-                                            <th>Zapytanie</th>
-                                            <th>Odpowiedź</th>
-                                            <th>Operacje</th>
-                                        </tr>
-
-                                        <form th:action="@{/myTripManagment/updatedComment(ids=${tripInfo.id})}" method="POST"
-                                              role="form" class="form" th:object="${commentsForm}">
-
-
-                                            <tr th:each="comment, itemStat : ${commentsForm.commentsList}">
-                                                <input type="hidden" th:field="*{commentsList[__${itemStat.index}__].id}"/>
-                                                <td th:text="${comment.userQuestion}"></td>
-                                                <td><input type="text" th:field="*{commentsList[__${itemStat.index}__].organisationAnswer}" /></td>
-                                                <td><button type="submit" class="btn buttonCustomPrimary">Odpowiedz</button></td>
-                                            </tr>
-                                        </form>
-                                    </table>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
