@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
 
-</body>
-</html>
+<div th:fragment="content">
+
+    <section class="countUpSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="text-center">
+                        <div class="icon">
+                            <i class="fa fa-plane" aria-hidden="true"></i>
+                        </div>
+                        <div class="counter" th:text="${statistic.activeTripsCount}"></div>
+                        <h5>Aktywnych wycieczek</h5>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="text-center">
+                        <div class="icon">
+                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                        </div>
+                        <div class="counter" th:text="${statistic.blockedTripsCount}"></div>
+                        <h5>Zablokowanych wycieczek</h5>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="text-center">
+                        <div class="icon">
+                            <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="counter" th:text="${statistic.waitingTripsCount}"></div>
+                        <h5>Oczekujących wycieczek</h5>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-4 col-xs-6">
+                    <div class="text-center">
+                        <div class="icon">
+                            <i class="fa fa-smile-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="counter" th:text="${statistic.activeUsersCount}"></div>
+                        <h5>Aktywnych użytkowników</h5>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="text-center">
+                        <div class="icon">
+                            <i class="fa fa-frown-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="counter" th:text="${statistic.blockedUsersCount}"></div>
+                        <h5>Zablokowanych użytkowników</h5>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-xs-6">
+                    <div class="text-center">
+                        <div class="icon">
+                            <i class="fa fa-meh-o" aria-hidden="true"></i>
+                        </div>
+                        <div class="counter" th:text="${statistic.waitingUsersCount}"></div>
+                        <h5>Oczekujących użytkowników</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

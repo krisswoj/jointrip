@@ -41,6 +41,8 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
 
     List<Trip> findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(Integer status);
 
+    long countByTripStatus(int status);
+
 
 
 }
