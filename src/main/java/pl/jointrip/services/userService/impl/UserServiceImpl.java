@@ -65,6 +65,7 @@ public class UserServiceImpl implements UserService {
     public boolean removeUser(int id){
         User user = userRepository.findByUserId(id);
         try{
+            userRepository.deleteUserRole(user.getUserId());
             userRepository.delete(user);
         }
         catch (Exception e){

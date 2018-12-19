@@ -1,19 +1,14 @@
 package pl.jointrip.services.tripService.impl;
 
 import org.junit.Test;
-import pl.jointrip.models.entities.trip.Trip;
-import sun.jvm.hotspot.utilities.Interval;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-
-import static org.junit.Assert.*;
 
 public class TripServiceImplTest {
 

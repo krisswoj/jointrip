@@ -9,7 +9,7 @@ import java.util.Objects;
 @Setter
 @Getter
 @Entity
-@Table(name = "user_role", schema = "jointrip_home", catalog = "")
+@Table(name = "user_role")
 @IdClass(UserRolePK.class)
 public class UserRole {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)@Column(name = "user_id")
