@@ -9,6 +9,7 @@ import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
 import pl.jointrip.services.documentsService.DocumentsService;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -35,6 +36,7 @@ public class DocumentsServiceImpl implements DocumentsService {
 
     public boolean saveImageToApp(DocumentsApprovalViewModel viewModel) {
         MultipartFile file = viewModel.getFile();  //Will return CommonsMultipartFile
+//        String currentDir = System.getProperty("user.dir");
         String currentDir = System.getProperty("user.dir");
         String filePath = currentDir + "/UploadedImages/" + file.getOriginalFilename();
         File dest = new File(filePath);
@@ -46,6 +48,26 @@ public class DocumentsServiceImpl implements DocumentsService {
         }
         return true;
     }
+
+
+
+
+//    public boolean saveImageToApp(DocumentsApprovalViewModel viewModel) {
+//        MultipartFile file = viewModel.getFile();  //Will return CommonsMultipartFile
+//        String currentDir = request.getRealPath("/");
+//        String filePath = currentDir + "/UploadedImages/" + file.getOriginalFilename();
+//        File dest = new File(filePath);
+//        try {
+//            file.transferTo(dest);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+//        return true;
+//    }
+
+
+
 
     private Documentstore documentStoreMapper(DocumentsApprovalViewModel viewModel) {
         Documentstore docStore = new Documentstore();

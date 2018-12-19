@@ -17,7 +17,6 @@ public class IndexController{
 
     @RequestMapping(value={"/","/index"}, method = RequestMethod.GET)
     public ModelAndView index(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("index_form", tripService.findLatestTrips());
         modelAndView.setViewName("index");

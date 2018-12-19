@@ -41,8 +41,6 @@ public class TripAcceptationController {
         return modelAndView;
     }
 
-    //      
-
     @RequestMapping(value = "/admin/acceptationPanel/reject", params = "id", method = RequestMethod.GET)
     public ModelAndView rejectTrip(@RequestParam("id") int id) {
         ModelAndView modelAndView = new ModelAndView();

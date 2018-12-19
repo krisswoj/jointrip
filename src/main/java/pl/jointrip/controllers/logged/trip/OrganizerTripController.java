@@ -33,73 +33,68 @@ public class OrganizerTripController {
 
     @GetMapping(value = "/myTripManagment{ids}")
     public ModelAndView getCourseDetails(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(ids)));
-        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
-        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-main");
         return modelAndView;
     }
 
     @GetMapping(value = "/myTripManagment/users{ids}")
     public ModelAndView getCourseDetailsUsers(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(ids)));
-        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
-        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-users");
         return modelAndView;
     }
 
-
     @GetMapping(value = "/myTripManagment/travelerPanel{ids}")
     public ModelAndView travelerPanelOrganisator(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(ids)));
-        modelAndView.addObject("dailyPlanForm", new DailyTripPlan());
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-plan-trip");
         return modelAndView;
     }
 
     @PostMapping(value = "/myTripManagment/travelerPanel{ids}")
     public ModelAndView travelerPanelOrganisatorAddNewPlan(@ModelAttribute DailyTripPlan dailyTripPlan, @RequestParam("ids") int ids) {
-        ModelAndView modelAndView = new ModelAndView();
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
         dailyTripPlanService.addNewDailyPlan(dailyTripPlan, ids);
-        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(ids)));
-        modelAndView.addObject("dailyPlanForm", new DailyTripPlan());
         modelAndView.setViewName("trip/show-managment-trip-plan-trip");
         return modelAndView;
     }
 
     @PostMapping(value = "/myTripManagment{ids}")
     public ModelAndView changeTripMemberStatus(@ModelAttribute TripsMemberWrapper form, BindingResult result, @RequestParam("ids") int ids) {
-        ModelAndView modelAndView = new ModelAndView();
         tripService.tripMemberListUpdate(form.getTripMemberList());
-        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(ids)));
-        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
-        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-users");
         return modelAndView;
     }
 
     @GetMapping(value = "/myTripManagment/comments{ids}")
     public ModelAndView CommentAnswerController(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(ids)));
-        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
-        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-comments");
         return modelAndView;
     }
 
     @PostMapping(value = "/myTripManagment/comments{ids}")
     public ModelAndView CommentAnswerController(@ModelAttribute CommentsWrapper commentsForm, BindingResult result, @RequestParam("ids") int ids) {
-        ModelAndView modelAndView = new ModelAndView();
         tripService.commentsListUpdateByOwner(commentsForm.getCommentsList());
-        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(ids)));
-        modelAndView.addObject("form", tripService.tripsMemberWrapper(ids));
-        modelAndView.addObject("commentsForm", tripService.commentsWrapper(ids));
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-comments");
+        return modelAndView;
+    }
+
+    ModelAndView mavWithTripInfoFormCommentsForm(int tripId){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
+        modelAndView.addObject("form", tripService.tripsMemberWrapper(tripId));
+        modelAndView.addObject("commentsForm", tripService.commentsWrapper(tripId));
+        return modelAndView;
+    }
+
+    ModelAndView mavWithTripInfoAndDailyPlanForm(int tripId){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
+        modelAndView.addObject("dailyPlanForm", new DailyTripPlan());
         return modelAndView;
     }
 }
