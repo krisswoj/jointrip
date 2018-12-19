@@ -33,28 +33,28 @@ public class OrganizerTripController {
 
     @GetMapping(value = "/myTripManagment{ids}")
     public ModelAndView getCourseDetails(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = mawWithTripInfoFormCommentsForm(ids);
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-main");
         return modelAndView;
     }
 
     @GetMapping(value = "/myTripManagment/users{ids}")
     public ModelAndView getCourseDetailsUsers(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = mawWithTripInfoFormCommentsForm(ids);
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-users");
         return modelAndView;
     }
 
     @GetMapping(value = "/myTripManagment/travelerPanel{ids}")
     public ModelAndView travelerPanelOrganisator(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = mawWithTripInfoAndDailyPlanForm(ids);
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-plan-trip");
         return modelAndView;
     }
 
     @PostMapping(value = "/myTripManagment/travelerPanel{ids}")
     public ModelAndView travelerPanelOrganisatorAddNewPlan(@ModelAttribute DailyTripPlan dailyTripPlan, @RequestParam("ids") int ids) {
-        ModelAndView modelAndView = mawWithTripInfoAndDailyPlanForm(ids);
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
         dailyTripPlanService.addNewDailyPlan(dailyTripPlan, ids);
         modelAndView.setViewName("trip/show-managment-trip-plan-trip");
         return modelAndView;
@@ -63,14 +63,14 @@ public class OrganizerTripController {
     @PostMapping(value = "/myTripManagment{ids}")
     public ModelAndView changeTripMemberStatus(@ModelAttribute TripsMemberWrapper form, BindingResult result, @RequestParam("ids") int ids) {
         tripService.tripMemberListUpdate(form.getTripMemberList());
-        ModelAndView modelAndView = mawWithTripInfoFormCommentsForm(ids);
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-users");
         return modelAndView;
     }
 
     @GetMapping(value = "/myTripManagment/comments{ids}")
     public ModelAndView CommentAnswerController(@RequestParam("ids") int ids) {
-        ModelAndView modelAndView = mawWithTripInfoFormCommentsForm(ids);
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-comments");
         return modelAndView;
     }
@@ -78,12 +78,12 @@ public class OrganizerTripController {
     @PostMapping(value = "/myTripManagment/comments{ids}")
     public ModelAndView CommentAnswerController(@ModelAttribute CommentsWrapper commentsForm, BindingResult result, @RequestParam("ids") int ids) {
         tripService.commentsListUpdateByOwner(commentsForm.getCommentsList());
-        ModelAndView modelAndView = mawWithTripInfoFormCommentsForm(ids);
+        ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
         modelAndView.setViewName("trip/show-managment-trip-comments");
         return modelAndView;
     }
 
-    ModelAndView mawWithTripInfoFormCommentsForm(int tripId){
+    ModelAndView mavWithTripInfoFormCommentsForm(int tripId){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
         modelAndView.addObject("form", tripService.tripsMemberWrapper(tripId));
@@ -91,7 +91,7 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
-    ModelAndView mawWithTripInfoAndDailyPlanForm(int tripId){
+    ModelAndView mavWithTripInfoAndDailyPlanForm(int tripId){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
         modelAndView.addObject("dailyPlanForm", new DailyTripPlan());
