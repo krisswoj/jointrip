@@ -47,7 +47,7 @@ public interface TripService {
 
     void tripMemberListUpdate(List<TripMember> tripMemberList);
 
-    String addedTripNotification(Trip trip);
+    boolean addedTripNotification(Trip trip);
 
     SystemNotification addedCommentNotification(Comments comment, int tripId);
 

@@ -16,8 +16,10 @@
                               th:object="${user}" method="post" class="form-horizontal"
                               role="form">
 
-                            <div class="col-sm-12" align="left" th:if="${param.success != null}">
-                                <label id="message" style="font-size: 20; color: forestgreen;">Rejestracja przebiegla pomyslnie <a href="/login">Zaloguj</a> </label>
+                            <div class="alert alert-success alert-dismissible" role="alert"
+                                 th:if="${param.success != null}">
+                                <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Ok</span></button>
+                                <label id="message" style="font-size: 20; color: forestgreen;">Rejestracja przebiegla pomyslnie <a href="/login">Zaloguj</a></label>
                             </div>
 
                             <div class="col-sm-12">
@@ -32,11 +34,10 @@
 
                             <div class="col-sm-12">
                                 <input type="email" th:field="*{email}" placeholder="Email"
-                                       class="form-control" th:required="required"/> <label
-                                    th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                       class="form-control" th:required="required"/>
+                                <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color: red"
                                     class="validation-message"></label>
                             </div>
-
 
                             <div class="col-sm-12">
                                 <input type="password" th:field="*{password}"
@@ -44,7 +45,7 @@
                             </div>
 
                             <div class="col-sm-12">
-                                <button type="submit" name="Submit" class="btn buttonTransparent">Register User</button>
+                                <button type="submit" name="Submit" class="btn buttonTransparent">Zarejestruj</button>
                             </div>
 
                         </form>

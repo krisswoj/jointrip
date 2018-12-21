@@ -21,7 +21,22 @@
                             <!--</li>-->
                         </ul>
 
+                        <div class="alert alert-success alert-dismissible" role="alert"
+                             th:if="${message?.systemNotification?.containsKey('true')}">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Ok</span>
+                            </button>
+                            <span id="messageSuccess" th:text="${message.systemNotification.get('true')}"/>
+                        </div>
+                        <div class="alert alert-danger alert-dismissible" role="alert"
+                             th:if="${message?.systemNotification?.containsKey('fail')}">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Ok</span>
+                            </button>
+                            <span id="messageFailed" th:text="${message.systemNotification.get('fail')}"/>
+                        </div>
+
                         <div class="tab-content">
+                            <form th:action="@{/myTripManagment(ids=${tripInfo.trip.id})}" method="POST"
+                                  role="form" class="form" th:object="${form}">
                             <div id="user-list" class="tab-pane fade">
                                 <table class="table table-striped">
                                     <tr>
@@ -29,8 +44,7 @@
                                         <th>Operacje</th>
                                     </tr>
 
-                                    <form th:action="@{/myTripManagment(ids=${tripInfo.trip.id})}" method="POST"
-                                          role="form" class="form" th:object="${form}">
+
 
 
                                         <tr th:each="trip, itemStat : ${form.tripMemberList}">
@@ -50,14 +64,16 @@
                                                     <input type="hidden"
                                                            th:field="*{tripMemberList[__${itemStat.index}__].id}"/>
                                                 </div>
-                                                <button type="submit" class="btn buttonCustomPrimary">Zmień</button>
+
                                             </td>
 
-
                                         </tr>
-                                    </form>
                                 </table>
                             </div>
+                                <div style="float: right">
+                                    <button name="Submit" type="submit" class="btn buttonCustomPrimary">Zmień</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

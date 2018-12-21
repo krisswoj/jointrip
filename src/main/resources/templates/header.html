@@ -25,7 +25,7 @@
                     <li sec:authorize="isAnonymous()"><a id="loginLink" href="/login">Zaloguj</a></li>
 
                     <li class="dropdown singleDrop">
-                        <a id="tripsLink" href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                        <a id="tripsLink" hFref="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Wycieczki</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li class="" sec:authorize="isAnonymous()"><a id="showTripsUnloggedLink" href="/trips">Pokaż wycieczki</a></li>
@@ -49,9 +49,9 @@
                            aria-haspopup="true" aria-expanded="false">Admin</a>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li class=""><a id="acceptationPanelLink" href="/admin/acceptationPanel">Akceptacja wycieczek</a></li>
-                            <li class=""><a href="/admin/allTripsPanel">Zarządzanie wycieczkami</a></li>
-                            <li class=""><a href="/admin/allUsersPanel">Zarządzanie użytkownikami</a></li>
-                            <li class=""><a href="/admin/pageStatistics">Statystyki</a></li>
+                            <li class=""><a id="adminTripManagementLink" href="/admin/allTripsPanel">Zarządzanie wycieczkami</a></li>
+                            <li class=""><a id="adminUserManagementLink" href="/admin/allUsersPanel">Zarządzanie użytkownikami</a></li>
+                            <li class=""><a id="statisticsLink" href="/admin/pageStatistics">Statystyki</a></li>
                         </ul>
                     </li>
 
@@ -65,7 +65,7 @@
                         </ul>
                     </li>
                     <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
-                        <a href="/logout" class="dropdown-toggle">Wyloguj <span sec:authentication="name">Username</span></a>
+                        <a id="logoutLink" href="/logout" class="dropdown-toggle">Wyloguj <span sec:authentication="name">Username</span></a>
                     </li>
                 </ul>
             </div>

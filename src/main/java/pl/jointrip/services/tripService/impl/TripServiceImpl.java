@@ -239,8 +239,8 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public String addedTripNotification(Trip trip) {
-        return (saveTrip(trip)) ? tripPositive : tripNegative;
+    public boolean addedTripNotification(Trip trip) {
+        return saveTrip(trip);
     }
 
     @Override

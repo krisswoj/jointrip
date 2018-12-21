@@ -1,6 +1,7 @@
 package pl.jointrip.controllers.logged.trip;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
 import pl.jointrip.models.entities.trip.DailyTripPlan;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
+import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.services.tripService.DailyTripPlanService;
 import pl.jointrip.services.tripService.TripService;
 
@@ -22,6 +24,12 @@ public class OrganizerTripController {
 
     @Autowired
     DailyTripPlanService dailyTripPlanService;
+
+    @Value("${USER_STATUS_CHANGED_POSITIVE}")
+    private String userPositive;
+
+    @Value("${USER_STATUS_CHANGED_NEGATIVE}")
+    private String userNegative;
 
     @GetMapping(value = "/myTripsManagment")
     public ModelAndView tripsManagmentList() {
@@ -64,6 +72,9 @@ public class OrganizerTripController {
     public ModelAndView changeTripMemberStatus(@ModelAttribute TripsMemberWrapper form, BindingResult result, @RequestParam("ids") int ids) {
         tripService.tripMemberListUpdate(form.getTripMemberList());
         ModelAndView modelAndView = mavWithTripInfoFormCommentsForm(ids);
+        boolean result1 = true;
+        SystemNotification systemNotification = result1 ? new SystemNotification("true", userPositive) : new SystemNotification("fail", userNegative);
+        modelAndView.addObject("message", systemNotification);
         modelAndView.setViewName("trip/show-managment-trip-users");
         return modelAndView;
     }
