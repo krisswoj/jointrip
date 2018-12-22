@@ -12,6 +12,7 @@ import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
 import pl.jointrip.services.documentsService.DocumentsService;
 import pl.jointrip.services.userService.UserService;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
@@ -31,8 +32,12 @@ public class DocsApprovalController {
     }
 
     @PostMapping(value = "/user/docsApproval")
-    public ModelAndView handleFileUpload(DocumentsApprovalViewModel viewModel) {
+    public ModelAndView handleFileUpload(DocumentsApprovalViewModel viewModel, HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
+
+        String pathh = request.getRealPath("/");
+        pathh.getBytes();
+
         Boolean result = new Boolean(false);
         if (viewModel.getFile().getSize() > 0) {
             viewModel.setLoggedUser(userService.getLoggedUser());
