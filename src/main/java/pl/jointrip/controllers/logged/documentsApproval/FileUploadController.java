@@ -1,82 +1,65 @@
 package pl.jointrip.controllers.logged.documentsApproval;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.jointrip.services.imagesUploadServices.StorageFileNotFoundException;
+import pl.jointrip.services.imagesUploadServices.StorageService;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.util.stream.Collectors;
 
 @Controller
 public class FileUploadController {
 
-    private static final String PIZZA_IMAGES = "pizzaImages";
-    private static final String TOMCAT_HOME_PROPERTY = "catalina.home";
-    private static final String TOMCAT_HOME_PATH = System.getProperty(TOMCAT_HOME_PROPERTY);
-    private static final String PIZZA_IMAGES_PATH = TOMCAT_HOME_PATH + File.separator + PIZZA_IMAGES;
+    private final StorageService storageService;
 
-    private static final File PIZZA_IMAGES_DIR = new File(PIZZA_IMAGES_PATH);
-    private static final String PIZZA_IMAGES_DIR_ABSOLUTE_PATH = PIZZA_IMAGES_DIR.getAbsolutePath() + File.separator;
-
-    private static final String FAILED_UPLOAD_MESSAGE = "You failed to upload [%s] because the file because %s";
-    private static final String SUCCESS_UPLOAD_MESSAGE = "You successfully uploaded file = [%s]";
-
-
-    @GetMapping(value = "/uploadFile")
-    public ModelAndView uploadFileTest(){
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.addObject("message", "none");
-        modelAndView.setViewName("upload-form");
-        return modelAndView;
+    @Autowired
+    public FileUploadController(StorageService storageService) {
+        this.storageService = storageService;
     }
 
-    @RequestMapping(value = "/uploadFile", method = RequestMethod.POST)
-    public ModelAndView uploadFileHandler(@RequestParam("name") String name,
-                                          @RequestParam("file") MultipartFile file) {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("upload-form");
+    @GetMapping("/u")
+    public String listUploadedFiles(Model model) throws IOException {
 
-        if (file.isEmpty()) {
-            modelAndView.addObject("message", String.format(FAILED_UPLOAD_MESSAGE, name, "file is empty"));
-        } else {
-            createPizzaImagesDirIfNeeded();
-            modelAndView.addObject("message", createImage(name, file));
-        }
+        model.addAttribute("files", storageService.loadAll().map(
+                path -> MvcUriComponentsBuilder.fromMethodName(FileUploadController.class,
+                        "serveFile", path.getFileName().toString()).build().toString())
+                .collect(Collectors.toList()));
 
-        return modelAndView;
+        return "uploadForm";
     }
 
-    private void createPizzaImagesDirIfNeeded() {
-        if (!PIZZA_IMAGES_DIR.exists()) {
-            PIZZA_IMAGES_DIR.mkdirs();
-        }
-    }
-
-    private String createImage(String name, MultipartFile file) {
-        try {
-            File image = new File(PIZZA_IMAGES_DIR_ABSOLUTE_PATH + name);
-            BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(image));
-            stream.write(file.getBytes());
-            stream.close();
-
-            return String.format(SUCCESS_UPLOAD_MESSAGE, name);
-        } catch (Exception e) {
-            return String.format(FAILED_UPLOAD_MESSAGE, name, e.getMessage());
-        }
-    }
-
-    @RequestMapping(value = "/image/{imageName}")
+    @GetMapping("u/files/{filename:.+}")
     @ResponseBody
-    public byte[] getImage(@PathVariable(value = "imageName") String imageName) throws IOException {
-        createPizzaImagesDirIfNeeded();
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
 
-        File serverFile = new File(PIZZA_IMAGES_DIR_ABSOLUTE_PATH + imageName + ".jpg");
+        Resource file = storageService.loadAsResource(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }
 
-        return Files.readAllBytes(serverFile.toPath());
+    @PostMapping("/u")
+    public String handleFileUpload(@RequestParam("file") MultipartFile file,
+            RedirectAttributes redirectAttributes) {
+
+        storageService.store(file);
+        redirectAttributes.addFlashAttribute("message",
+                "You successfully uploaded " + file.getOriginalFilename() + "!");
+
+        return "redirect:/u";
+    }
+
+    @ExceptionHandler(StorageFileNotFoundException.class)
+    public ResponseEntity<?> handleStorageFileNotFound(StorageFileNotFoundException exc) {
+        return ResponseEntity.notFound().build();
     }
 
 }
