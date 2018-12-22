@@ -9,4 +9,8 @@ public class JointripApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(JointripApplication.class, args);
 	}
+
+
 }
+
+
