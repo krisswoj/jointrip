@@ -1,12 +1,28 @@
 package pl.jointrip;
 
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import pl.jointrip.services.imagesUploadServices.StorageProperties;
+import pl.jointrip.services.imagesUploadServices.StorageService;
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class JointripApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JointripApplication.class, args);
 	}
+
+	@Bean
+	CommandLineRunner init(StorageService storageService) {
+		return (args) -> {
+			storageService.deleteAll();
+			storageService.init();
+		};
+	}
 }
+
+
