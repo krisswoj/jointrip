@@ -8,19 +8,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
+import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.trip.DailyTripPlan;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.models.system.SystemNotification;
+import pl.jointrip.services.imagesUploadServices.ImagesService;
 import pl.jointrip.services.tripService.DailyTripPlanService;
 import pl.jointrip.services.tripService.TripService;
+
+import javax.validation.Valid;
+import java.io.File;
 
 @Controller
 public class OrganizerTripController {
 
     @Autowired
     TripService tripService;
+
+    @Autowired
+    ImagesService imagesService;
 
     @Autowired
     DailyTripPlanService dailyTripPlanService;
@@ -94,7 +103,24 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
-    ModelAndView mavWithTripInfoFormCommentsForm(int tripId){
+    @GetMapping(value = "/myTripManagment/gallery{ids}")
+    public ModelAndView travellerPanelGallery(@RequestParam("ids") int ids) {
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
+        modelAndView.addObject("galleryForm", new ImagesStore());
+        modelAndView.setViewName("trip/show-managment-trip-gallery");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/myTripManagment/gallery{ids}")
+    public ModelAndView travellerPanelGallery(@Valid ImagesStore imagesStore, BindingResult result, @RequestParam("file") MultipartFile file, @RequestParam("ids") int ids){
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
+        imagesService.saveImage(file, tripService.findById(ids), imagesStore);
+        modelAndView.addObject("galleryForm", new ImagesStore());
+        modelAndView.setViewName("trip/show-managment-trip-gallery");
+        return modelAndView;
+    }
+
+    ModelAndView mavWithTripInfoFormCommentsForm(int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
         modelAndView.addObject("form", tripService.tripsMemberWrapper(tripId));
@@ -102,7 +128,7 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
-    ModelAndView mavWithTripInfoAndDailyPlanForm(int tripId){
+    ModelAndView mavWithTripInfoAndDailyPlanForm(int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
         modelAndView.addObject("dailyPlanForm", new DailyTripPlan());

@@ -5,8 +5,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import pl.jointrip.services.imagesUploadServices.StorageProperties;
-import pl.jointrip.services.imagesUploadServices.StorageService;
+import pl.jointrip.services.imagesUploadServices.core.StorageProperties;
+import pl.jointrip.services.imagesUploadServices.core.StorageService;
 
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
@@ -19,7 +19,7 @@ public class JointripApplication {
 	@Bean
 	CommandLineRunner init(StorageService storageService) {
 		return (args) -> {
-			storageService.deleteAll();
+//			storageService.deleteAll();
 			storageService.init();
 		};
 	}
