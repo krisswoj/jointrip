@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.user.User;
 
 import javax.persistence.*;
@@ -60,9 +61,10 @@ public class Trip {
     private List<TripMember> tripMembers;
     @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
     private List<Comments> comments;
-
     @OneToMany(mappedBy = "tripId")
     private List<DailyTripPlan> dailyTripPlans;
+    @OneToMany(mappedBy = "tripId")
+    private List<ImagesStore> imagesStoreList;
 
     @Basic
     @Column(name = "trip_street")

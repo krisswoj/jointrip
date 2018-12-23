@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripMember;
 
@@ -47,6 +48,8 @@ public class User {
     private Set<Role> roles;
     @OneToMany(mappedBy = "userId")
     private Collection<Documentstore> documentstoreCollection;
+    @OneToMany(mappedBy = "userId")
+    private List<ImagesStore> imagesStoresList;
 
     @Override
     public boolean equals(Object o) {

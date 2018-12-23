@@ -1,16 +1,20 @@
-package pl.jointrip.services.imagesUploadServices;
+package pl.jointrip.services.imagesUploadServices.core;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import pl.jointrip.dao.ImagesStoreRepository;
+import pl.jointrip.models.entities.documents.ImagesStore;
+import pl.jointrip.models.entities.trip.Trip;
+import pl.jointrip.models.entities.user.User;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,14 +27,20 @@ public class FileSystemStorageService implements StorageService {
     private final Path rootLocation;
 
     @Autowired
+    ImagesStoreRepository imagesStoreRepository;
+
+    @Autowired
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
     }
 
     @Override
-    public void store(MultipartFile file) {
+    public String storeFromTrip(MultipartFile file, Trip trip, User user) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
+            if(!file.getOriginalFilename().matches("[a-zA-Z-_0-9]+[.][a-z]+$")) {
+                throw new StorageException("File format is wrong " + filename);
+            }
             if (file.isEmpty()) {
                 throw new StorageException("Failed to store empty file " + filename);
             }
@@ -41,12 +51,21 @@ public class FileSystemStorageService implements StorageService {
                                 + filename);
             }
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, this.rootLocation.resolve(filename),
+                String newFileName = this.generateFileName(trip, user, filename);
+                Files.copy(inputStream, this.rootLocation.resolve(newFileName),
                         StandardCopyOption.REPLACE_EXISTING);
+                return newFileName;
             }
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + filename, e);
         }
+    }
+
+    @Override
+    public String generateFileName(Trip trip, User user, String oryginalFileName){
+        String[] splited = oryginalFileName.split("\\.");
+        String generatedString = RandomStringUtils.randomAlphanumeric(15).toLowerCase();
+        return String.format("%s_%s_%s.%s", trip.getId(), user.getUserId(), generatedString, splited[1]);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package pl.jointrip.services.imagesUploadServices;
+package pl.jointrip.services.imagesUploadServices.core;
 
 public class StorageFileNotFoundException extends StorageException {
 
