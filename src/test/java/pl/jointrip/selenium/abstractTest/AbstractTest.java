@@ -274,12 +274,12 @@ public abstract class AbstractTest {
         driver.findElement(By.id("organizatorEmail")).sendKeys("przyklad@gmail.com");
         driver.findElement(By.name("Submit")).click();
         try {
-            assertTrue(isElementPresent(By.id("message")));
+            assertTrue(isElementPresent(By.id("messageSuccess")));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
         try {
-            assertEquals("Wycieczka zostala dodana pomyslnie", driver.findElement(By.id("message")).getText());
+            assertEquals("Wycieczka zostala dodana pomyslnie", driver.findElement(By.id("messageSuccess")).getText());
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -433,12 +433,12 @@ public abstract class AbstractTest {
         driver.findElement(By.id("organizatorEmail")).sendKeys("przyklad@gmail.com");
         driver.findElement(By.name("Submit")).click();
         try {
-            assertTrue(isElementPresent(By.id("message")));
+            assertTrue(isElementPresent(By.id("messageSuccess")));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
         try {
-            assertEquals("Wycieczka zostala dodana pomyslnie", driver.findElement(By.id("message")).getText());
+            assertEquals("Wycieczka zostala dodana pomyslnie", driver.findElement(By.id("messageSuccess")).getText());
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }

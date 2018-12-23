@@ -2,6 +2,7 @@ package pl.jointrip.selenium;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pl.jointrip.selenium.abstractTest.AbstractTest;
 
 import static org.junit.Assert.assertEquals;
@@ -70,6 +71,9 @@ public class RegisterUserTest extends AbstractTest {
         driver.findElement(By.id("email")).click();
         driver.findElement(By.id("email")).clear();
         driver.findElement(By.id("email")).sendKeys("user" + generator.nextInt(99999) + "@gmail.com");
+        driver.findElement(By.id("password")).click();
+        driver.findElement(By.id("password")).clear();
+        driver.findElement(By.id("password")).sendKeys("qwe123");
         driver.findElement(By.name("Submit")).click();
         try {
             assertTrue(isElementPresent(By.id("message")));
