@@ -84,7 +84,7 @@
                                 </a>
                                 <div class="media-body">
                                     <div class="bodyLeft">
-                                        <h4 class="media-heading"><a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}" th:text="${element.trip.tripTitle}"></a></h4>
+                                        <h4 class="media-heading"><a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}" th:text="${element.trip.tripTitle}" th:id="${element.trip.tripTitle}"></a></h4>
                                             <span><b th:text="${element.trip.tripCountry}"></b></span>
                                         <p th:text="${element.trip.tripShortDesc}"/>
                                         <ul class="list-inline detailsBtn">

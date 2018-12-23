@@ -194,7 +194,7 @@
                                             </div>
                                             <div class="col-sm-12" sec:authorize="isAuthenticated()">
                                                 <span th:if="${userIsAMember}" class="btn btn-block buttonTransparent disabled">Jesteś już uczestnikiem</span>
-                                                <span th:unless="${userIsAMember}"><a href="/showTrip"
+                                                <span th:unless="${userIsAMember}"><a id="joinTripLink" href="/showTrip"
                                                                                       th:href="@{/showTrip(join=${tripInfo.id})}"
                                                                                       class="btn btn-block buttonTransparent">Jestem zainteresowany<i
                                                         class="fa fa-angle-right" aria-hidden="true"></i></a></span>
