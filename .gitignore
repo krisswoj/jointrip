@@ -29,6 +29,7 @@ target/maven-status/maven-compiler-plugin/
 lab01.iml
 target/
 upload-dir/
+files/
 out/
 .env
 UploadedImages/
