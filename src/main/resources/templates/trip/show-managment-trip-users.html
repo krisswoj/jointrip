@@ -12,13 +12,10 @@
 
                         <ul class="nav nav-tabs" role="tablist" id="tablist" style="margin-bottom: 15px">
                             <li role="presentation">
-                                <a href="#user-list" aria-controls="add" role="tab" data-toggle="tab">Lista użytkowników</a>
+                                <a href="#user-list" aria-controls="add" role="tab" data-toggle="tab">Lista
+                                    użytkowników</a>
 
                             </li>
-                            <!--<li role="presentation">-->
-                                <!--<a href="#added" aria-controls="added" role="tab" data-toggle="tab">Aktualny plan-->
-                                    <!--wycieczki</a>-->
-                            <!--</li>-->
                         </ul>
 
                         <div class="alert alert-success alert-dismissible" role="alert"
@@ -37,20 +34,16 @@
                         <div class="tab-content">
                             <form th:action="@{/myTripManagment(ids=${tripInfo.trip.id})}" method="POST"
                                   role="form" class="form" th:object="${form}">
-                            <div id="user-list" class="tab-pane fade">
-                                <table class="table table-striped">
-                                    <tr>
-                                        <th>Email</th>
-                                        <th>Operacje</th>
-                                    </tr>
-
-
-
+                                <div id="user-list" class="tab-pane fade">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Operacje</th>
+                                        </tr>
 
                                         <tr th:each="trip, itemStat : ${form.tripMemberList}">
                                             <td th:text="${trip.tripMember.email}"></td>
                                             <td>
-
 
                                                 <div class="bookingDrop">
                                                     <select th:field="*{tripMemberList[__${itemStat.index}__].status}"
@@ -64,12 +57,10 @@
                                                     <input type="hidden"
                                                            th:field="*{tripMemberList[__${itemStat.index}__].id}"/>
                                                 </div>
-
                                             </td>
-
                                         </tr>
-                                </table>
-                            </div>
+                                    </table>
+                                </div>
                                 <div style="float: right">
                                     <button name="Submit" type="submit" class="btn buttonCustomPrimary">Zmień</button>
                                 </div>
@@ -85,15 +76,21 @@
                             <div class="panel-heading">Zarządzaj wycieczką</div>
                             <div class="panel-body">
                                 <div class="list-group">
-                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item">Informacje główne</a>
-                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}" class="list-group-item active">Lista użytkowników</a>
-                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}" class="list-group-item">Plan wycieczki</a>
+                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item">Informacje
+                                        główne</a>
+                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item active">Lista użytkowników</a>
+                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Plan wycieczki</a>
                                     <a href="#" class="list-group-item">Wiadomości</a>
-                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}" class="list-group-item">Komentarze</a>
+                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Komentarze</a>
                                     <a href="#" class="list-group-item">Pliki do pobrania</a>
-                                    <a href="#" class="list-group-item">Galeria</a>
+                                    <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>
-                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item" target="_blank">Podgląd wycieczki</a>
+                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item"
+                                       target="_blank">Podgląd wycieczki</a>
                                 </div>
                             </div>
                         </div>
@@ -102,7 +99,4 @@
             </div>
         </div>
     </section>
-
-    <!--test commit-->
-
 </div>
