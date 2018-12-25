@@ -12,16 +12,57 @@
 
                         <ul class="nav nav-tabs" role="tablist" id="tablist" style="margin-bottom: 15px">
                             <li role="presentation">
-                                <a href="#add" aria-controls="add" role="tab" data-toggle="tab">Wgraj zdjęcie</a>
+                                <a href="#add" aria-controls="add" role="tab" data-toggle="tab">Lista zdjęć</a>
 
                             </li>
                             <li role="presentation">
-                                <a href="#added" aria-controls="added" role="tab" data-toggle="tab">Lista zdjęć</a>
+                                <a href="#added" aria-controls="added" role="tab" data-toggle="tab">Wgraj zdjęcia</a>
                             </li>
                         </ul>
 
                         <div class="tab-content">
+
+
                             <div id="add" class="tab-pane fade">
+
+                                <div class="row isotopeContainer" id="container">
+
+                                    <div class="col-sm-12 isotopeSelector"
+                                         th:if="${#lists.isEmpty(tripInfo.trip.imagesStoreList)}">
+                                        <article class="">
+                                            <figure>
+                                                <img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"
+                                                     alt="">
+                                            </figure>
+                                        </article>
+                                    </div>
+
+
+                                    <div class="col-sm-3 isotopeSelector"
+                                         th:each="tripEach : ${tripInfo.trip.imagesStoreList}">
+                                        <article class="">
+                                            <figure>
+                                                <img th:src="'../files/' + ${tripEach.imgName}" alt="">
+
+                                                <div class="overlay-background">
+                                                    <div class="inner"></div>
+                                                </div>
+                                                <div class="overlay">
+                                                    <a class="fancybox-pop" rel="portfolio-1"
+                                                       th:href="'../files/' + ${tripEach.imgName}">
+                                                    </a>
+                                                </div>
+                                            </figure>
+                                        </article>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <div id="added" class="tab-pane fade">
+
                                 <div class="bookingForm">
                                     <form th:action="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
                                           method="POST" enctype="multipart/form-data" th:object="${galleryForm}">
@@ -35,12 +76,13 @@
 
                                             <div class="form-group col-sm-12 col-xs-12">
                                                 <label for="name-plan">Wgraj zdjęcie</label>
-                                                <input type="file" class="form-control-file" name="file" />
+                                                <input type="file" class="form-control-file" name="file"/>
                                             </div>
 
                                             <div class="checkbox col-xs-12">
                                                 <label>
-                                                    <input type="checkbox" th:field="*{mainTripImg}" th:value="${1}">Ustaw jako główne zdjęcie</a>
+                                                    <input type="checkbox" th:field="*{mainTripImg}" th:value="${1}">Ustaw
+                                                    jako główne zdjęcie</a>
                                                 </label>
                                             </div>
 
@@ -58,29 +100,34 @@
                                         </div>
                                     </form>
                                 </div>
-                            </div>
-                            <div id="added" class="tab-pane fade">
+
                             </div>
                         </div>
                     </div>
                 </div>
 
 
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <div class="col-xs-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">Zarządzaj wycieczką</div>
                             <div class="panel-body">
                                 <div class="list-group">
-                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item">Informacje główne</a>
-                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}" class="list-group-item">Lista użytkowników</a>
-                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}" class="list-group-item active">Plan wycieczki</a>
+                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item">Informacje
+                                        główne</a>
+                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Lista użytkowników</a>
+                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Plan wycieczki</a>
                                     <a href="#" class="list-group-item">Wiadomości</a>
-                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}" class="list-group-item">Komentarze</a>
+                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Komentarze</a>
                                     <a href="#" class="list-group-item">Pliki do pobrania</a>
-                                    <a href="#" class="list-group-item">Galeria</a>
+                                    <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item active">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>
-                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item" target="_blank">Podgląd wycieczki</a>
+                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item"
+                                       target="_blank">Podgląd wycieczki</a>
                                 </div>
                             </div>
                         </div>

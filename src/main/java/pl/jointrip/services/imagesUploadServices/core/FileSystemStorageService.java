@@ -38,7 +38,7 @@ public class FileSystemStorageService implements StorageService {
     public String storeFromTrip(MultipartFile file, Trip trip, User user) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
-            if(!file.getOriginalFilename().matches("[a-zA-Z-_0-9]+[.][a-z]+$")) {
+            if(!file.getOriginalFilename().matches("[a-zA-Z-_0-9\\-() ]+[.][a-z]+$")) {
                 throw new StorageException("File format is wrong " + filename);
             }
             if (file.isEmpty()) {
@@ -110,15 +110,15 @@ public class FileSystemStorageService implements StorageService {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
 
-    @Override
-    public void init() {
-
-        if (Files.notExists(rootLocation)) {
-            try {
-                Files.createDirectories(rootLocation);
-            } catch (IOException e) {
-                throw new StorageException("Could not initialize storage", e);
-            }
-        }
-    }
+//    @Override
+//    public void init() {
+//
+//        if (Files.notExists(rootLocation)) {
+//            try {
+//                Files.createDirectories(rootLocation);
+//            } catch (IOException e) {
+//                throw new StorageException("Could not initialize storage", e);
+//            }
+//        }
+//    }
 }

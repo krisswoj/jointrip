@@ -120,7 +120,7 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
-    ModelAndView mavWithTripInfoFormCommentsForm(int tripId) {
+    private ModelAndView mavWithTripInfoFormCommentsForm(int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
         modelAndView.addObject("form", tripService.tripsMemberWrapper(tripId));
@@ -128,7 +128,7 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
-    ModelAndView mavWithTripInfoAndDailyPlanForm(int tripId) {
+    private ModelAndView mavWithTripInfoAndDailyPlanForm(int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
         modelAndView.addObject("dailyPlanForm", new DailyTripPlan());

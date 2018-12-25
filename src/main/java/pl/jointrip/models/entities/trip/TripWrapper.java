@@ -3,6 +3,7 @@ package pl.jointrip.models.entities.trip;
 import lombok.Getter;
 import lombok.Setter;
 import pl.jointrip.models.entities.documents.Documentstore;
+import pl.jointrip.models.entities.documents.ImagesStore;
 
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ public class TripWrapper {
     private Map<String, Integer> statistics;
     private List<DailyTripPlan> dailyTripPlanList;
     private List<Documentstore> documentstoreList;
+    private List<ImagesStore> imagesStoreList;
 
     public TripWrapper(Trip trip) {
         this.trip = trip;

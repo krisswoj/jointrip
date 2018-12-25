@@ -12,13 +12,10 @@
 
                         <ul class="nav nav-tabs" role="tablist" id="tablist" style="margin-bottom: 15px">
                             <li role="presentation">
-                                <a href="#main-info" aria-controls="add" role="tab" data-toggle="tab">Informacje ogólne</a>
+                                <a href="#main-info" aria-controls="add" role="tab" data-toggle="tab">Informacje
+                                    ogólne</a>
 
                             </li>
-                            <!--<li role="presentation">-->
-                                <!--<a href="#added" aria-controls="added" role="tab" data-toggle="tab">Aktualny plan-->
-                                    <!--wycieczki</a>-->
-                            <!--</li>-->
                         </ul>
 
                         <div class="tab-content">
@@ -28,7 +25,8 @@
                                     <fieldset disabled>
                                         <div class="form-group">
                                             <label>Wycieczka</label>
-                                            <input type="text" class="form-control" th:value="${tripInfo.trip.tripTitle}">
+                                            <input type="text" class="form-control"
+                                                   th:value="${tripInfo.trip.tripTitle}">
                                         </div>
                                     </fieldset>
                                 </div>
@@ -49,7 +47,8 @@
                                     <fieldset disabled>
                                         <div class="form-group">
                                             <label>Data dodania</label>
-                                            <input type="text" class="form-control" th:value="${tripInfo.trip.tripCreateDate}">
+                                            <input type="text" class="form-control"
+                                                   th:value="${tripInfo.trip.tripCreateDate}">
                                         </div>
                                     </fieldset>
                                 </div>
@@ -66,15 +65,21 @@
                             <div class="panel-heading">Zarządzaj wycieczką</div>
                             <div class="panel-body">
                                 <div class="list-group">
-                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item active">Informacje główne</a>
-                                    <a id="userListLink" th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}" class="list-group-item">Lista użytkowników</a>
-                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}" class="list-group-item">Plan wycieczki</a>
+                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item active">Informacje główne</a>
+                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Lista użytkowników</a>
+                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Plan wycieczki</a>
                                     <a href="#" class="list-group-item">Wiadomości</a>
-                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}" class="list-group-item">Komentarze</a>
+                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Komentarze</a>
                                     <a href="#" class="list-group-item">Pliki do pobrania</a>
-                                    <a href="#" class="list-group-item">Galeria</a>
+                                    <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>
-                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item" target="_blank">Podgląd wycieczki</a>
+                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item"
+                                       target="_blank">Podgląd wycieczki</a>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +88,4 @@
             </div>
         </div>
     </section>
-
-    <!--test commit-->
-
 </div>

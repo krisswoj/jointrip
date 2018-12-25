@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 public interface StorageService {
 
-    void init();
+//    void init();
 
     String storeFromTrip(MultipartFile file, Trip trip, User user);
 
