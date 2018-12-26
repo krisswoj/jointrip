@@ -17,6 +17,7 @@ public class TripWrapper {
     private List<DailyTripPlan> dailyTripPlanList;
     private List<Documentstore> documentstoreList;
     private List<ImagesStore> imagesStoreList;
+    private ImagesStore mainImageStore;
 
     public TripWrapper(Trip trip) {
         this.trip = trip;
@@ -25,6 +26,12 @@ public class TripWrapper {
     public TripWrapper(Trip trip, Map<String, Integer> statistics) {
         this.trip = trip;
         this.statistics = statistics;
+    }
+
+    public TripWrapper(Trip trip, Map<String, Integer> statistics, ImagesStore mainImageStore) {
+        this.trip = trip;
+        this.statistics = statistics;
+        this.mainImageStore = mainImageStore;
     }
 
     public TripWrapper(Trip trip, List<DailyTripPlan> dailyTripPlanList, List<Documentstore> documentstoreList) {

@@ -9,6 +9,7 @@ import pl.jointrip.dao.TripRepository;
 import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
+import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripMember;
 import pl.jointrip.models.entities.trip.TripWrapper;
@@ -200,7 +201,8 @@ public class TripServiceImpl implements TripService {
         tripStatistic.put("waitingForPayment", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 2).count());
         tripStatistic.put("paidMembers", (int) trip.getTripMembers().stream().filter(m -> m.getStatus() == 3).count());
         tripStatistic.put("commentsToAnswer", (int) trip.getComments().stream().filter(c -> c.getStatus() == 0).count());
-        return new TripWrapper(trip, tripStatistic);
+        ImagesStore imagesStore = trip.getImagesStoreList().stream().filter(i -> 1 == i.getMainTripImg()).findAny().orElse(null);
+        return new TripWrapper(trip, tripStatistic, imagesStore);
     }
 
     @Override
@@ -208,7 +210,8 @@ public class TripServiceImpl implements TripService {
         Map<String, Integer> tripStatistic = new HashMap<>();
         tripStatistic.put("daysAmount", daysAmountInTrip(trip));
         tripStatistic.put("membersAmount", trip.getTripMembers().size());
-        return new TripWrapper(trip, tripStatistic);
+        ImagesStore imagesStore = trip.getImagesStoreList().stream().filter(i -> 1 == i.getMainTripImg()).findAny().orElse(null);
+        return new TripWrapper(trip, tripStatistic, imagesStore);
     }
 
     @Override

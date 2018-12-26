@@ -28,21 +28,19 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div id="package-carousel" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
-                                    <li data-target="#package-carousel" data-slide-to="0" class="active"></li>
-                                    <li data-target="#package-carousel" data-slide-to="1" class=""></li>
-                                    <li data-target="#package-carousel" data-slide-to="2" class=""></li>
-                                </ol>
                                 <div class="carousel-inner">
-                                    <div class="item active">
-                                        <img alt="First slide" src="../img/holets/hotel-slider-01.jpg">
+
+                                    <div class="item active"
+                                         th:if="${#lists.isEmpty(tripInfo.imagesStoreList)}">
+
+                                                <img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"
+                                                     alt="">
                                     </div>
-                                    <div class="item">
-                                        <img alt="Second slide" src="../img/holets/hotel-slider-02.jpg">
+
+                                    <div th:each="tripEach, i : ${tripInfo.imagesStoreList}" th:attrappend="class=${i.index == 0 ? 'item active' : 'item'}">
+                                        <img alt="First slide" th:src="'../files/' + ${tripEach.imgName}">
                                     </div>
-                                    <div class="item">
-                                        <img alt="Third slide" src="../img/holets/hotel-slider-03.jpg">
-                                    </div>
+
                                 </div>
                                 <a class="left carousel-control" href="#package-carousel" data-slide="prev"><span
                                         class="glyphicon glyphicon-menu-left"></span></a>
@@ -92,7 +90,8 @@
                                             <div class="form-group">
                                                     <textarea class="form-control" rows="3"
                                                               placeholder="Wprowadź swoje zapytanie"
-                                                              th:field="*{userQuestion}" th:required="required"></textarea>
+                                                              th:field="*{userQuestion}"
+                                                              th:required="required"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -174,13 +173,13 @@
                                                 </div>
 
                                                 <!--<div class="media">-->
-                                                    <!--<a class="media-left" href="#">-->
-                                                        <!--<i class="fa fa-envelope" aria-hidden="true"></i>-->
-                                                    <!--</a>-->
-                                                    <!--<div class="media-body">-->
-                                                        <!--<h4 class="media-heading">E-mail</h4>-->
-                                                        <!--<p th:text="${tripInfo.organizatorEmail}"/>-->
-                                                    <!--</div>-->
+                                                <!--<a class="media-left" href="#">-->
+                                                <!--<i class="fa fa-envelope" aria-hidden="true"></i>-->
+                                                <!--</a>-->
+                                                <!--<div class="media-body">-->
+                                                <!--<h4 class="media-heading">E-mail</h4>-->
+                                                <!--<p th:text="${tripInfo.organizatorEmail}"/>-->
+                                                <!--</div>-->
                                                 <!--</div>-->
                                             </div>
 
@@ -193,7 +192,8 @@
                                                      th:text="${tripInfo.tripPriceMember} + ' zł'"></div>
                                             </div>
                                             <div class="col-sm-12" sec:authorize="isAuthenticated()">
-                                                <span th:if="${userIsAMember}" class="btn btn-block buttonTransparent disabled">Jesteś już uczestnikiem</span>
+                                                <span th:if="${userIsAMember}"
+                                                      class="btn btn-block buttonTransparent disabled">Jesteś już uczestnikiem</span>
                                                 <span th:unless="${userIsAMember}"><a id="joinTripLink" href="/showTrip"
                                                                                       th:href="@{/showTrip(join=${tripInfo.id})}"
                                                                                       class="btn btn-block buttonTransparent">Jestem zainteresowany<i

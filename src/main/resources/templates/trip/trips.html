@@ -6,7 +6,8 @@
 <div th:fragment="content">
 
     <!-- PAGE TITLE -->
-    <section class="pageTitle" style="background-image:url(../images/pages/page-title-bg6.jpg);padding: 0px;margin: 0px">
+    <section class="pageTitle"
+             style="background-image:url(../images/pages/page-title-bg6.jpg);padding: 0px;margin: 0px">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
@@ -29,7 +30,6 @@
             <div class="row">
 
 
-
                 <div class="col-sm-3 col-xs-12">
                     <aside>
                         <div class="panel panel-default packagesFilter">
@@ -49,7 +49,8 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12">
-                                        <div class="input-group date ed-datepicker filterDate" data-provide="datepicker">
+                                        <div class="input-group date ed-datepicker filterDate"
+                                             data-provide="datepicker">
                                             <input type="text" class="form-control" placeholder="MM/DD/YYYY">
                                             <div class="input-group-addon">
                                                 <span class="fa fa-calendar"></span>
@@ -57,7 +58,8 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12">
-                                        <div class="input-group date ed-datepicker filterDate" data-provide="datepicker">
+                                        <div class="input-group date ed-datepicker filterDate"
+                                             data-provide="datepicker">
                                             <input type="text" class="form-control" placeholder="MM/DD/YYYY">
                                             <div class="input-group-addon">
                                                 <span class="fa fa-calendar"></span>
@@ -74,22 +76,36 @@
                 </div>
 
 
-
                 <div class="col-sm-9  col-xs-12">
                     <div class="row sidebarPage">
                         <div class="col-xs-12">
                             <div class="media packagesList tripElement" th:each="element : ${showTripsWrapper}">
-                                <a class="media-left fancybox-pop" href="../images/packages/package-list-01.jpg">
-                                    <img class="media-object" src="../images/packages/package-list-01.jpg" alt="Image">
+
+                                <a class="media-left fancybox-pop"
+                                   th:attrappend="href=${element.mainImageStore == null ? '../files/no-picture-list.png' : '../files/' + element.mainImageStore.imgName}">
+                                    <img class="media-object" style="height:234px;"
+                                         th:attrappend="src=${element.mainImageStore == null ? '../files/no-picture-list.png' : '../files/' + element.mainImageStore.imgName}"
+                                         alt="Image">
                                 </a>
+
                                 <div class="media-body">
                                     <div class="bodyLeft">
-                                        <h4 class="media-heading"><a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}" th:text="${element.trip.tripTitle}" th:id="${element.trip.tripTitle}"></a></h4>
-                                            <span><b th:text="${element.trip.tripCountry}"></b></span>
+                                        <h4 class="media-heading"><a href="/showTrip"
+                                                                     th:href="@{/showTrip(ide=${element.trip.id})}"
+                                                                     th:text="${element.trip.tripTitle}"
+                                                                     th:id="${element.trip.tripTitle}"></a></h4>
+                                        <span><b th:text="${element.trip.tripCountry}"></b></span>
                                         <p th:text="${element.trip.tripShortDesc}"/>
                                         <ul class="list-inline detailsBtn">
-                                            <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i><span style="padding-left: 5px;font-weight: bold" th:text="${#dates.format(element.trip.tripStartDate, 'dd/MM/yyyy')}"></span></span></li>
-                                            <li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i><span style="padding-left: 5px;font-weight: bold" th:text="${element.getStatistics().get('daysAmount')}+' Dni'"></span></span></li>
+                                            <li><span class="textInfo"><i class="fa fa-calendar" aria-hidden="true"></i><span
+                                                    style="padding-left: 5px;font-weight: bold"
+                                                    th:text="${#dates.format(element.trip.tripStartDate, 'dd/MM/yyyy')}"></span></span>
+                                            </li>
+                                            <li><span class="textInfo"><i class="fa fa-clock-o"
+                                                                          aria-hidden="true"></i><span
+                                                    style="padding-left: 5px;font-weight: bold"
+                                                    th:text="${element.getStatistics().get('daysAmount')}+' Dni'"></span></span>
+                                            </li>
                                             <!--<li><span class="textInfo"><i class="fa fa-clock-o" aria-hidden="true"></i>to do</span></li>-->
                                         </ul>
                                     </div>
@@ -97,7 +113,8 @@
                                         <div class="bookingDetails">
                                             <h2 th:text="${element.trip.tripPriceMember}"/>
                                             <p>ZŁ/OSOBA</p>
-                                            <a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}" class="btn buttonTransparent clearfix">Szczegóły</a>
+                                            <a href="/showTrip" th:href="@{/showTrip(ide=${element.trip.id})}"
+                                               class="btn buttonTransparent clearfix">Szczegóły</a>
                                         </div>
                                     </div>
                                 </div>
@@ -109,5 +126,4 @@
             </div>
         </div>
     </section>
-
 </div>
