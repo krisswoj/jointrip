@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import pl.jointrip.selenium.abstractTest.AbstractTest;
+import sun.jvm.hotspot.utilities.AssertionFailure;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,6 +19,11 @@ public class UploadFileTest extends AbstractTest {
         login();
         actions.moveToElement(driver.findElement(By.id("userLink"))).perform();
         driver.findElement(By.id("docsApprovalLink")).click();
+        try {
+            assertTrue(isAttribtuePresent(driver.findElement(By.id("file")),"required"));
+        } catch (Error e) {
+            throw new AssertionFailure("Cannot find an attribute 'required'" + driver.findElement(By.id("file")) + " on element");
+        }
         driver.findElement(By.id("file")).click();
         driver.findElement(By.id("file")).clear();
         String filePath = System.getProperty("user.dir") + "/TestFileForSeleniumTest";

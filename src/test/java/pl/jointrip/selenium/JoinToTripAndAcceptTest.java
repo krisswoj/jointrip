@@ -15,10 +15,10 @@ import static org.junit.Assert.assertTrue;
 public class JoinToTripAndAcceptTest extends AbstractTest {
 
     @Test
-    public void testJoinToTripAndAcceptUser() throws Exception{
+    public void testJoinToTrip() throws Exception{
+
         driver.get(baseUrl);
         login("admin@gmail.com","qwe123");
-        String tripName = "Test For Selenium" + generator.nextInt(99999);
         addNewTrip(tripName);
         actions.moveToElement(driver.findElement(By.id("adminLink"))).perform();
         driver.findElement(By.id("acceptationPanelLink")).click();
@@ -40,6 +40,14 @@ public class JoinToTripAndAcceptTest extends AbstractTest {
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
+
+    }
+
+    @Test
+    public void testAcceptUserToTrip() throws Exception{
+
+        testJoinToTrip();
+
         driver.findElement(By.id("logoutLink")).click();
         login("admin@gmail.com", "qwe123");
         actions.moveToElement(driver.findElement(By.id("organiserLink"))).perform();
@@ -59,7 +67,6 @@ public class JoinToTripAndAcceptTest extends AbstractTest {
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
-
     }
 
 
