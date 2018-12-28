@@ -46,6 +46,7 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
 
     long countByTripStatus(int status);
 
-
+    @Query("select count(distinct t.tripCountry) from Trip t")
+    long tripCountryCount();
 
 }

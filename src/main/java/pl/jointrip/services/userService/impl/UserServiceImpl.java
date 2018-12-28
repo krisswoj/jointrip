@@ -56,10 +56,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByActive(status);
     }
 
-    public void changeUserStatus(int id, int status){
+    public boolean changeUserStatus(int id, int status){
         User user = userRepository.findByUserId(id);
         user.setActive(status);
-        userRepository.save(user);
+        try{
+            userRepository.save(user);
+        }
+        catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
     public boolean removeUser(int id){

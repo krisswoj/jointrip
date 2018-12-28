@@ -67,7 +67,39 @@
             </div>
         </section>
 
-
+        <section class="countUpSection">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="text-center">
+                            <div class="icon">
+                                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            </div>
+                            <div class="counter" th:text="${statistics.destinationsCount}"></div>
+                            <h5>Celów wycieczek</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="text-center">
+                            <div class="icon">
+                                <i class="fa fa-gift" aria-hidden="true"></i>
+                            </div>
+                            <div class="counter" th:text="${statistics.finishedTripsCount}"></div>
+                            <h5>Odbytych wycieczek</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-xs-6">
+                        <div class="text-center">
+                            <div class="icon">
+                                <i class="fa fa-smile-o" aria-hidden="true"></i>
+                            </div>
+                            <div id="activeUsersCount" class="counter" th:text="${statistics.activeUsersCount}"></div>
+                            <h5>Aktywnych użytkowników</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
 

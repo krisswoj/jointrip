@@ -13,7 +13,7 @@ public class UploadFileTest extends AbstractTest {
 
     @Ignore
     @Test
-    public void testUploadFile() throws Exception {
+    public void testUploadFile() throws Exception { // przyrost 4
         driver.get(baseUrl);
         login();
         actions.moveToElement(driver.findElement(By.id("userLink"))).perform();

@@ -16,7 +16,7 @@ public interface UserService {
 
     List<User> allUsersByStatus(int status);
 
-    void changeUserStatus(int id, int status);
+    boolean changeUserStatus(int id, int status);
 
     boolean removeUser(int id);
 }
