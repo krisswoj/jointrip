@@ -6,86 +6,275 @@
 <div th:fragment="content">
 
     <!-- BOOKING TYPE SECTION -->
-    <section class="bookingTypeSection">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bookingType bg-ash">
-                        <ul class="bookingList">
-                            <li><a href="">Aktywne</a></li>
-                            <li><a href="">W trakcie</a></li>
-                            <li><a href="">Zakończone</a></li>
-                            <li><a href="">Wszystkie</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PAGE CONTENT -->
     <section class="recentActivitySection">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 ">
-                    <div class="recentActivityContent bg-ash">
-                        <div class="dashboardPageTitle">
-                            <h2>Aktywne</h2>
-                        </div>
-                        <div class="table-responsive" data-pattern="priority-columns"
-                             th:each="count : ${managmentTrips}">
-                            <table class="table listingsTable">
-                                <tbody>
-                                <tr class="rowItem">
+                <div class="col-xs-12">
+                    <!--<div class="bookingType bg-ash">-->
+                    <div class="row sidebarPage">
+                        <!--<ul class="bookingList">-->
+                        <!--<li><a href="">Aktywne</a></li>-->
+                        <!--<li><a href="">W trakcie</a></li>-->
+                        <!--<li><a href="">Zakończone</a></li>-->
+                        <!--<li><a href="">Wszystkie</a></li>-->
+                        <!--</ul>-->
 
-                                    <td class="dateTd">
-                                        <ul class="text-center">
-                                            <li>
-                                                <h4 th:text="${#dates.format(count.trip.tripCreateDate, 'dd/MM/yyyy')}"/>
-                                            </li>
-                                        </ul>
-                                    </td>
+                        <ul class="nav nav-tabs" role="tablist" id="tablist" style="padding-top: 50px;">
+                            <li role="presentation">
+                                <a href="#active" aria-controls="topaid" role="tab" data-toggle="tab"
+                                   th:text="'Aktywne (' +${managmentTrips.get('acceptedTrips').size()}+ ')'"/>
+                            </li>
+                            <li role="presentation">
+                                <a href="#waitForVerify" aria-controls="wait" role="tab" data-toggle="tab"
+                                   th:text="'Oczekujące na weryfikacje (' +${managmentTrips.get('waitForVerify').size()}+ ')'"/>
+                            </li>
+                            <li role="presentation">
+                                <a href="#rejected" aria-controls="paid" role="tab" data-toggle="tab"
+                                   th:text="'Odrzucone (' +${managmentTrips.get('rejectedTrips').size()}+ ')'"/>
+                            </li>
+                            <li role="presentation">
+                                <a href="#finished" aria-controls="paid" role="tab" data-toggle="tab"
+                                   th:text="'Zakończone (' +${managmentTrips.get('finishedTrips').size()}+ ')'"/>
+                            </li>
+                        </ul>
 
-                                    <td class="packageTd">
-                                        <ul class="list-inline listingsInfo">
-                                            <li>
-                                                <h4><a th:href="@{/myTripManagment(ids=${count.trip.id})}"
-                                                       th:text="${count.trip.tripTitle}"/></h4>
-                                                <p th:text="${count.trip.tripCountry} + ', ' + ${count.trip.tripCity}"/>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td class="priceTd">
-                                        <ul class="list-inline listingsInfo text-right">
-                                            <li>
-                                                <h4 th:text="${count.trip.tripPriceMember} + ' zł'"/>
-                                                <p th:text="'Ilość członków: ' + ${count.trip.tripMembers.size()} + ' / ' + ${count.trip.tripMembersAmount}"/>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td class="bookingTd">
-                                        <ul class="list-inline listingsInfo text-left">
-                                            <li>
-                                                <h4>ID WYCIEKCZKI</h4>
-                                                <p th:text="${count.trip.id}"/>
-                                                <h4>OSOBY DO WERYFIKACJI</h4>
-                                                <p th:text="${count.statistics.get('membersToVerify')}"/>
-                                                <h4>OCZUEKUJĄCE NA ZAPŁATĘ</h4>
-                                                <p th:text="${count.statistics.get('waitingForPayment')}"/>
-                                                <h4>OSOBY OPŁACONE</h4>
-                                                <p th:text="${count.statistics.get('paidMembers')}"/>
-                                                <h4>KOMENTARZE DO ODPOWIEDZI</h4>
-                                                <p th:text="${count.statistics.get('commentsToAnswer')}"/>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+
+                        <div class="tab-content">
+
+
+                            <div id="waitForVerify" class="tab-pane fade">
+                                <div class="recentActivityContent bg-ash">
+                                    <div class="table-responsive" data-pattern="priority-columns"
+                                         th:each="count : ${managmentTrips.get('waitForVerify')}">
+                                        <table class="table listingsTable">
+                                            <tbody>
+                                            <tr class="rowItem">
+
+                                                <td class="dateTd">
+                                                    <ul class="text-center">
+                                                        <li>
+                                                            <h4 th:text="${#dates.format(count.trip.tripCreateDate, 'dd/MM/yyyy')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+
+                                                <td class="packageTd">
+                                                    <ul class="list-inline listingsInfo">
+                                                        <li>
+                                                            <h4><a th:href="@{/myTripManagment(ids=${count.trip.id})}"
+                                                                   th:text="${count.trip.tripTitle}"/></h4>
+                                                            <p th:text="${count.trip.tripCountry} + ', ' + ${count.trip.tripCity}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="priceTd">
+                                                    <ul class="list-inline listingsInfo text-right">
+                                                        <li>
+                                                            <h4 th:text="${count.trip.tripPriceMember} + ' zł'"/>
+                                                            <p th:text="'Ilość członków: ' + ${count.trip.tripMembers.size()} + ' / ' + ${count.trip.tripMembersAmount}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="bookingTd">
+                                                    <ul class="list-inline listingsInfo text-left">
+                                                        <li>
+                                                            <h4>ID WYCIEKCZKI</h4>
+                                                            <p th:text="${count.trip.id}"/>
+                                                            <h4>OSOBY DO WERYFIKACJI</h4>
+                                                            <p th:text="${count.statistics.get('membersToVerify')}"/>
+                                                            <h4>OCZUEKUJĄCE NA ZAPŁATĘ</h4>
+                                                            <p th:text="${count.statistics.get('waitingForPayment')}"/>
+                                                            <h4>OSOBY OPŁACONE</h4>
+                                                            <p th:text="${count.statistics.get('paidMembers')}"/>
+                                                            <h4>KOMENTARZE DO ODPOWIEDZI</h4>
+                                                            <p th:text="${count.statistics.get('commentsToAnswer')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="active" class="tab-pane fade">
+                                <div class="recentActivityContent bg-ash">
+                                    <div class="table-responsive" data-pattern="priority-columns"
+                                         th:each="count : ${managmentTrips.get('acceptedTrips')}">
+                                        <table class="table listingsTable">
+                                            <tbody>
+                                            <tr class="rowItem">
+
+                                                <td class="dateTd">
+                                                    <ul class="text-center">
+                                                        <li>
+                                                            <h4 th:text="${#dates.format(count.trip.tripCreateDate, 'dd/MM/yyyy')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+
+                                                <td class="packageTd">
+                                                    <ul class="list-inline listingsInfo">
+                                                        <li>
+                                                            <h4><a th:href="@{/myTripManagment(ids=${count.trip.id})}"
+                                                                   th:text="${count.trip.tripTitle}"/></h4>
+                                                            <p th:text="${count.trip.tripCountry} + ', ' + ${count.trip.tripCity}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="priceTd">
+                                                    <ul class="list-inline listingsInfo text-right">
+                                                        <li>
+                                                            <h4 th:text="${count.trip.tripPriceMember} + ' zł'"/>
+                                                            <p th:text="'Ilość członków: ' + ${count.trip.tripMembers.size()} + ' / ' + ${count.trip.tripMembersAmount}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="bookingTd">
+                                                    <ul class="list-inline listingsInfo text-left">
+                                                        <li>
+                                                            <h4>ID WYCIEKCZKI</h4>
+                                                            <p th:text="${count.trip.id}"/>
+                                                            <h4>OSOBY DO WERYFIKACJI</h4>
+                                                            <p th:text="${count.statistics.get('membersToVerify')}"/>
+                                                            <h4>OCZUEKUJĄCE NA ZAPŁATĘ</h4>
+                                                            <p th:text="${count.statistics.get('waitingForPayment')}"/>
+                                                            <h4>OSOBY OPŁACONE</h4>
+                                                            <p th:text="${count.statistics.get('paidMembers')}"/>
+                                                            <h4>KOMENTARZE DO ODPOWIEDZI</h4>
+                                                            <p th:text="${count.statistics.get('commentsToAnswer')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="rejected" class="tab-pane fade">
+                                <div class="recentActivityContent bg-ash">
+                                    <div class="table-responsive" data-pattern="priority-columns"
+                                         th:each="count : ${managmentTrips.get('rejectedTrips')}">
+                                        <table class="table listingsTable">
+                                            <tbody>
+                                            <tr class="rowItem">
+
+                                                <td class="dateTd">
+                                                    <ul class="text-center">
+                                                        <li>
+                                                            <h4 th:text="${#dates.format(count.trip.tripCreateDate, 'dd/MM/yyyy')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+
+                                                <td class="packageTd">
+                                                    <ul class="list-inline listingsInfo">
+                                                        <li>
+                                                            <h4><a th:href="@{/myTripManagment(ids=${count.trip.id})}"
+                                                                   th:text="${count.trip.tripTitle}"/></h4>
+                                                            <p th:text="${count.trip.tripCountry} + ', ' + ${count.trip.tripCity}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="priceTd">
+                                                    <ul class="list-inline listingsInfo text-right">
+                                                        <li>
+                                                            <h4 th:text="${count.trip.tripPriceMember} + ' zł'"/>
+                                                            <p th:text="'Ilość członków: ' + ${count.trip.tripMembers.size()} + ' / ' + ${count.trip.tripMembersAmount}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="bookingTd">
+                                                    <ul class="list-inline listingsInfo text-left">
+                                                        <li>
+                                                            <h4>ID WYCIEKCZKI</h4>
+                                                            <p th:text="${count.trip.id}"/>
+                                                            <h4>OSOBY DO WERYFIKACJI</h4>
+                                                            <p th:text="${count.statistics.get('membersToVerify')}"/>
+                                                            <h4>OCZUEKUJĄCE NA ZAPŁATĘ</h4>
+                                                            <p th:text="${count.statistics.get('waitingForPayment')}"/>
+                                                            <h4>OSOBY OPŁACONE</h4>
+                                                            <p th:text="${count.statistics.get('paidMembers')}"/>
+                                                            <h4>KOMENTARZE DO ODPOWIEDZI</h4>
+                                                            <p th:text="${count.statistics.get('commentsToAnswer')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div id="finished" class="tab-pane fade">
+                                <div class="recentActivityContent bg-ash">
+                                    <div class="table-responsive" data-pattern="priority-columns"
+                                         th:each="count : ${managmentTrips.get('finishedTrips')}">
+                                        <table class="table listingsTable">
+                                            <tbody>
+                                            <tr class="rowItem">
+
+                                                <td class="dateTd">
+                                                    <ul class="text-center">
+                                                        <li>
+                                                            <h4 th:text="${#dates.format(count.trip.tripCreateDate, 'dd/MM/yyyy')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+
+                                                <td class="packageTd">
+                                                    <ul class="list-inline listingsInfo">
+                                                        <li>
+                                                            <h4><a th:href="@{/myTripManagment(ids=${count.trip.id})}"
+                                                                   th:text="${count.trip.tripTitle}"/></h4>
+                                                            <p th:text="${count.trip.tripCountry} + ', ' + ${count.trip.tripCity}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="priceTd">
+                                                    <ul class="list-inline listingsInfo text-right">
+                                                        <li>
+                                                            <h4 th:text="${count.trip.tripPriceMember} + ' zł'"/>
+                                                            <p th:text="'Ilość członków: ' + ${count.trip.tripMembers.size()} + ' / ' + ${count.trip.tripMembersAmount}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                                <td class="bookingTd">
+                                                    <ul class="list-inline listingsInfo text-left">
+                                                        <li>
+                                                            <h4>ID WYCIEKCZKI</h4>
+                                                            <p th:text="${count.trip.id}"/>
+                                                            <h4>OSOBY DO WERYFIKACJI</h4>
+                                                            <p th:text="${count.statistics.get('membersToVerify')}"/>
+                                                            <h4>OCZUEKUJĄCE NA ZAPŁATĘ</h4>
+                                                            <p th:text="${count.statistics.get('waitingForPayment')}"/>
+                                                            <h4>OSOBY OPŁACONE</h4>
+                                                            <p th:text="${count.statistics.get('paidMembers')}"/>
+                                                            <h4>KOMENTARZE DO ODPOWIEDZI</h4>
+                                                            <p th:text="${count.statistics.get('commentsToAnswer')}"/>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    <!-- PAGE CONTENT -->
 </div>

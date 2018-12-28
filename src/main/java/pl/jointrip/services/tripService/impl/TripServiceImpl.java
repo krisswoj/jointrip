@@ -164,6 +164,13 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public List<TripWrapper> findAllActiveTripsForNoLogUser() {
+        List<TripWrapper> tripWrapperList = new ArrayList<>();
+        tripRepository.findTripByTripStatus(1).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
+        return tripWrapperList;
+    }
+
+    @Override
     public Map<String, List<TripWrapper>> allLoggedUserTrips() {
         Map<String, List<TripWrapper>> listMap = new HashMap<>();
         listMap.put("tripsToVerify", joinedTripsByUserByTripMemberStatus(1));
@@ -172,10 +179,27 @@ public class TripServiceImpl implements TripService {
         return listMap;
     }
 
+
+//    WAITING_TRIP(0, "Oczekująca"),
+//    ACCEPTED_TRIP(1, "Zaakceptowana"),
+//    REJECTED_TRIP(2, "Odrzucona"),
+//    FINISHED_TRIP(3, "Zakończona");
+
     @Override
-    public List<TripWrapper> findAllActiveTripsForNoLogUser() {
+    public Map<String, List<TripWrapper>> tripMapWithStatisticForOrganisator(){
+        Map<String, List<TripWrapper>> listMap = new HashMap<>();
+        listMap.put("waitForVerify", tripWithStatisticsForOrganisator(0));
+        listMap.put("acceptedTrips", tripWithStatisticsForOrganisator(1));
+        listMap.put("rejectedTrips", tripWithStatisticsForOrganisator(2));
+        listMap.put("finishedTrips", tripWithStatisticsForOrganisator(3));
+        return listMap;
+    }
+
+    @Override
+    public List<TripWrapper> tripWithStatisticsForOrganisator(int tripStatus) {
+        User loggedUser = userService.getLoggedUser();
         List<TripWrapper> tripWrapperList = new ArrayList<>();
-        tripRepository.findTripByTripStatus(1).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
+        tripRepository.findTripByUserByUserIdAndStatus(loggedUser, tripStatus).iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForOrganisator(trip)));
         return tripWrapperList;
     }
 

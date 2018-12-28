@@ -20,11 +20,16 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
     @Query("select t from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id and tm.status = :trip_member_status")
     List<Trip> findTripByTripMembersContains(@Param("user_id") User user, @Param("trip_member_status") int tripMemberStatus);
 
-    @Query("select COUNT (t) from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id and tm.status = :trip_member_status")
-    int findTripByTripMembersContainsAmount(@Param("user_id") User user, @Param("trip_member_status") int tripMemberStatus);
-
     @Query("select t from Trip t left join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and t.userByUserId <> :user_id and tm.tripMember is null or tm.tripMember <> :user_id")
     List<Trip> findTripByTripMembersNotContains(@Param("user_id") User user);
+
+    @Query("SELECT t from Trip t WHERE t.userByUserId = :user_id AND t.tripStatus = :trip_status")
+    List<Trip> findTripByUserByUserIdAndStatus(@Param("user_id") User user, @Param("trip_status") int tripStatus);
+
+    List<Trip> findTripByUserByUserId(User user);
+
+    @Query("select COUNT (t) from Trip t inner join TripMember as tm on t.id = tm.trip.id where NOT t.tripStatus = 0 and tm.tripMember = :user_id and tm.status = :trip_member_status")
+    int findTripByTripMembersContainsAmount(@Param("user_id") User user, @Param("trip_member_status") int tripMemberStatus);
 
     @Query("select t from Trip t left join TripMember as tm on t.id = tm.trip.id where t = :trip_id and tm.tripMember = :user_id")
     Trip findTripByTripIdAndTripMember(@Param("trip_id") Trip trip, @Param("user_id") User user);
@@ -36,8 +41,6 @@ public interface TripRepository extends CrudRepository<Trip, Integer> {
     boolean existsTripByTripMembersAndWithStatus(@Param("trip_id") Trip trip, @Param("user_id") User user, @Param("statusValue") int statusValue);
 
     List<Trip> findTripByTripStatus(int tripStatus);
-
-    List<Trip> findTripByUserByUserId(User user);
 
     List<Trip> findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(Integer status);
 

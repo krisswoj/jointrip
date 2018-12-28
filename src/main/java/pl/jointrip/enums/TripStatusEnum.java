@@ -4,7 +4,8 @@ public enum TripStatusEnum {
 
     WAITING_TRIP(0, "Oczekująca"),
     ACCEPTED_TRIP(1, "Zaakceptowana"),
-    REJECTED_TRIP(2, "Odrzucona");
+    REJECTED_TRIP(2, "Odrzucona"),
+    FINISHED_TRIP(3, "Zakończona");
 
     private Integer status;
     private String description;

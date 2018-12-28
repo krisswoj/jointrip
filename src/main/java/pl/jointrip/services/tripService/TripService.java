@@ -31,11 +31,13 @@ public interface TripService {
 
     Comments commentUpdateByOwner(Comments comments);
 
+    Map<String, List<TripWrapper>> tripMapWithStatisticForOrganisator();
+
+    List<TripWrapper> tripWithStatisticsForOrganisator(int tripStatus);
+
     List<TripWrapper> tripsWithStatisicForNoMemberUsers();
 
     TripWrapper createTripWrapperForNewUsers(Trip trip);
-
-//    TripWrapper createTripWrapperForNewUsers(Trip trip, User user);
 
     Map<String, Integer> amountOfTripsForUser();
 
