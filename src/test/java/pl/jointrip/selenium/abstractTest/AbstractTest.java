@@ -7,8 +7,6 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import sun.jvm.hotspot.utilities.AssertionFailure;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -21,7 +19,6 @@ public abstract class AbstractTest {
     protected boolean acceptNextAlert = true;
     protected StringBuffer verificationErrors = new StringBuffer();
     protected Random generator;
-    protected String tripName;
 
     @Before
     public void setUp() throws Exception {
@@ -31,8 +28,6 @@ public abstract class AbstractTest {
         baseUrl = "http://localhost:5000";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         generator = new Random();
-        tripName = "Test For Selenium" + generator.nextInt(99999);
-
     }
 
     public void login() throws Exception {
@@ -456,10 +451,7 @@ public abstract class AbstractTest {
             if (value != null){
                 result = true;
             }
-            else {
-                throw new AssertionFailure("Cannot find an attribute " + attribute + " on element");
-            }
-        } catch (Exception e) { }
+        } catch (Exception e) {}
         return result;
     }
 
