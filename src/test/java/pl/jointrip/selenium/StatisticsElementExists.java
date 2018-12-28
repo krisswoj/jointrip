@@ -6,10 +6,10 @@ import pl.jointrip.selenium.abstractTest.AbstractTest;
 
 import static org.junit.Assert.assertTrue;
 
-public class StatisticsElementExists extends AbstractTest{
+public class StatisticsElementExists extends AbstractTest {
 
     @Test
-    public void testStatisticsElementExists() throws Exception{
+    public void testStatisticsElementExists() throws Exception { //przyrost 4
 
         driver.get(baseUrl);
         try {
