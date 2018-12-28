@@ -74,7 +74,8 @@
                                     <a href="#" class="list-group-item">Wiadomości</a>
                                     <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Komentarze</a>
-                                    <a href="#" class="list-group-item">Pliki do pobrania</a>
+                                    <a th:href="@{/myTripManagment/files-to-download(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Pliki do pobrania</a>
                                     <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>

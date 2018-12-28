@@ -47,9 +47,13 @@
 
                                                 <div class="bookingDrop">
                                                     <select th:field="*{tripMemberList[__${itemStat.index}__].status}"
-                                                            class="select-drop" style="display: none;" id="*{tripMemberList[__${itemStat.index}__].status}">
-                                                        <option id="interested" value="1" th:value="1">1 - Zainteresowany</option>
-                                                        <option id="accepted" value="2" th:value="2">2 - Zatwierdzony, do
+                                                            class="select-drop" style="display: none;"
+                                                            id="*{tripMemberList[__${itemStat.index}__].status}">
+                                                        <option id="interested" value="1" th:value="1">1 -
+                                                            Zainteresowany
+                                                        </option>
+                                                        <option id="accepted" value="2" th:value="2">2 - Zatwierdzony,
+                                                            do
                                                             opłacenia
                                                         </option>
                                                         <option id="paid" value="3" th:value="3">3 - Opłacony</option>
@@ -62,7 +66,9 @@
                                     </table>
                                 </div>
                                 <div style="float: right">
-                                    <button name="Submit" id="submitStatusChange" type="submit" class="btn buttonCustomPrimary">Zmień</button>
+                                    <button name="Submit" id="submitStatusChange" type="submit"
+                                            class="btn buttonCustomPrimary">Zmień
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -76,8 +82,8 @@
                             <div class="panel-heading">Zarządzaj wycieczką</div>
                             <div class="panel-body">
                                 <div class="list-group">
-                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item">Informacje
-                                        główne</a>
+                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Informacje główne</a>
                                     <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}"
                                        class="list-group-item active">Lista użytkowników</a>
                                     <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
@@ -85,7 +91,8 @@
                                     <a href="#" class="list-group-item">Wiadomości</a>
                                     <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Komentarze</a>
-                                    <a href="#" class="list-group-item">Pliki do pobrania</a>
+                                    <a th:href="@{/myTripManagment/files-to-download(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Pliki do pobrania</a>
                                     <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>

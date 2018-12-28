@@ -12,78 +12,35 @@
 
                         <ul class="nav nav-tabs" role="tablist" id="tablist" style="margin-bottom: 15px">
                             <li role="presentation">
-                                <a href="#add" aria-controls="add" role="tab" data-toggle="tab">Lista zdjęć</a>
+                                <a href="#add" aria-controls="add" role="tab" data-toggle="tab">Dodaj plik do
+                                    pobrania</a>
 
                             </li>
                             <li role="presentation">
-                                <a href="#added" aria-controls="added" role="tab" data-toggle="tab">Wgraj zdjęcia</a>
+                                <a href="#added" aria-controls="added" role="tab" data-toggle="tab">Dodane pliki</a>
                             </li>
                         </ul>
 
                         <div class="tab-content">
-
-
                             <div id="add" class="tab-pane fade">
-
-                                <div class="row isotopeContainer" id="container">
-
-                                    <div class="col-sm-12 isotopeSelector"
-                                         th:if="${#lists.isEmpty(tripInfo.trip.imagesStoreList)}">
-                                        <article class="">
-                                            <figure>
-                                                <img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"
-                                                     alt="">
-                                            </figure>
-                                        </article>
-                                    </div>
-
-
-                                    <div class="col-sm-3 isotopeSelector"
-                                         th:each="tripEach : ${tripInfo.trip.imagesStoreList}">
-                                        <article class="">
-                                            <figure>
-                                                <img th:src="'../files/' + ${tripEach.imgName}" alt="">
-
-                                                <div class="overlay-background">
-                                                    <div class="inner"></div>
-                                                </div>
-                                                <div class="overlay">
-                                                    <a class="fancybox-pop" rel="portfolio-1"
-                                                       th:href="'../files/' + ${tripEach.imgName}">
-                                                    </a>
-                                                </div>
-                                            </figure>
-                                        </article>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-
-                            <div id="added" class="tab-pane fade">
-
                                 <div class="bookingForm">
-                                    <form th:action="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
-                                          method="POST" enctype="multipart/form-data" th:object="${galleryForm}">
+                                    <form th:action="@{/myTripManagment/files-to-download(ids=${tripInfo.trip.id})}"
+                                          method="POST" enctype="multipart/form-data"
+                                          role="form" class="form" th:object="${filesForm}">
+
                                         <div class="row">
+
+
                                             <div class="form-group col-sm-12 col-xs-12">
-                                                <label for="name-plan">Opis</label>
+                                                <label for="name-plan">Nazwa pliku</label>
                                                 <input type="text" class="form-control" id="name-plan"
-                                                       th:field="*{imgDescription}"
-                                                       placeholder="Wprowadź opis zdjęcia"/>
+                                                       th:field="*{userFileName}"/>
                                             </div>
 
                                             <div class="form-group col-sm-12 col-xs-12">
-                                                <label for="name-plan">Wgraj zdjęcie</label>
-                                                <input type="file" class="form-control-file" name="file"/>
-                                            </div>
-
-                                            <div class="checkbox col-xs-12">
-                                                <label>
-                                                    <input type="checkbox" th:field="*{mainTripImg}" th:value="${1}">Ustaw
-                                                    jako główne zdjęcie</a>
-                                                </label>
+                                                <label for="file-id">Wgraj plik</label>
+                                                <input type="file" id="file-id" class="form-control-file"
+                                                       th:field="*{file}"/>
                                             </div>
 
                                             <div class="col-xs-12">
@@ -100,12 +57,30 @@
                                         </div>
                                     </form>
                                 </div>
+                            </div>
+                            <div id="added" class="tab-pane fade">
 
+                                <div class="panel-group" id="accordionIcons">
+                                    <div class="panel panel-default"
+                                         th:each="count : ${tripInfo.documentstoreList}">
+                                        <a class="panel-heading accordion-toggle" data-toggle="collapse"
+                                           data-parent="#accordionIcons" th:href="*{'#plan' + count.id}">
+                                            <span th:text="*{count.documenttitle}"/>
+                                            <i class="indicator fa fa-plus  pull-right"></i>
+                                        </a>
+                                        <div th:id="*{'plan'+count.id}" class="panel-collapse collapse">
+
+                                            <div class="panel-body">
+                                                <a th:href="@{/user/docsApprovalDownload(id=${count.id})}"><span
+                                                        th:text="${count.filename}"></span></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="col-sm-4">
                     <div class="col-xs-12">
@@ -123,9 +98,9 @@
                                     <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Komentarze</a>
                                     <a th:href="@{/myTripManagment/files-to-download(ids=${tripInfo.trip.id})}"
-                                       class="list-group-item">Pliki do pobrania</a>
+                                       class="list-group-item active">Pliki do pobrania</a>
                                     <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
-                                       class="list-group-item active">Galeria</a>
+                                       class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>
                                     <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item"
                                        target="_blank">Podgląd wycieczki</a>

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertTrue;
 public class ShowTripsNonLoggedTest extends AbstractTest {
 
     @Test
-    public void testTripsExistsNonLogged() throws Exception{
+    public void testTripsExistsNonLogged() throws Exception {
 
         driver.get(baseUrl);
         driver.findElement(By.id("showTripsUnloggedLink")).click();
