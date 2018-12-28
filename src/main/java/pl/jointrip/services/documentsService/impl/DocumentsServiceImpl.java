@@ -69,12 +69,16 @@ public class DocumentsServiceImpl implements DocumentsService {
 
 
 
+
+
     private Documentstore documentStoreMapper(DocumentsApprovalViewModel viewModel) {
         Documentstore docStore = new Documentstore();
         try {
             docStore.setFile(viewModel.getFile().getBytes());
             docStore.setUserId(viewModel.getLoggedUser());
+            docStore.setTripId(viewModel.getTrip());
             docStore.setFilename(viewModel.getFile().getOriginalFilename());
+            docStore.setDocumenttitle(viewModel.getUserFileName());
             docStore.setCreatedate(new Date());
             docStore.setModifydate(new Date());
             docStore.setContentType(viewModel.getFile().getContentType());
@@ -85,6 +89,10 @@ public class DocumentsServiceImpl implements DocumentsService {
         }
         return docStore;
     }
+
+
+
+
 
     public DocumentsApprovalViewModel findUserDocuments(User user) {
         DocumentsApprovalViewModel viewModel = new DocumentsApprovalViewModel();

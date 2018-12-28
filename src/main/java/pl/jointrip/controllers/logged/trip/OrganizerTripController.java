@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
+import pl.jointrip.models.entities.documents.Documentstore;
 import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.trip.DailyTripPlan;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.models.system.SystemNotification;
+import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
+import pl.jointrip.services.documentsService.DocumentsService;
 import pl.jointrip.services.imagesUploadServices.ImagesService;
 import pl.jointrip.services.tripService.DailyTripPlanService;
 import pl.jointrip.services.tripService.TripService;
+import pl.jointrip.services.userService.UserService;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -33,6 +37,12 @@ public class OrganizerTripController {
 
     @Autowired
     DailyTripPlanService dailyTripPlanService;
+
+    @Autowired
+    DocumentsService documentsService;
+
+    @Autowired
+    UserService userService;
 
     @Value("${USER_STATUS_CHANGED_POSITIVE}")
     private String userPositive;
@@ -108,6 +118,26 @@ public class OrganizerTripController {
         ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
         modelAndView.addObject("galleryForm", new ImagesStore());
         modelAndView.setViewName("trip/show-managment-trip-gallery");
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/myTripManagment/files-to-download{ids}")
+    public ModelAndView travellerFilesToDownload(@RequestParam("ids") int ids) {
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
+        modelAndView.addObject("filesForm", new DocumentsApprovalViewModel());
+        modelAndView.setViewName("trip/show-managment-trip-files-to-download");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/myTripManagment/files-to-download{ids}")
+    public ModelAndView travellerFilesToDownload(@Valid DocumentsApprovalViewModel documentsApprovalViewModel, @RequestParam("ids") int ids){
+        documentsApprovalViewModel.setLoggedUser(userService.getLoggedUser());
+        documentsApprovalViewModel.setTrip(tripService.findById(ids));
+        documentsService.saveDocument(documentsApprovalViewModel);
+
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
+        modelAndView.addObject("filesForm", new DocumentsApprovalViewModel());
+        modelAndView.setViewName("trip/show-managment-trip-files-to-download");
         return modelAndView;
     }
 
