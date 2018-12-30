@@ -4,6 +4,15 @@
       th:include="layout :: page">
 
 <div th:fragment="content">
+
+    <style>
+
+        div#foo{
+        //All your css
+        }
+
+    </style>
+
     <section class="mainContentSection singlePackage">
         <div class="container">
             <div class="row ">
@@ -88,6 +97,8 @@
                                        class="list-group-item active">Lista użytkowników</a>
                                     <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Plan wycieczki</a>
+                                    <a th:href="@{/myTripManagment/extra-costs(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Dodatkowe koszta</a>
                                     <a href="#" class="list-group-item">Wiadomości</a>
                                     <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Komentarze</a>

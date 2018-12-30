@@ -9,10 +9,8 @@ import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.user.User;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Setter
 @Getter
@@ -54,18 +52,6 @@ public class Trip {
     @Basic
     @Column(name = "trip_title")
     private String tripTitle;
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
-    private User userByUserId;
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
-    private List<TripMember> tripMembers;
-    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
-    private List<Comments> comments;
-    @OneToMany(mappedBy = "tripId")
-    private List<DailyTripPlan> dailyTripPlans;
-    @OneToMany(mappedBy = "tripId")
-    private List<ImagesStore> imagesStoreList;
-
     @Basic
     @Column(name = "trip_street")
     private String tripStreet;
@@ -81,36 +67,19 @@ public class Trip {
     @Basic
     @Column(name = "trip_organizator_email")
     private String organizatorEmail;
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    private User userByUserId;
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    private List<TripMember> tripMembers;
+    @OneToMany(mappedBy = "trip", cascade = CascadeType.ALL)
+    private List<Comments> comments;
+    @OneToMany(mappedBy = "tripId")
+    private List<DailyTripPlan> dailyTripPlans;
+    @OneToMany(mappedBy = "tripId")
+    private List<ImagesStore> imagesStoreList;
+    @OneToMany(mappedBy = "tripId")
+    private List<TripExtraCosts> tripExtraCosts;
     @OneToMany(mappedBy = "tripId")
     private List<Documentstore> documentstoreList;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Trip trip = (Trip) o;
-        return id == trip.id &&
-                Objects.equals(tripCreateDate, trip.tripCreateDate) &&
-                Objects.equals(tripEditDate, trip.tripEditDate) &&
-                Objects.equals(tripEndDate, trip.tripEndDate) &&
-                Objects.equals(tripFullDesc, trip.tripFullDesc) &&
-                Objects.equals(tripMembersAmount, trip.tripMembersAmount) &&
-                Objects.equals(tripPriceMember, trip.tripPriceMember) &&
-                Objects.equals(tripShortDesc, trip.tripShortDesc) &&
-                Objects.equals(tripStatus, trip.tripStatus) &&
-                Objects.equals(tripTitle, trip.tripTitle);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, tripCreateDate, tripEditDate, tripEndDate, tripFullDesc, tripMembersAmount, tripPriceMember, tripShortDesc, tripStatus, tripTitle);
-    }
-
-    public Trip(int id){
-          this.id = id;
-    }
-
-    public Trip() {
-    }
 }

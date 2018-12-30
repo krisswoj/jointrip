@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import pl.jointrip.dao.TripExtraCostsRepository;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
 import pl.jointrip.models.entities.documents.Documentstore;
 import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.trip.DailyTripPlan;
+import pl.jointrip.models.entities.trip.TripExtraCosts;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
@@ -37,6 +39,9 @@ public class OrganizerTripController {
 
     @Autowired
     DailyTripPlanService dailyTripPlanService;
+
+    @Autowired
+    TripExtraCostsRepository tripExtraCostsRepository;
 
     @Autowired
     DocumentsService documentsService;
@@ -121,6 +126,15 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
+    @PostMapping(value = "/myTripManagment/gallery{ids}")
+    public ModelAndView travellerPanelGallery(@Valid ImagesStore imagesStore, BindingResult result, @RequestParam("file") MultipartFile file, @RequestParam("ids") int ids){
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
+        imagesService.saveImage(file, tripService.findById(ids), imagesStore);
+        modelAndView.addObject("galleryForm", new ImagesStore());
+        modelAndView.setViewName("trip/show-managment-trip-gallery");
+        return modelAndView;
+    }
+
     @GetMapping(value = "/myTripManagment/files-to-download{ids}")
     public ModelAndView travellerFilesToDownload(@RequestParam("ids") int ids) {
         ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
@@ -140,12 +154,21 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/myTripManagment/gallery{ids}")
-    public ModelAndView travellerPanelGallery(@Valid ImagesStore imagesStore, BindingResult result, @RequestParam("file") MultipartFile file, @RequestParam("ids") int ids){
+    @GetMapping(value = "/myTripManagment/extra-costs{ids}")
+    public ModelAndView travellerExtraCosts(@RequestParam("ids") int ids) {
         ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
-        imagesService.saveImage(file, tripService.findById(ids), imagesStore);
-        modelAndView.addObject("galleryForm", new ImagesStore());
-        modelAndView.setViewName("trip/show-managment-trip-gallery");
+        modelAndView.addObject("costsForm", new TripExtraCosts());
+        modelAndView.setViewName("trip/show-managment-trip-extra-costs");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/myTripManagment/extra-costs{ids}")
+    public ModelAndView travellerExtraCostsForm(@ModelAttribute("costsForm") TripExtraCosts tripExtraCosts, @RequestParam("ids") int ids) {
+        ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
+        tripExtraCosts.setTripId(tripService.findById(ids));
+        tripExtraCostsRepository.save(tripExtraCosts);
+        modelAndView.addObject("costsForm", new TripExtraCosts());
+        modelAndView.setViewName("trip/show-managment-trip-extra-costs");
         return modelAndView;
     }
 

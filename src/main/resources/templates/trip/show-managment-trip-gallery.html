@@ -113,12 +113,14 @@
                             <div class="panel-heading">Zarządzaj wycieczką</div>
                             <div class="panel-body">
                                 <div class="list-group">
-                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}" class="list-group-item">Informacje
-                                        główne</a>
+                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Informacje główne</a>
                                     <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Lista użytkowników</a>
                                     <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Plan wycieczki</a>
+                                    <a th:href="@{/myTripManagment/extra-costs(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Dodatkowe koszta</a>
                                     <a href="#" class="list-group-item">Wiadomości</a>
                                     <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Komentarze</a>

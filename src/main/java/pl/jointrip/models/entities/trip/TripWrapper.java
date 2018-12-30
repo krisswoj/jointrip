@@ -39,4 +39,12 @@ public class TripWrapper {
         this.dailyTripPlanList = dailyTripPlanList;
         this.documentstoreList = documentstoreList;
     }
+
+
+    public TripWrapper(Trip trip, List<DailyTripPlan> dailyTripPlanList, List<Documentstore> documentstoreList, ImagesStore mainImageStore) {
+        this.trip = trip;
+        this.dailyTripPlanList = dailyTripPlanList;
+        this.documentstoreList = documentstoreList;
+        this.mainImageStore = mainImageStore;
+    }
 }

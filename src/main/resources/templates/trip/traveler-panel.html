@@ -11,7 +11,10 @@
                         <div class="well">
                             <div class="row">
                                 <div class="col-sm-4 col-xs-12">
-                                    <div class="infoImage"><img src="img/packages/package-info-01.png" alt="Info Image">
+                                    <div class="infoImage">
+                                        <img class="media-object" style="height:234px;"
+                                             th:attrappend="src=${tripContent.mainImageStore == null ? '../files/no-picture-list.png' : '../files/' + tripContent.mainImageStore.imgName}"
+                                             alt="Image">
                                     </div>
                                 </div>
                                 <div class="col-sm-5 col-xs-12">
@@ -19,22 +22,25 @@
                                         <h4>Informacje</h4>
                                         <dl class="dl-horizontal">
                                             <dt>Lokalizacja:</dt>
-                                            <dd th:text="${tripContent.getTrip().getTripCity()}+' / '+${tripContent.getTrip().getTripCountry()}" />
+                                            <dd th:text="${tripContent.getTrip().getTripCity()}+' / '+${tripContent.getTrip().getTripCountry()}"/>
                                             <dt>Data wyjazdu:</dt>
-                                            <dd th:text="${#dates.format(tripContent.trip.tripStartDate, 'dd/MM/yyyy')}" />
+                                            <dd th:text="${#dates.format(tripContent.trip.tripStartDate, 'dd/MM/yyyy')}"/>
                                             <dt>Data przyjazdu:</dt>
-                                            <dd th:text="${#dates.format(tripContent.trip.tripEndDate, 'dd/MM/yyyy')}" />
+                                            <dd th:text="${#dates.format(tripContent.trip.tripEndDate, 'dd/MM/yyyy')}"/>
                                             <dt>Ilość osób:</dt>
-                                            <dd th:text="${tripContent.trip.tripMembers.size()}+' / '+${tripContent.trip.tripMembersAmount}" />
+                                            <dd th:text="${tripContent.trip.tripMembers.size()}+' / '+${tripContent.trip.tripMembersAmount}"/>
                                         </dl>
                                     </div>
                                 </div>
                                 <div class="col-sm-3 col-xs-12">
                                     <div class="packageInfo">
                                         <h4>Dodatkowe koszta</h4>
-                                        <p>Wiza<span>$50,00</span></p>
-                                        <p>Opłata klimatyczna<span>$10,00</span></p>
-                                        <p>Wejścówki<span>$30,00</span></p>
+                                        <div th:each="element : ${tripContent.trip.tripExtraCosts}" class="packageInfo">
+                                            <p>
+                                                <th:block th:utext="${element.title}">asdfg</th:block>
+                                                <span th:text="${element.price} + ' '+ ${element.currency}">Subtitle</span>
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -92,39 +98,131 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-xs-12">
 
-                    <div class="relatedProduct">
-                        <h2>you may also like</h2>
-                        <div class="row">
-                            <div class="col-sm-4 col-xs-12">
-                                <div class="relatedItem">
-                                    <img src="img/packages/package-related-01.png" alt="related image">
-                                    <div class="maskingInfo">
-                                        <h4>maldives tour</h4>
-                                        <p>Lorem Ipsum</p>
-                                        <a href="#" class="btn buttonTransparent">view more</a>
+            <div class="row">
+                <div class="col-xs-7">
+
+                    <div class="sectionTitle">
+                        <h2><span class="lightBg">GALERIA</span></h2>
+                    </div>
+
+                    <div class="row isotopeContainer" id="container">
+
+                        <div class="col-sm-12 isotopeSelector"
+                             th:if="${#lists.isEmpty(tripContent.trip.imagesStoreList)}">
+                            <article class="">
+                                <figure>
+                                    <img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"
+                                         alt="">
+                                </figure>
+                            </article>
+                        </div>
+
+
+                        <div class="col-sm-12 isotopeSelector"
+                             th:each="tripEach : ${tripContent.trip.imagesStoreList}">
+                            <article class="">
+                                <figure>
+                                    <img th:src="'../files/' + ${tripEach.imgName}" alt="">
+
+                                    <div class="overlay-background">
+                                        <div class="inner"></div>
                                     </div>
+                                    <div class="overlay">
+                                        <a class="fancybox-pop" rel="portfolio-1"
+                                           th:href="'../files/' + ${tripEach.imgName}">
+                                        </a>
+                                    </div>
+                                </figure>
+                            </article>
+                        </div>
+
+                    </div>
+
+
+                </div>
+                <div class="col-xs-5">
+
+                    <div class="sectionTitle">
+                        <h2><span class="lightBg">CZAT Z ORGANIZATOREM</span></h2>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading" id="accordion">
+                                <span class="glyphicon glyphicon-comment"></span> Chat
+                                <div class="btn-group pull-right">
+
                                 </div>
                             </div>
-                            <div class="col-sm-4 col-xs-12">
-                                <div class="relatedItem">
-                                    <img src="img/packages/package-related-02.png" alt="related image">
-                                    <div class="maskingInfo">
-                                        <h4>maldives tour</h4>
-                                        <p>Lorem Ipsum</p>
-                                        <a href="#" class="btn buttonTransparent">view more</a>
-                                    </div>
+                            <div class="panel-collapse collapse in show" id="collapseOne" style="" aria-expanded="true">
+                                <div class="panel-body">
+                                    <ul class="chat">
+                                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
+                        </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                                    <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">
+                        </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="left clearfix"><span class="chat-img pull-left">
+                            <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
+                        </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
+                                                    <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="right clearfix"><span class="chat-img pull-right">
+                            <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">
+                        </span>
+                                            <div class="chat-body clearfix">
+                                                <div class="header">
+                                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
+                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
+                                                </div>
+                                                <p>
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
+                                                    dolor, quis ullamcorper ligula sodales.
+                                                </p>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="col-sm-4 col-xs-12">
-                                <div class="relatedItem">
-                                    <img src="img/packages/package-related-03.png" alt="related image">
-                                    <div class="maskingInfo">
-                                        <h4>maldives tour</h4>
-                                        <p>Lorem Ipsum</p>
-                                        <a href="#" class="btn buttonTransparent">view more</a>
+                                <div class="panel-footer">
+                                    <div class="input-group">
+                                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -132,6 +230,47 @@
                     </div>
                 </div>
             </div>
+
+            <!--<div class="row">-->
+                <!--<div class="col-xs-12">-->
+
+
+                    <!--<div class="row isotopeContainer" id="container">-->
+
+                        <!--<div class="col-sm-12 isotopeSelector"-->
+                             <!--th:if="${#lists.isEmpty(tripContent.trip.imagesStoreList)}">-->
+                            <!--<article class="">-->
+                                <!--<figure>-->
+                                    <!--<img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"-->
+                                         <!--alt="">-->
+                                <!--</figure>-->
+                            <!--</article>-->
+                        <!--</div>-->
+
+
+                        <!--<div class="col-sm-12 isotopeSelector"-->
+                             <!--th:each="tripEach : ${tripContent.trip.imagesStoreList}">-->
+                            <!--<article class="">-->
+                                <!--<figure>-->
+                                    <!--<img th:src="'../files/' + ${tripEach.imgName}" alt="">-->
+
+                                    <!--<div class="overlay-background">-->
+                                        <!--<div class="inner"></div>-->
+                                    <!--</div>-->
+                                    <!--<div class="overlay">-->
+                                        <!--<a class="fancybox-pop" rel="portfolio-1"-->
+                                           <!--th:href="'../files/' + ${tripEach.imgName}">-->
+                                        <!--</a>-->
+                                    <!--</div>-->
+                                <!--</figure>-->
+                            <!--</article>-->
+                        <!--</div>-->
+
+                    <!--</div>-->
+
+
+                <!--</div>-->
+            <!--</div>-->
         </div>
     </sectio>
 </div>

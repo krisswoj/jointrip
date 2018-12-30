@@ -122,12 +122,21 @@
                             <div class="panel-heading">Zarządzaj wycieczką</div>
                             <div class="panel-body">
                                 <div class="list-group">
+                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item active">Informacje główne</a>
+                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Lista użytkowników</a>
                                     <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
-                                       class="list-group-item active">Panel podróżnika</a>
-                                    <a href="#" class="list-group-item">Lista użytkowników</a>
+                                       class="list-group-item">Plan wycieczki</a>
+                                    <a th:href="@{/myTripManagment/extra-costs(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Dodatkowe koszta</a>
                                     <a href="#" class="list-group-item">Wiadomości</a>
-                                    <a href="#" class="list-group-item">Komentarze</a>
-                                    <a href="#" class="list-group-item">Galeria</a>
+                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Komentarze</a>
+                                    <a th:href="@{/myTripManagment/files-to-download(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Pliki do pobrania</a>
+                                    <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Galeria</a>
                                     <a href="#" class="list-group-item">Zakończ wycieczkę</a>
                                     <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item"
                                        target="_blank">Podgląd wycieczki</a>

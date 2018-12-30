@@ -24,7 +24,6 @@ public class TravelersPanel {
     @GetMapping(value = "/travelerPanel{tripId}")
     public ModelAndView travelerUserPanel(@RequestParam("tripId") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.addObject("userVerify", tripRepository.existsTripByTripMembersAndWithStatus(tripRepository.findById(tripId), userService.getLoggedUser(), 3));
         modelAndView.addObject("tripContent", dailyTripPlanService.tripWithDailyPlan(dailyTripPlanService.findTripById(tripId)));
         modelAndView.setViewName("trip/traveler-panel");
         return modelAndView;
