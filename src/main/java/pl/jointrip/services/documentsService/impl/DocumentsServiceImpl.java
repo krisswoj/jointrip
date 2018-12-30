@@ -40,8 +40,9 @@ public class DocumentsServiceImpl implements DocumentsService {
             docStore.setCreatedate(new Date());
             docStore.setModifydate(new Date());
             docStore.setContentType(viewModel.getFile().getContentType());
-            docStore.setFilestatus(0);
+            docStore.setFilestatus(viewModel.getStatus());
             docStore.setDocumentKind(viewModel.getDocumentKind());
+            docStore.setDocumenttitle(viewModel.getUserFileName());
         } catch (IOException e) {
             e.printStackTrace();
         }

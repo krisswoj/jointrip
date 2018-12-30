@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.DocumentsRepository;
-import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
+import pl.jointrip.services.documentsService.DocumentsService;
 import pl.jointrip.services.userService.UserService;
 
 import javax.validation.Valid;
@@ -18,10 +18,12 @@ public class UserInfoController {
 
     private UserService userService;
     private DocumentsRepository documentsRepository;
+    private DocumentsService documentsService;
 
-    public UserInfoController(UserService userService, DocumentsRepository documentsRepository) {
+    public UserInfoController(UserService userService, DocumentsRepository documentsRepository, DocumentsService documentsService) {
         this.userService = userService;
         this.documentsRepository = documentsRepository;
+        this.documentsService = documentsService;
     }
 
     @GetMapping(value = "/user/edit")
@@ -73,11 +75,26 @@ public class UserInfoController {
 
     @GetMapping(value = "/user/files")
     public ModelAndView uploadUserFiles() {
+        ModelAndView modelAndView = userInfoUserFilesFileForm();
+        modelAndView.setViewName("user/user-profile-upload-files");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "user/files")
+    public ModelAndView uploadFileUserForm(@ModelAttribute("fileForm") DocumentsApprovalViewModel documentsApprovalViewModel) {
+        documentsApprovalViewModel.setLoggedUser(userService.getLoggedUser());
+        documentsApprovalViewModel.setStatus(1);
+        ModelAndView modelAndView = userInfoUserFilesFileForm();
+        modelAndView.addObject("message", documentsService.saveDocument(documentsApprovalViewModel));
+        modelAndView.setViewName("user/user-profile-upload-files");
+        return modelAndView;
+    }
+
+    private ModelAndView userInfoUserFilesFileForm() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("userInfo", userService.getLoggedUser());
         modelAndView.addObject("userFiles", documentsRepository.findAllByUserIdAndFilestatus(userService.getLoggedUser(), 1));
         modelAndView.addObject("fileForm", new DocumentsApprovalViewModel());
-        modelAndView.setViewName("user/user-profile-upload-files");
         return modelAndView;
     }
 }

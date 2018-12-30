@@ -134,7 +134,6 @@ public class OrganizerTripController {
         documentsApprovalViewModel.setLoggedUser(userService.getLoggedUser());
         documentsApprovalViewModel.setTrip(tripService.findById(ids));
         documentsService.saveDocument(documentsApprovalViewModel);
-
         ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
         modelAndView.addObject("filesForm", new DocumentsApprovalViewModel());
         modelAndView.setViewName("trip/show-managment-trip-files-to-download");

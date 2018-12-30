@@ -7,6 +7,22 @@
     <section class="mainContentSection singlePackage">
         <div class="container">
             <div class="row ">
+
+                <div th:if="${message != null}" class="row bookingConfirmed col-xs-12" style="padding-right: 0;">
+                    <div class="alert alert-success alert-dismissible" role="alert"
+                         th:if="${message}">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Ok</span>
+                        </button>
+                        <span id="messageSuccess">Pliki zostały wgrane na serwer</span>
+                    </div>
+                    <div class="alert alert-danger alert-dismissible" role="alert"
+                         th:unless="${message}">
+                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">Ok</span>
+                        </button>
+                        <span id="messageFailed">Pliki nie zostały wgrane</span>
+                    </div>
+                </div>
+
                 <div class="col-sm-8">
                     <div class="col-xs-12">
 
@@ -23,20 +39,25 @@
                         <div class="tab-content">
                             <div id="add" class="tab-pane fade">
                                 <div class="bookingForm">
-                                    <form th:action="@{/user/files-to-upload(ids=${userInfo})}"
+                                    <form th:action="@{../user/files}"
                                           method="POST" enctype="multipart/form-data"
                                           role="form" class="form" th:object="${fileForm}">
 
                                         <div class="row">
 
+                                            <div class="form-group col-sm-12 col-xs-12">
+                                                <label>Nazwa pliku</label>
+                                                <input type="text" th:field="*{userFileName}" class="form-control">
+                                            </div>
+
 
                                             <div class="form-group col-sm-12 col-xs-12">
-                                                <select class="form-control" th:field="*{documentKind}" id="dropOperator">
+                                                <select class="form-control" th:field="*{documentKind}"
+                                                        id="dropOperator">
                                                     <option th:value="0">Wybierz rodzaj dokumentu</option>
                                                     <option th:value="1">Prawo jazdy</option>
                                                     <option th:value="2">Dowód osobisty</option>
                                                 </select>
-                                                <input type="hidden" th:field="*{status}" th:value="1" >
                                             </div>
 
 
@@ -88,12 +109,12 @@
                 <div class="col-sm-4">
                     <div class="col-xs-12">
                         <div class="panel panel-default">
-                            <div class="panel-heading">Zarządzaj wycieczką</div>
+                            <div class="panel-heading">Twoje konto</div>
                             <div class="panel-body">
                                 <div class="list-group">
-                                    <a href="#" class="list-group-item">Profil główny</a>
-                                    <a href="#" class="list-group-item">Hasło</a>
-                                    <a href="#" class="list-group-item active">Dokumenty</a>
+                                    <a href="../user/info" class="list-group-item">Profil główny</a>
+                                    <a href="../user/password" class="list-group-item">Hasło</a>
+                                    <a href="../user/files" class="list-group-item active">Dokumenty</a>
                                 </div>
                             </div>
                         </div>
