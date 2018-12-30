@@ -12,6 +12,7 @@ import java.util.List;
 public class DocumentsApprovalViewModel {
     private MultipartFile file;
     private Integer documentKind;
+    private int status;
     private User loggedUser;
     private Trip trip;
     private String fileName;

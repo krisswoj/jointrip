@@ -37,44 +37,61 @@ public class UserServiceImpl implements UserService {
         Role userRole = roleRepository.findByRole("USER");
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
-
     }
-    public User getLoggedUser(){
+
+    @Override
+    public boolean changeUserPassword(String oldPassword, String newPassword, String newPasswordVerify) {
+        User user = this.getLoggedUser();
+
+        if (!bCryptPasswordEncoder.matches(oldPassword, user.getPassword()))
+            return false;
+
+        if (!newPassword.equals(newPasswordVerify))
+            return false;
+
+        try {
+            user.setPassword(bCryptPasswordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public User getLoggedUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String username;
 
         if (principal instanceof UserDetails) {
-            username = ((UserDetails)principal).getUsername();
+            username = ((UserDetails) principal).getUsername();
         } else {
             username = principal.toString();
         }
-        User user = userRepository.findByEmail(username);
-        return user;
+        return userRepository.findByEmail(username);
     }
 
-    public List<User> allUsersByStatus(int status){
+    public List<User> allUsersByStatus(int status) {
         return userRepository.findAllByActive(status);
     }
 
-    public boolean changeUserStatus(int id, int status){
+    public boolean changeUserStatus(int id, int status) {
         User user = userRepository.findByUserId(id);
         user.setActive(status);
-        try{
+        try {
             userRepository.save(user);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
         return true;
     }
 
-    public boolean removeUser(int id){
+    public boolean removeUser(int id) {
         User user = userRepository.findByUserId(id);
-        try{
+        try {
             userRepository.deleteUserRole(user.getUserId());
             userRepository.delete(user);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }

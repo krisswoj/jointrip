@@ -2,76 +2,34 @@ package pl.jointrip.services.documentsService.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import pl.jointrip.dao.DocumentsRepository;
 import pl.jointrip.models.entities.documents.Documentstore;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.viewModels.documents.DocumentsApprovalViewModel;
 import pl.jointrip.services.documentsService.DocumentsService;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
 @Service
 public class DocumentsServiceImpl implements DocumentsService {
+
     @Autowired
     DocumentsRepository documentsRepository;
 
     public boolean saveDocument(DocumentsApprovalViewModel viewModel) {
-        Documentstore documentstore = documentStoreMapper(viewModel);
-        if (viewModel.getFile().getContentType().startsWith("image")) {
-            return saveImageToApp(viewModel);
-        } else {
-            try {
-                documentsRepository.save(documentstore);
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
-            }
-        }
-        return true;
-    }
+        Documentstore documentstore = this.documentStoreMapper(viewModel);
 
-    public boolean saveImageToApp(DocumentsApprovalViewModel viewModel) {
-        MultipartFile file = viewModel.getFile();  //Will return CommonsMultipartFile
-//        String currentDir = System.getProperty("user.dir");
-        String currentDir = System.getProperty("user.dir");
-        String filePath = currentDir + "/UploadedImages/" + file.getOriginalFilename();
-        File dest = new File(filePath);
         try {
-            file.transferTo(dest);
-        } catch (IOException e) {
+            documentsRepository.save(documentstore);
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
-        return true;
     }
 
-
-
-
-//    public boolean saveImageToApp(DocumentsApprovalViewModel viewModel) {
-//        MultipartFile file = viewModel.getFile();  //Will return CommonsMultipartFile
-//        String currentDir = request.getRealPath("/");
-//        String filePath = currentDir + "/UploadedImages/" + file.getOriginalFilename();
-//        File dest = new File(filePath);
-//        try {
-//            file.transferTo(dest);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//        return true;
-//    }
-
-
-
-
-
-
-    private Documentstore documentStoreMapper(DocumentsApprovalViewModel viewModel) {
+    public Documentstore documentStoreMapper(DocumentsApprovalViewModel viewModel) {
         Documentstore docStore = new Documentstore();
         try {
             docStore.setFile(viewModel.getFile().getBytes());
@@ -89,9 +47,6 @@ public class DocumentsServiceImpl implements DocumentsService {
         }
         return docStore;
     }
-
-
-
 
 
     public DocumentsApprovalViewModel findUserDocuments(User user) {

@@ -12,6 +12,8 @@ public interface UserService {
 
     void saveUser(User user);
 
+    boolean changeUserPassword(String oldPassword, String newPassword, String newPasswordVerify);
+
     User getLoggedUser();
 
     List<User> allUsersByStatus(int status);

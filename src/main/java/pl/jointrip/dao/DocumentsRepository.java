@@ -15,5 +15,7 @@ public interface DocumentsRepository extends CrudRepository<Documentstore, Integ
 
     List<Documentstore> findAllByUserId(User user);
 
+    List<Documentstore> findAllByUserIdAndFilestatus(User user, Integer fileStatus);
+
     List<Documentstore> findAllByTripId(Trip trip);
 }
