@@ -7,7 +7,6 @@ import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import sun.jvm.hotspot.utilities.AssertionFailure;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -455,9 +454,6 @@ public abstract class AbstractTest {
             String value = element.getAttribute(attribute);
             if (value != null){
                 result = true;
-            }
-            else {
-                throw new AssertionFailure("Cannot find an attribute " + attribute + " on element");
             }
         } catch (Exception e) { }
         return result;
