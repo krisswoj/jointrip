@@ -46,12 +46,16 @@
                                 <div id="user-list" class="tab-pane fade">
                                     <table class="table table-striped">
                                         <tr>
-                                            <th>Email</th>
+                                            <th>Informacje o uczestniku</th>
                                             <th>Operacje</th>
                                         </tr>
 
                                         <tr th:each="trip, itemStat : ${form.tripMemberList}">
-                                            <td th:text="${trip.tripMember.email}"></td>
+                                            <td>
+                                                <div th:text="${trip.tripMember.name} + ' ' + ${trip.tripMember.lastName}" />
+                                                <div th:text="${trip.tripMember.email}" />
+
+                                            </td>
                                             <td>
 
                                                 <div class="bookingDrop">
