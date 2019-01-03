@@ -16,9 +16,13 @@ import pl.jointrip.models.entities.trip.TripWrapper;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.system.SystemNotification;
+import pl.jointrip.models.viewModels.tripSearch.TripSearchVM;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -37,6 +41,8 @@ public class TripServiceImpl implements TripService {
     UserService userService;
     @Autowired
     TripMemberRepository tripMemberRepository;
+    @PersistenceContext
+    private EntityManager em;
 
     @Value("${TRIP_ADDED_POSITIVE}")
     private String tripPositive;
@@ -323,5 +329,30 @@ public class TripServiceImpl implements TripService {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<TripWrapper> searchTrips(TripSearchVM tripSearch, boolean logged) {
+        List<TripWrapper> tripWrapperList = new ArrayList<>();
+
+        StringBuilder sb = new StringBuilder("Select * from trip t where t.trip_status = 1");
+
+        if(!"".equals(tripSearch.getTripTitle())){
+            sb.append(" and LOWER(t.trip_title) like '%").append(tripSearch.getTripTitle().toLowerCase()).append("%'");
+        }
+
+        if(!"".equals(tripSearch.getTripCountry())){
+            sb.append(" and LOWER(t.trip_country) like '%").append(tripSearch.getTripCountry().toLowerCase()).append("%'");
+        }
+
+        if(!"".equals(tripSearch.getTripCity())){
+            sb.append(" and LOWER(t.trip_city) like '%").append(tripSearch.getTripCity().toLowerCase()).append("%'");
+        }
+
+        Query q = this.em.createNativeQuery(sb.toString(), Trip.class);
+        List<Trip> trips = q.getResultList();
+
+        trips.iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
+        return tripWrapperList;
     }
 }

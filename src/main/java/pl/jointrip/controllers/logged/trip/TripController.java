@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.models.entities.comments.Comments;
+import pl.jointrip.models.viewModels.tripSearch.TripSearchVM;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 public class TripController {
@@ -31,7 +34,17 @@ public class TripController {
     @GetMapping(value = "/trips")
     public ModelAndView showTripsForUnlogged() {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripSearch", new TripSearchVM());
         modelAndView.addObject("showTripsWrapper", tripService.findAllActiveTripsForNoLogUser());
+        modelAndView.setViewName("trip/trips");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/trips")
+    public ModelAndView searchTripsForUnlogged(@Valid TripSearchVM trip) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripSearch", trip);
+        modelAndView.addObject("showTripsWrapper", tripService.searchTrips(trip, false));
         modelAndView.setViewName("trip/trips");
         return modelAndView;
     }
