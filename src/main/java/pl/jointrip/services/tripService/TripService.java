@@ -8,6 +8,7 @@ import pl.jointrip.models.entities.trip.TripWrapper;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.system.SystemNotification;
+import pl.jointrip.models.viewModels.tripSearch.TripSearchVM;
 
 import java.text.ParseException;
 import java.util.List;
@@ -76,4 +77,6 @@ public interface TripService {
     List<Comments> findByTripAndStatusIs(Trip trip, int status);
 
     boolean removeTrip(int id);
+
+    List<TripWrapper> searchTrips(TripSearchVM tripSearch, boolean logged);
 }
