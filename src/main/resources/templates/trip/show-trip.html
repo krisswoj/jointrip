@@ -72,7 +72,7 @@
                                     <h2>Lokalizacja</h2>
                                 </div>
                                 <div class="google-maps">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12097.002861286059!2d-74.01154310416635!3d40.71249695811257!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew+York%2C+NY!5e0!3m2!1sen!2s!4v1502716241862"
+                                    <iframe id="googleMap" th:src="@{'https://www.google.com/maps?q=' + ${tripInfo.tripCountry} + ' ' + ${tripInfo.tripCity} + '&output=embed'}"
                                             width="100%" height="400px" scrolling="no" frameborder="0" style="border:0"
                                             allowfullscreen=""></iframe>
                                 </div>
