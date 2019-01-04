@@ -3,22 +3,18 @@ package pl.jointrip.services.tripService.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import pl.jointrip.dao.CommentsRepository;
-import pl.jointrip.dao.TripMemberRepository;
-import pl.jointrip.dao.TripRepository;
-import pl.jointrip.dao.UserRepository;
+import pl.jointrip.dao.*;
 import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
 import pl.jointrip.models.entities.documents.ImagesStore;
-import pl.jointrip.models.entities.trip.Trip;
-import pl.jointrip.models.entities.trip.TripMember;
-import pl.jointrip.models.entities.trip.TripWrapper;
-import pl.jointrip.models.entities.trip.TripsMemberWrapper;
+import pl.jointrip.models.entities.trip.*;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.services.tripService.TripService;
 import pl.jointrip.services.userService.UserService;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -37,6 +33,8 @@ public class TripServiceImpl implements TripService {
     UserService userService;
     @Autowired
     TripMemberRepository tripMemberRepository;
+    @Autowired
+    ChatTripRepository chatTripRepository;
 
     @Value("${TRIP_ADDED_POSITIVE}")
     private String tripPositive;
@@ -60,8 +58,6 @@ public class TripServiceImpl implements TripService {
     public boolean saveTrip(Trip trip) {
 
         User loggedUser = userService.getLoggedUser();
-        trip.setTripCreateDate(new Date());
-        trip.setTripEditDate(new Date());
         trip.setTripStatus(0);
         trip.setUserByUserId(loggedUser);
 
@@ -179,12 +175,6 @@ public class TripServiceImpl implements TripService {
         return listMap;
     }
 
-
-//    WAITING_TRIP(0, "Oczekująca"),
-//    ACCEPTED_TRIP(1, "Zaakceptowana"),
-//    REJECTED_TRIP(2, "Odrzucona"),
-//    FINISHED_TRIP(3, "Zakończona");
-
     @Override
     public Map<String, List<TripWrapper>> tripMapWithStatisticForOrganisator(){
         Map<String, List<TripWrapper>> listMap = new HashMap<>();
@@ -256,6 +246,11 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public ChatTrip chatTripAddMessage(Trip trip, User tripMember, String message, int messageKind){
+        return chatTripRepository.save(new ChatTrip(message, messageKind, trip, tripMember, trip.getUserByUserId()));
+    }
+
+    @Override
     public void commentsListUpdateByOwner(List<Comments> commentsList) {
         commentsList.forEach(this::commentUpdateByOwner);
     }
@@ -295,8 +290,7 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public List<Trip> findLatestTrips() {
-        List<Trip> trips = tripRepository.findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0);
-        return trips;
+        return tripRepository.findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0);
     }
 
     @Override

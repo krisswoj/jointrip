@@ -150,7 +150,7 @@
                     <div class="col-md-12">
                         <div class="panel panel-primary">
                             <div class="panel-heading" id="accordion">
-                                <span class="glyphicon glyphicon-comment"></span> Chat
+                                <span class="glyphicon glyphicon-comment"></span> Chat z organizatorem wycieczki
                                 <div class="btn-group pull-right">
 
                                 </div>
@@ -158,71 +158,56 @@
                             <div class="panel-collapse collapse in show" id="collapseOne" style="" aria-expanded="true">
                                 <div class="panel-body panel-body-chat">
                                     <ul class="chat">
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
+                                        <li th:each="tripEach, i : ${tripContent.trip.chatTripListByTrip}"
+                                            th:attrappend="class=${tripEach.messageKind == 1 ? 'left clearfix' : 'right clearfix'}">
+                                            <span th:attrappend="class=${tripEach.messageKind == 1 ? 'chat-img pull-left' : 'chat-img pull-right'}">
+                            <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar"
+                                 class="img-circle">
                         </span>
                                             <div class="chat-body clearfix">
+
+
+
+
+
+
+
+
+
                                                 <div class="header">
-                                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                    <span class="glyphicon glyphicon-time"></span>12 mins ago</small>
+                                                    <strong th:attrappend="class=${tripEach.messageKind == 1 ? 'primary-font' : 'pull-right primary-font'}"       th:text="${tripEach.tripMember.name} + ' ' +  ${tripEach.tripMember.lastName}"/>
+                                                    <small class="text-muted"><span class="glyphicon glyphicon-time"></span><span th:text="${tripEach.sentDate}" /></small>
                                                 </div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                                    dolor, quis ullamcorper ligula sodales.
-                                                </p>
+
+
+                                                <p th:text="${tripEach.message}"></p>
                                             </div>
                                         </li>
-                                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">
-                        </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header">
-                                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>
-                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                                </div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                                    dolor, quis ullamcorper ligula sodales.
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&amp;text=U" alt="User Avatar" class="img-circle">
-                        </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header">
-                                                    <strong class="primary-font">Jack Sparrow</strong> <small class="pull-right text-muted">
-                                                    <span class="glyphicon glyphicon-time"></span>14 mins ago</small>
-                                                </div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                                    dolor, quis ullamcorper ligula sodales.
-                                                </p>
-                                            </div>
-                                        </li>
-                                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">
-                        </span>
-                                            <div class="chat-body clearfix">
-                                                <div class="header">
-                                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>15 mins ago</small>
-                                                    <strong class="pull-right primary-font">Bhaumik Patel</strong>
-                                                </div>
-                                                <p>
-                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare
-                                                    dolor, quis ullamcorper ligula sodales.
-                                                </p>
-                                            </div>
-                                        </li>
+                                        <!--<li class="right clearfix"><span class="chat-img pull-right">-->
+                                        <!--<img src="http://placehold.it/50/FA6F57/fff&amp;text=ME" alt="User Avatar" class="img-circle">-->
+                                        <!--</span>-->
+                                        <!--<div class="chat-body clearfix">-->
+                                        <!--<div class="header">-->
+                                        <!--<small class=" text-muted"><span class="glyphicon glyphicon-time"></span>13 mins ago</small>-->
+                                        <!--<strong class="pull-right primary-font">Bhaumik Patel</strong>-->
+                                        <!--</div>-->
+                                        <!--<p>-->
+                                        <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur bibendum ornare-->
+                                        <!--dolor, quis ullamcorper ligula sodales.-->
+                                        <!--</p>-->
+                                        <!--</div>-->
+                                        <!--</li>-->
                                     </ul>
                                 </div>
                                 <div class="panel-footer">
                                     <div class="input-group">
-                                        <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here...">
-                                        <span class="input-group-btn">
-                            <button class="btn btn-warning btn-sm" id="btn-chat">
-                                Send</button>
-                        </span>
+                                        <form th:action="@{/travelerPanel(tripId=${tripContent.trip.id})}" method="POST"
+                                              role="form" class="form">
+                                            <input id="btn-input" type="text" name="chatMessage"
+                                                   class="form-control input-sm" placeholder="Wprowadź swoją wiadomość">
+                                            <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat">Send</button>
+                                        </span></form>
                                     </div>
                                 </div>
                             </div>
@@ -232,44 +217,44 @@
             </div>
 
             <!--<div class="row">-->
-                <!--<div class="col-xs-12">-->
+            <!--<div class="col-xs-12">-->
 
 
-                    <!--<div class="row isotopeContainer" id="container">-->
+            <!--<div class="row isotopeContainer" id="container">-->
 
-                        <!--<div class="col-sm-12 isotopeSelector"-->
-                             <!--th:if="${#lists.isEmpty(tripContent.trip.imagesStoreList)}">-->
-                            <!--<article class="">-->
-                                <!--<figure>-->
-                                    <!--<img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"-->
-                                         <!--alt="">-->
-                                <!--</figure>-->
-                            <!--</article>-->
-                        <!--</div>-->
-
-
-                        <!--<div class="col-sm-12 isotopeSelector"-->
-                             <!--th:each="tripEach : ${tripContent.trip.imagesStoreList}">-->
-                            <!--<article class="">-->
-                                <!--<figure>-->
-                                    <!--<img th:src="'../files/' + ${tripEach.imgName}" alt="">-->
-
-                                    <!--<div class="overlay-background">-->
-                                        <!--<div class="inner"></div>-->
-                                    <!--</div>-->
-                                    <!--<div class="overlay">-->
-                                        <!--<a class="fancybox-pop" rel="portfolio-1"-->
-                                           <!--th:href="'../files/' + ${tripEach.imgName}">-->
-                                        <!--</a>-->
-                                    <!--</div>-->
-                                <!--</figure>-->
-                            <!--</article>-->
-                        <!--</div>-->
-
-                    <!--</div>-->
+            <!--<div class="col-sm-12 isotopeSelector"-->
+            <!--th:if="${#lists.isEmpty(tripContent.trip.imagesStoreList)}">-->
+            <!--<article class="">-->
+            <!--<figure>-->
+            <!--<img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"-->
+            <!--alt="">-->
+            <!--</figure>-->
+            <!--</article>-->
+            <!--</div>-->
 
 
-                <!--</div>-->
+            <!--<div class="col-sm-12 isotopeSelector"-->
+            <!--th:each="tripEach : ${tripContent.trip.imagesStoreList}">-->
+            <!--<article class="">-->
+            <!--<figure>-->
+            <!--<img th:src="'../files/' + ${tripEach.imgName}" alt="">-->
+
+            <!--<div class="overlay-background">-->
+            <!--<div class="inner"></div>-->
+            <!--</div>-->
+            <!--<div class="overlay">-->
+            <!--<a class="fancybox-pop" rel="portfolio-1"-->
+            <!--th:href="'../files/' + ${tripEach.imgName}">-->
+            <!--</a>-->
+            <!--</div>-->
+            <!--</figure>-->
+            <!--</article>-->
+            <!--</div>-->
+
+            <!--</div>-->
+
+
+            <!--</div>-->
             <!--</div>-->
         </div>
     </sectio>

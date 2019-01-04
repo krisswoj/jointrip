@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.jointrip.models.entities.documents.Documentstore;
 import pl.jointrip.models.entities.documents.ImagesStore;
+import pl.jointrip.models.entities.user.User;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class TripWrapper {
     private List<Documentstore> documentstoreList;
     private List<ImagesStore> imagesStoreList;
     private ImagesStore mainImageStore;
+    private User user;
 
     public TripWrapper(Trip trip) {
         this.trip = trip;
@@ -41,10 +43,11 @@ public class TripWrapper {
     }
 
 
-    public TripWrapper(Trip trip, List<DailyTripPlan> dailyTripPlanList, List<Documentstore> documentstoreList, ImagesStore mainImageStore) {
+    public TripWrapper(Trip trip, List<DailyTripPlan> dailyTripPlanList, List<Documentstore> documentstoreList, ImagesStore mainImageStore, User user) {
         this.trip = trip;
         this.dailyTripPlanList = dailyTripPlanList;
         this.documentstoreList = documentstoreList;
         this.mainImageStore = mainImageStore;
+        this.user = user;
     }
 }

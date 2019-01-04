@@ -82,4 +82,6 @@ public class Trip {
     private List<TripExtraCosts> tripExtraCosts;
     @OneToMany(mappedBy = "tripId")
     private List<Documentstore> documentstoreList;
+    @OneToMany(mappedBy = "tripId")
+    private List<ChatTrip> chatTripListByTrip;
 }

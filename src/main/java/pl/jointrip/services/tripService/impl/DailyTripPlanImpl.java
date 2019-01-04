@@ -12,8 +12,6 @@ import pl.jointrip.models.entities.trip.TripWrapper;
 import pl.jointrip.services.tripService.DailyTripPlanService;
 import pl.jointrip.services.userService.UserService;
 
-import java.util.Map;
-
 @Service
 public class DailyTripPlanImpl implements DailyTripPlanService {
 
@@ -33,7 +31,7 @@ public class DailyTripPlanImpl implements DailyTripPlanService {
     @Override
     public TripWrapper tripWithDailyPlan(Trip trip) {
         ImagesStore imagesStore = trip.getImagesStoreList().stream().filter(i -> 1 == i.getMainTripImg()).findAny().orElse(null);
-        return new TripWrapper(trip, dailyTripPlanRepository.findAllByTripId(trip), documentsRepository.findAllByTripId(trip), imagesStore);
+        return new TripWrapper(trip, dailyTripPlanRepository.findAllByTripId(trip), documentsRepository.findAllByTripId(trip), imagesStore, userService.getLoggedUser());
     }
 
     @Override
@@ -48,6 +46,4 @@ public class DailyTripPlanImpl implements DailyTripPlanService {
         dailyTripPlan.setAddeddate(null);
         return dailyTripPlanRepository.save(dailyTripPlan);
     }
-
-//    public Map<String, String> tripExtraCosts()
 }
