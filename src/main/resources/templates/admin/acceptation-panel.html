@@ -41,7 +41,7 @@
                                     <td class="packageTd">
                                         <ul class="list-inline listingsInfo">
                                             <li>
-                                                <a th:href="@{/admin/acceptationPanel/show(id=${trip.id})}"><h4 th:text="${trip.tripTitle}"></h4></a>
+                                                <a th:id="${trip.tripTitle}" th:href="@{/admin/acceptationPanel/show(id=${trip.id})}"><h4 th:text="${trip.tripTitle}"></h4></a>
                                             </li>
                                         </ul>
                                     </td>

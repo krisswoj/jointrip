@@ -48,7 +48,7 @@
                                         <ul class="list-inline listingsInfo">
                                             <li>
                                                 <h4><a th:href="@{/showTrip(ide=${trip.getTrip().id})}"
-                                                       th:text="${trip.getTrip().tripTitle}"/></h4>
+                                                       th:text="${trip.getTrip().tripTitle}" th:id="${trip.getTrip().tripTitle}"/></h4>
                                                 <p th:text="${trip.getTrip().tripCountry} + ', ' + ${trip.getTrip().tripCity}"/>
                                             </li>
                                         </ul>
