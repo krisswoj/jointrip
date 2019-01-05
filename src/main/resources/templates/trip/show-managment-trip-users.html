@@ -4,15 +4,6 @@
       th:include="layout :: page">
 
 <div th:fragment="content">
-
-    <style>
-
-        div#foo{
-        //All your css
-        }
-
-    </style>
-
     <section class="mainContentSection singlePackage">
         <div class="container">
             <div class="row ">
@@ -46,12 +37,20 @@
                                 <div id="user-list" class="tab-pane fade">
                                     <table class="table table-striped">
                                         <tr>
-                                            <th>Email</th>
+                                            <th>Informacje o uczestniku</th>
                                             <th>Operacje</th>
                                         </tr>
 
                                         <tr th:each="trip, itemStat : ${form.tripMemberList}">
-                                            <td th:text="${trip.tripMember.email}"></td>
+                                            <td>
+                                                <div th:text="${trip.tripMember.name} + ' ' + ${trip.tripMember.lastName}"/>
+                                                <div th:text="${trip.tripMember.email}"/>
+                                                <div>
+                                                    <a th:href="'/myTripManagment/chat/' + ${ tripInfo.trip.id} + '/' + ${trip.tripMember.userId}"
+                                                    >Czat z uczestnikiem</a>
+                                                </div>
+
+                                            </td>
                                             <td>
 
                                                 <div class="bookingDrop">
@@ -84,7 +83,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-sm-4">
                     <div class="col-xs-12">
                         <div class="panel panel-default">
@@ -106,7 +104,6 @@
                                        class="list-group-item">Pliki do pobrania</a>
                                     <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Galeria</a>
-                                    <a href="#" class="list-group-item">Zakończ wycieczkę</a>
                                     <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item"
                                        target="_blank">Podgląd wycieczki</a>
                                 </div>

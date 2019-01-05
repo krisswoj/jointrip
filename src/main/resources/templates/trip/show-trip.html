@@ -33,11 +33,12 @@
                                     <div class="item active"
                                          th:if="${#lists.isEmpty(tripInfo.imagesStoreList)}">
 
-                                                <img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"
-                                                     alt="">
+                                        <img src="https://imicare.pl/wp-content/uploads/2018/06/brak-zdjecia_1030x578.jpg"
+                                             alt="">
                                     </div>
 
-                                    <div th:each="tripEach, i : ${tripInfo.imagesStoreList}" th:attrappend="class=${i.index == 0 ? 'item active' : 'item'}">
+                                    <div th:each="tripEach, i : ${tripInfo.imagesStoreList}"
+                                         th:attrappend="class=${i.index == 0 ? 'item active' : 'item'}">
                                         <img alt="First slide" th:src="'../files/' + ${tripEach.imgName}">
                                     </div>
 
@@ -171,16 +172,6 @@
                                                         <p th:text="'E-mail: ' +${tripInfo.organizatorEmail}"/>
                                                     </div>
                                                 </div>
-
-                                                <!--<div class="media">-->
-                                                <!--<a class="media-left" href="#">-->
-                                                <!--<i class="fa fa-envelope" aria-hidden="true"></i>-->
-                                                <!--</a>-->
-                                                <!--<div class="media-body">-->
-                                                <!--<h4 class="media-heading">E-mail</h4>-->
-                                                <!--<p th:text="${tripInfo.organizatorEmail}"/>-->
-                                                <!--</div>-->
-                                                <!--</div>-->
                                             </div>
 
 

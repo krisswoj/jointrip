@@ -2,10 +2,7 @@ package pl.jointrip.services.tripService;
 
 import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
-import pl.jointrip.models.entities.trip.Trip;
-import pl.jointrip.models.entities.trip.TripMember;
-import pl.jointrip.models.entities.trip.TripWrapper;
-import pl.jointrip.models.entities.trip.TripsMemberWrapper;
+import pl.jointrip.models.entities.trip.*;
 import pl.jointrip.models.entities.user.User;
 import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.models.viewModels.tripSearch.TripSearchVM;
@@ -45,6 +42,8 @@ public interface TripService {
     Map<String, List<TripWrapper>> allLoggedUserTrips();
 
     int daysAmountInTrip(Trip trip) throws ParseException;
+
+    ChatTrip chatTripAddMessage(Trip trip, User tripMember, String message, int messageKind);
 
     void commentsListUpdateByOwner(List<Comments> commentsList);
 

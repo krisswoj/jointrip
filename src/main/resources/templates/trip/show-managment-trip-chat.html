@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<div th:fragment="content">
+
+    <section class="mainContentSection singlePackage">
+        <div class="container">
+            <div class="row ">
+                <div class="col-sm-8">
+                    <div class="col-xs-12">
+
+                        <ul class="nav nav-tabs" role="tablist" id="tablist" style="margin-bottom: 15px">
+                            <li role="presentation">
+                                <a href="#user-list" aria-controls="add" role="tab" data-toggle="tab">Lista
+                                    użytkowników</a>
+                            </li>
+                        </ul>
+
+                        <div class="col-xs-8">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading" id="accordion">
+                                    <span class="glyphicon glyphicon-comment"></span> Chat z organizatorem wycieczki
+                                    <div class="btn-group pull-right">
+
+                                    </div>
+                                </div>
+                                <div class="panel-collapse collapse in show" id="collapseOne" style=""
+                                     aria-expanded="true">
+                                    <div class="panel-body panel-body-chat">
+                                        <ul class="chat">
+                                            <li th:each="tripEach, i : ${tripContent.trip.chatTripListByTrip}"
+                                                th:attrappend="class=${tripEach.messageKind == 2 ? 'right clearfix' : 'left clearfix'}">
+                                            <span th:attrappend="class=${tripEach.messageKind == 2 ? 'chat-img pull-right' : 'chat-img pull-left'}">
+                            <img th:attrappend="src=${tripEach.messageKind == 2 ? 'http://placehold.it/50/55C1E7/fff&text=YOU' : 'http://placehold.it/50/6ad434/fff&text=MEMBER'}"
+                                 alt="User Avatar" class="img-circle">
+                        </span>
+                                                <div class="chat-body clearfix">
+                                                    <div class="header">
+                                                    <span th:switch="${tripEach.messageKind}">
+                                                    <strong th:case="1" class="primary-font"
+                                                            th:text="${tripEach.tripMember.name} + ' ' +  ${tripEach.tripMember.lastName}"/>
+                                                    <strong th:case="2" class="primary-font"
+                                                            th:text="${tripEach.tripOrganisator.name} + ' ' +  ${tripEach.tripOrganisator.lastName}"/>
+                                                    </span>
+                                                        <small th:attrappend="class=${tripEach.messageKind == 2 ? 'text-muted' : 'pull-right text-muted'}">
+                                                            <span class="glyphicon glyphicon-time"></span><span
+                                                                th:text="${tripEach.sentDate}"/></small>
+                                                    </div>
+                                                    <p th:text="${tripEach.message}"></p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <form th:action="@{/myTripManagment/chat/__${tripContent.trip.id}__/__${memberId}__}"
+                                          method="POST"
+                                          role="form" class="form">
+                                        <div class="panel-footer">
+                                            <div class="input-group">
+                                                <input id="btn-input" type="text" name="chatMessage"
+                                                       class="form-control input-sm" style="height: 50px"
+                                                       placeholder="Wprowadź swoją wiadomość">
+                                                <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="btn-chat">Wyślij</button>
+                                        </span>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Zarządzaj wycieczką</div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <a th:href="@{/myTripManagment(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Informacje główne</a>
+                                    <a th:href="@{/myTripManagment/users(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item active">Lista użytkowników</a>
+                                    <a th:href="@{/myTripManagment/travelerPanel(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Plan wycieczki</a>
+                                    <a th:href="@{/myTripManagment/extra-costs(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Dodatkowe koszta</a>
+                                    <a href="#" class="list-group-item">Wiadomości</a>
+                                    <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Komentarze</a>
+                                    <a th:href="@{/myTripManagment/files-to-download(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Pliki do pobrania</a>
+                                    <a th:href="@{/myTripManagment/gallery(ids=${tripInfo.trip.id})}"
+                                       class="list-group-item">Galeria</a>
+                                    <a th:href="@{/showTrip(ide=${tripInfo.trip.id})}" class="list-group-item"
+                                       target="_blank">Podgląd wycieczki</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

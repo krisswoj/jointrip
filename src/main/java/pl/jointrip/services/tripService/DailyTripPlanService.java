@@ -12,5 +12,7 @@ public interface DailyTripPlanService {
 
     Trip findTripById(int tripId);
 
+    Trip findTripByIdAndByUserMember(int tripId, int userId);
+
     DailyTripPlan addNewDailyPlan(DailyTripPlan dailyTripPlan, int tripId);
 }

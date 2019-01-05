@@ -5,13 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.jointrip.models.entities.documents.Documentstore;
 import pl.jointrip.models.entities.documents.ImagesStore;
+import pl.jointrip.models.entities.trip.ChatTrip;
 import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripMember;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 @Setter
@@ -50,30 +50,8 @@ public class User {
     private Collection<Documentstore> documentstoreCollection;
     @OneToMany(mappedBy = "userId")
     private List<ImagesStore> imagesStoresList;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return userId == user.userId &&
-                Objects.equals(active, user.active) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(userId, active, email, lastName, name, password);
-    }
-
-    public User() {
-    }
-
-    public User(Integer userId) {
-        this.userId = userId;
-    }
+    @OneToMany(mappedBy = "tripMember")
+    private List<ChatTrip> chatTripListMembers;
+    @OneToMany(mappedBy = "tripOrganisator")
+    private List<ChatTrip> chatTripListOrganisator;
 }
