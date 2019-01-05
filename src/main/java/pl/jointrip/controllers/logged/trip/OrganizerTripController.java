@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import pl.jointrip.dao.TripExtraCostsRepository;
+import pl.jointrip.dao.TripRepository;
+import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.entities.comments.CommentsWrapper;
 import pl.jointrip.models.entities.documents.Documentstore;
 import pl.jointrip.models.entities.documents.ImagesStore;
@@ -31,29 +30,32 @@ import java.io.File;
 @Controller
 public class OrganizerTripController {
 
-    @Autowired
-    TripService tripService;
-
-    @Autowired
-    ImagesService imagesService;
-
-    @Autowired
-    DailyTripPlanService dailyTripPlanService;
-
-    @Autowired
-    TripExtraCostsRepository tripExtraCostsRepository;
-
-    @Autowired
-    DocumentsService documentsService;
-
-    @Autowired
-    UserService userService;
+    private TripService tripService;
+    private UserRepository userRepository;
+    private ImagesService imagesService;
+    private DailyTripPlanService dailyTripPlanService;
+    private TripExtraCostsRepository tripExtraCostsRepository;
+    private DocumentsService documentsService;
+    private UserService userService;
+    private TripRepository tripRepository;
 
     @Value("${USER_STATUS_CHANGED_POSITIVE}")
     private String userPositive;
 
     @Value("${USER_STATUS_CHANGED_NEGATIVE}")
     private String userNegative;
+
+    @Autowired
+    public OrganizerTripController(TripService tripService, UserRepository userRepository, ImagesService imagesService, DailyTripPlanService dailyTripPlanService, TripExtraCostsRepository tripExtraCostsRepository, DocumentsService documentsService, UserService userService, TripRepository tripRepository) {
+        this.tripService = tripService;
+        this.userRepository = userRepository;
+        this.imagesService = imagesService;
+        this.dailyTripPlanService = dailyTripPlanService;
+        this.tripExtraCostsRepository = tripExtraCostsRepository;
+        this.documentsService = documentsService;
+        this.userService = userService;
+        this.tripRepository = tripRepository;
+    }
 
     @GetMapping(value = "/myTripsManagment")
     public ModelAndView tripsManagmentList() {
@@ -127,7 +129,7 @@ public class OrganizerTripController {
     }
 
     @PostMapping(value = "/myTripManagment/gallery{ids}")
-    public ModelAndView travellerPanelGallery(@Valid ImagesStore imagesStore, BindingResult result, @RequestParam("file") MultipartFile file, @RequestParam("ids") int ids){
+    public ModelAndView travellerPanelGallery(@Valid ImagesStore imagesStore, BindingResult result, @RequestParam("file") MultipartFile file, @RequestParam("ids") int ids) {
         ModelAndView modelAndView = mavWithTripInfoAndDailyPlanForm(ids);
         imagesService.saveImage(file, tripService.findById(ids), imagesStore);
         modelAndView.addObject("galleryForm", new ImagesStore());
@@ -144,7 +146,7 @@ public class OrganizerTripController {
     }
 
     @PostMapping(value = "/myTripManagment/files-to-download{ids}")
-    public ModelAndView travellerFilesToDownload(@Valid DocumentsApprovalViewModel documentsApprovalViewModel, @RequestParam("ids") int ids){
+    public ModelAndView travellerFilesToDownload(@Valid DocumentsApprovalViewModel documentsApprovalViewModel, @RequestParam("ids") int ids) {
         documentsApprovalViewModel.setLoggedUser(userService.getLoggedUser());
         documentsApprovalViewModel.setTrip(tripService.findById(ids));
         documentsService.saveDocument(documentsApprovalViewModel);
@@ -160,6 +162,17 @@ public class OrganizerTripController {
         modelAndView.addObject("costsForm", new TripExtraCosts());
         modelAndView.setViewName("trip/show-managment-trip-extra-costs");
         return modelAndView;
+    }
+
+    @GetMapping(value = "/myTripManagment/chat/{trip}/{member}")
+    public ModelAndView travellerChatWithMember(@PathVariable("trip") int tripId, @PathVariable("member") int memberId) {
+        return mavtravellerChatWithMember(tripId, memberId);
+    }
+
+    @PostMapping(value = "/myTripManagment/chat/{trip}/{member}")
+    public ModelAndView travellerChatWithMemberForm(@RequestParam("chatMessage") String chatMessage, @PathVariable("trip") int tripId, @PathVariable("member") int memberId) {
+        tripService.chatTripAddMessage(tripRepository.findById(tripId), userRepository.findByUserId(memberId), chatMessage, 2);
+        return mavtravellerChatWithMember(tripId, memberId);
     }
 
     @PostMapping(value = "/myTripManagment/extra-costs{ids}")
@@ -184,6 +197,15 @@ public class OrganizerTripController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
         modelAndView.addObject("dailyPlanForm", new DailyTripPlan());
+        return modelAndView;
+    }
+
+    private ModelAndView mavtravellerChatWithMember(int tripId, int memberId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("memberId", memberId);
+        modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
+        modelAndView.addObject("tripContent", dailyTripPlanService.tripWithDailyPlan(dailyTripPlanService.findTripByIdAndByUserMember(tripId, memberId)));
+        modelAndView.setViewName("trip/show-managment-trip-chat");
         return modelAndView;
     }
 }

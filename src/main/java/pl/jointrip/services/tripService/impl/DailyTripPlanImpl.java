@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.jointrip.dao.DailyTripPlanRepository;
 import pl.jointrip.dao.DocumentsRepository;
 import pl.jointrip.dao.TripRepository;
+import pl.jointrip.dao.UserRepository;
 import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.trip.DailyTripPlan;
 import pl.jointrip.models.entities.trip.Trip;
@@ -15,18 +16,20 @@ import pl.jointrip.services.userService.UserService;
 @Service
 public class DailyTripPlanImpl implements DailyTripPlanService {
 
+    private DailyTripPlanRepository dailyTripPlanRepository;
+    private TripRepository tripRepository;
+    private DocumentsRepository documentsRepository;
+    private UserService userService;
+    private UserRepository userRepository;
 
     @Autowired
-    DailyTripPlanRepository dailyTripPlanRepository;
-
-    @Autowired
-    TripRepository tripRepository;
-
-    @Autowired
-    DocumentsRepository documentsRepository;
-
-    @Autowired
-    UserService userService;
+    public DailyTripPlanImpl(DailyTripPlanRepository dailyTripPlanRepository, TripRepository tripRepository, DocumentsRepository documentsRepository, UserService userService, UserRepository userRepository) {
+        this.dailyTripPlanRepository = dailyTripPlanRepository;
+        this.tripRepository = tripRepository;
+        this.documentsRepository = documentsRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public TripWrapper tripWithDailyPlan(Trip trip) {
@@ -37,6 +40,11 @@ public class DailyTripPlanImpl implements DailyTripPlanService {
     @Override
     public Trip findTripById(int tripId) {
         return tripRepository.findTripByTripIdAndTripMember(tripRepository.findById(tripId), userService.getLoggedUser());
+    }
+
+    @Override
+    public Trip findTripByIdAndByUserMember(int tripId, int userId) {
+        return tripRepository.findTripByTripIdAndTripMember(tripRepository.findById(tripId), userRepository.findByUserId(userId));
     }
 
     @Override
