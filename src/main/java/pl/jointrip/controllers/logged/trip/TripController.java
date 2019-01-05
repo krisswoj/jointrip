@@ -26,7 +26,17 @@ public class TripController {
     @GetMapping(value = "/showTrips")
     public ModelAndView showTrips() {
         ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripSearch", new TripSearchVM());
         modelAndView.addObject("showTripsWrapper", tripService.tripsWithStatisicForNoMemberUsers());
+        modelAndView.setViewName("trip/trips");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/showTrips")
+    public ModelAndView showTrips(@Valid TripSearchVM trip) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripSearch", trip);
+        modelAndView.addObject("showTripsWrapper", tripService.searchTrips(trip, true));
         modelAndView.setViewName("trip/trips");
         return modelAndView;
     }

@@ -23,6 +23,7 @@ import pl.jointrip.services.userService.UserService;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -335,7 +336,17 @@ public class TripServiceImpl implements TripService {
     public List<TripWrapper> searchTrips(TripSearchVM tripSearch, boolean logged) {
         List<TripWrapper> tripWrapperList = new ArrayList<>();
 
-        StringBuilder sb = new StringBuilder("Select * from trip t where t.trip_status = 1");
+        StringBuilder sb = new StringBuilder();
+
+        if(logged){
+            User loggedUser = userService.getLoggedUser();
+            sb.append("select * from trip t left join trip_member tm on t.id = tm.trip_id where NOT t.trip_status = 0 and t.user_id <> ")
+                    .append(loggedUser.getUserId())
+                    .append("and tm.trip_member_user_id is null or tm.trip_member_user_id <> ")
+                    .append(loggedUser.getUserId());
+        } else {
+            sb.append("Select * from trip t where t.trip_status = 1");
+        }
 
         if(!"".equals(tripSearch.getTripTitle())){
             sb.append(" and LOWER(t.trip_title) like '%").append(tripSearch.getTripTitle().toLowerCase()).append("%'");
@@ -349,10 +360,31 @@ public class TripServiceImpl implements TripService {
             sb.append(" and LOWER(t.trip_city) like '%").append(tripSearch.getTripCity().toLowerCase()).append("%'");
         }
 
+        if(tripSearch.getTripStartDateMin()!=null){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = simpleDateFormat.format(tripSearch.getTripStartDateMin());
+            sb.append(" and t.trip_start_date >= '").append(date).append("'");
+        }
+
+        if(tripSearch.getTripStartDateMax()!=null){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String date = simpleDateFormat.format(tripSearch.getTripStartDateMax());
+            sb.append(" and t.trip_start_date <= '").append(date).append("'");
+        }
+
+        if(tripSearch.getTripPriceMin()!=null){
+            sb.append(" and t.trip_price_member >= ").append(tripSearch.getTripPriceMin());
+        }
+
+        if(tripSearch.getTripPriceMax()!=null){
+            sb.append(" and t.trip_price_member <= ").append(tripSearch.getTripPriceMax());
+        }
+
         Query q = this.em.createNativeQuery(sb.toString(), Trip.class);
         List<Trip> trips = q.getResultList();
 
         trips.iterator().forEachRemaining(trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)));
+
         return tripWrapperList;
     }
 }
