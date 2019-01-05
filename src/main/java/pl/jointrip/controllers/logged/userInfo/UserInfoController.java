@@ -1,5 +1,6 @@
 package pl.jointrip.controllers.logged.userInfo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,7 @@ public class UserInfoController {
     private DocumentsRepository documentsRepository;
     private DocumentsService documentsService;
 
+    @Autowired
     public UserInfoController(UserService userService, DocumentsRepository documentsRepository, DocumentsService documentsService) {
         this.userService = userService;
         this.documentsRepository = documentsRepository;
@@ -41,7 +43,6 @@ public class UserInfoController {
         User userToEdit = userService.getLoggedUser();
         userToEdit.setName(user.getName());
         userToEdit.setLastName(user.getLastName());
-        //userRepository.save(userToEdit);
         modelAndView.setViewName("user/edit");
         return modelAndView;
     }

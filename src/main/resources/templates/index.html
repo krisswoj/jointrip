@@ -13,50 +13,59 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="sectionTitle">
-                            <h2><span class="lightBg">Nasze najnowsze wycieczki</span></h2>
-                            <p>Ciesz się najlepszymi cenami na nowo dodane wycieczki!</p>
+                            <h2><span class="lightBg" style="background-color: whitesmoke">Niedawno dodane wycieczki</span></h2>
+                            <p>Najlepsze podróże w najniższej cenie. Przekonaj się!</p>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-4 col-xs-12" th:each="trip : ${index_form}">
-                        <div class="thumbnail deals">
-                            <img th:src="@{/images/home/deal/deal-01.jpg}" alt="deal-image">
-                            <a href="/" class="pageLink"></a>
-                            <div class="discountInfo">
-                                <div class="discountOffer">
-                                    <h4>
-                                        50% <span>OFF</span>
-                                    </h4>
-                                </div>
-                                <ul class="list-inline rating homePage">
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
-                                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+
+                <div class="col-sm-4 col-xs-12" th:each="element : ${indexTrips}">
+                    <div class="thumbnail deals">
+
+
+
+
+
+
+                        <!--<img src="images/home/deal/deal-02.jpg" alt="deal-image">-->
+
+
+
+
+
+
+
+                        <img th:attrappend="src=${element.mainImageStore == null ? '../files/no-picture-list.png' : '../files/' + element.mainImageStore.imgName}"
+                             alt="Image">
+
+
+
+
+
+
+                        <a href="single-package-fullwidth.html" class="pageLink"></a>
+
+                        <div class="caption">
+                            <h4><a th:href="@{/showTrip(ide=${element.trip.id})}" class="captionTitle"
+                                   th:text="${element.trip.tripTitle}"/></h4>
+                            <p th:text="${element.trip.tripShortDesc}"/>
+                            <div class="detailsInfo">
+
+                                <h5>
+                                    <span>Cena od</span>
+                                    <th:block th:utext="${element.trip.tripPriceMember} + ' zł'"/>
+                                </h5>
+
+                                <ul class="list-inline detailsBtn">
+                                    <li><a th:href="@{/showTrip(ide=${element.trip.id})}" class="btn buttonTransparent">Szczegóły</a>
+                                    </li>
+
                                 </ul>
-                                <ul class="list-inline duration">
-                                    <li th:text="${#dates.day(trip.tripCreateDate)}"></li>
-                                    <li th:text="${#dates.monthName(trip.tripCreateDate)}"></li>
-                                </ul>
-                            </div>
-                            <div class="caption">
-                                <h4 th:text="${trip.tripTitle}"></h4>
-                                <p th:text="${trip.tripShortDesc}"></p>
-                                <div class="detailsInfo">
-                                    <h5>
-                                        <span>Cena od</span>
-                                        <p th:text="${trip.tripPriceMember}" ></p>
-                                    </h5>
-                                    <ul class="list-inline detailsBtn">
-                                        <li><a href="/showTrip" class="btn buttonTransparent" th:href="@{/showTrip(ide=${trip.id})}" th:text="Szczegóły"></a></li>
-                                    </ul>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="btnArea">
@@ -100,7 +109,5 @@
                 </div>
             </div>
         </section>
-
     </div>
-
 </div>

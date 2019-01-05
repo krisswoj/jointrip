@@ -67,7 +67,7 @@ public interface TripService {
 
     TripWrapper createTripWrapperForOrganisator(Trip trip);
 
-    List<Trip> findLatestTrips();
+    List<TripWrapper> findLatestTripsWrapper();
 
     Trip findById(int id);
 

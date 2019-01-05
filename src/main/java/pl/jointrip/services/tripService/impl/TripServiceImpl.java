@@ -26,18 +26,11 @@ import java.util.*;
 @Service
 public class TripServiceImpl implements TripService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    TripRepository tripRepository;
-    @Autowired
-    CommentsRepository commentsRepository;
-    @Autowired
-    UserService userService;
-    @Autowired
-    TripMemberRepository tripMemberRepository;
-    @Autowired
-    ChatTripRepository chatTripRepository;
+    private TripRepository tripRepository;
+    private CommentsRepository commentsRepository;
+    private UserService userService;
+    private TripMemberRepository tripMemberRepository;
+    private ChatTripRepository chatTripRepository;
 
     @PersistenceContext
     private EntityManager em;
@@ -59,6 +52,15 @@ public class TripServiceImpl implements TripService {
 
     @Value("${MEMBER_JOINED_TRIP_NEGATIVE}")
     private String tripJoinNegative;
+
+    @Autowired
+    public TripServiceImpl(TripRepository tripRepository, CommentsRepository commentsRepository, UserService userService, TripMemberRepository tripMemberRepository, ChatTripRepository chatTripRepository) {
+        this.tripRepository = tripRepository;
+        this.commentsRepository = commentsRepository;
+        this.userService = userService;
+        this.tripMemberRepository = tripMemberRepository;
+        this.chatTripRepository = chatTripRepository;
+    }
 
     @Override
     public boolean saveTrip(Trip trip) {
@@ -182,7 +184,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public Map<String, List<TripWrapper>> tripMapWithStatisticForOrganisator(){
+    public Map<String, List<TripWrapper>> tripMapWithStatisticForOrganisator() {
         Map<String, List<TripWrapper>> listMap = new HashMap<>();
         listMap.put("waitForVerify", tripWithStatisticsForOrganisator(0));
         listMap.put("acceptedTrips", tripWithStatisticsForOrganisator(1));
@@ -252,7 +254,7 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public ChatTrip chatTripAddMessage(Trip trip, User tripMember, String message, int messageKind){
+    public ChatTrip chatTripAddMessage(Trip trip, User tripMember, String message, int messageKind) {
         return chatTripRepository.save(new ChatTrip(message, messageKind, trip, tripMember, trip.getUserByUserId()));
     }
 
@@ -295,8 +297,17 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
-    public List<Trip> findLatestTrips() {
-        return tripRepository.findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0);
+    public List<TripWrapper> findLatestTripsWrapper() {
+        List<TripWrapper> tripWrapperList = new ArrayList<>();
+
+        tripRepository
+                .findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(1)
+                .iterator()
+                .forEachRemaining(
+                        trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)
+                        ));
+
+        return tripWrapperList;
     }
 
     @Override
@@ -331,7 +342,7 @@ public class TripServiceImpl implements TripService {
 
         StringBuilder sb = new StringBuilder();
 
-        if(logged){
+        if (logged) {
             User loggedUser = userService.getLoggedUser();
             sb.append("select * from trip t left join trip_member tm on t.id = tm.trip_id where NOT t.trip_status = 0 and t.user_id <> ")
                     .append(loggedUser.getUserId())
@@ -341,35 +352,35 @@ public class TripServiceImpl implements TripService {
             sb.append("Select * from trip t where t.trip_status = 1");
         }
 
-        if(!"".equals(tripSearch.getTripTitle())){
+        if (!"".equals(tripSearch.getTripTitle())) {
             sb.append(" and LOWER(t.trip_title) like '%").append(tripSearch.getTripTitle().toLowerCase()).append("%'");
         }
 
-        if(!"".equals(tripSearch.getTripCountry())){
+        if (!"".equals(tripSearch.getTripCountry())) {
             sb.append(" and LOWER(t.trip_country) like '%").append(tripSearch.getTripCountry().toLowerCase()).append("%'");
         }
 
-        if(!"".equals(tripSearch.getTripCity())){
+        if (!"".equals(tripSearch.getTripCity())) {
             sb.append(" and LOWER(t.trip_city) like '%").append(tripSearch.getTripCity().toLowerCase()).append("%'");
         }
 
-        if(tripSearch.getTripStartDateMin()!=null){
+        if (tripSearch.getTripStartDateMin() != null) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date = simpleDateFormat.format(tripSearch.getTripStartDateMin());
             sb.append(" and t.trip_start_date >= '").append(date).append("'");
         }
 
-        if(tripSearch.getTripStartDateMax()!=null){
+        if (tripSearch.getTripStartDateMax() != null) {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String date = simpleDateFormat.format(tripSearch.getTripStartDateMax());
             sb.append(" and t.trip_start_date <= '").append(date).append("'");
         }
 
-        if(tripSearch.getTripPriceMin()!=null){
+        if (tripSearch.getTripPriceMin() != null) {
             sb.append(" and t.trip_price_member >= ").append(tripSearch.getTripPriceMin());
         }
 
-        if(tripSearch.getTripPriceMax()!=null){
+        if (tripSearch.getTripPriceMax() != null) {
             sb.append(" and t.trip_price_member <= ").append(tripSearch.getTripPriceMax());
         }
 

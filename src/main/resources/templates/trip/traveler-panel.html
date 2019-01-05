@@ -37,8 +37,8 @@
                                         <h4>Dodatkowe koszta</h4>
                                         <div th:each="element : ${tripContent.trip.tripExtraCosts}" class="packageInfo">
                                             <p>
-                                                <th:block th:utext="${element.title}">asdfg</th:block>
-                                                <span th:text="${element.price} + ' '+ ${element.currency}">Subtitle</span>
+                                                <th:block th:utext="${element.title}"></th:block>
+                                                <span th:text="${element.price} + ' '+ ${element.currency}"></span>
                                             </p>
                                         </div>
                                     </div>

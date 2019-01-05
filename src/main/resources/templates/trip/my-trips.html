@@ -28,9 +28,62 @@
     <section class="mainContentSection packagesSection">
         <div class="container">
             <div class="row">
-                <div class="col-sm-2  col-xs-2" style="display:block">
+                <div class="col-sm-3 col-xs-12">
+                    <aside>
+                        <div class="panel panel-default packagesFilter">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Wyszukiwarka</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <form autocomplete="off" action="#" th:action="@{/trips}"
+                                          th:object="${tripSearch}" method="post" class="form-horizontal" role="form">
+                                        <div class="col-sm-12" style="padding-bottom: 5px">
+                                            <input id="tripTitle" type="text" th:field="*{tripTitle}" placeholder="Tytul wycieczki"
+                                                   class="form-control"/>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding-bottom: 5px">
+                                            <input id="tripCountry" type="text" th:field="*{tripCountry}" placeholder="Kraj podróży"
+                                                   class="form-control"/>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding-bottom: 5px">
+                                            <input id="tripCity" type="text" th:field="*{tripCity}" placeholder="Miasto"
+                                                   class="form-control"/>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding-bottom: 5px">
+                                            <input id="tripStartDateMin" type="date" th:field="*{tripStartDateMin}" placeholder="najszybszy termin rozpoczecia wycieczki"
+                                                   class="form-control"/>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding-bottom: 5px">
+                                            <input id="tripStartDateMax" type="date" th:field="*{tripStartDateMax}" placeholder="najpozniejszy termin rozpoczecia wycieczki"
+                                                   class="form-control"/>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding-bottom: 5px">
+                                            <input id="tripPriceMin" type="number" th:field="*{tripPriceMin}" placeholder="Minimalna cena za osobe"
+                                                   class="form-control"/>
+                                        </div>
+
+                                        <div class="col-sm-12" style="padding-bottom: 5px">
+                                            <input id="tripPriceMax" type="number" th:field="*{tripPriceMax}" placeholder="Maksymalna cena za osobe"
+                                                   class="form-control"/>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <button type="submit" name="Submit" class="btn buttonTransparent" style="float: ">Wyszukaj</button>
+                                        </div>
+
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
-                <div class="col-sm-8  col-xs-8">
+                <div class="col-sm-9  col-xs-12">
                     <div class="row sidebarPage">
                         <ul class="nav nav-tabs" role="tablist" id="tablist">
                             <li role="presentation">
@@ -165,7 +218,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2  col-xs-2" style="display:block">
                 </div>
             </div>
         </div>
