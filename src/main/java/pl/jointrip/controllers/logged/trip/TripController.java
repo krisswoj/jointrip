@@ -36,7 +36,7 @@ public class TripController {
 
     @PostMapping(value = "/showTrips")
     public ModelAndView showTrips(@Valid TripSearchVM trip) {
-        ModelAndView modelAndView = mavWithTripSearch();
+        ModelAndView modelAndView = mavWithFilledTripSearch(trip);
         modelAndView.addObject("showTripsWrapper", tripService.searchTrips(trip, true));
         modelAndView.setViewName("trip/trips");
         return modelAndView;
@@ -52,7 +52,7 @@ public class TripController {
 
     @PostMapping(value = "/trips")
     public ModelAndView searchTripsForUnlogged(@Valid TripSearchVM trip) {
-        ModelAndView modelAndView = mavWithTripSearch();
+        ModelAndView modelAndView = mavWithFilledTripSearch(trip);
         modelAndView.addObject("showTripsWrapper", tripService.searchTrips(trip, false));
         modelAndView.setViewName("trip/trips");
         return modelAndView;
@@ -92,6 +92,12 @@ public class TripController {
     private ModelAndView mavWithTripSearch() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripSearch", new TripSearchVM());
+        return modelAndView;
+    }
+
+    private ModelAndView mavWithFilledTripSearch(TripSearchVM tripSearchVM) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripSearch", tripSearchVM);
         return modelAndView;
     }
 
