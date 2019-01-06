@@ -301,7 +301,7 @@ public class TripServiceImpl implements TripService {
         List<TripWrapper> tripWrapperList = new ArrayList<>();
 
         tripRepository
-                .findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(1)
+                .findTop3ByTripStatusIsGreaterThanOrderByTripCreateDateDesc(0)
                 .iterator()
                 .forEachRemaining(
                         trip -> tripWrapperList.add(createTripWrapperForNewUsers(trip)
