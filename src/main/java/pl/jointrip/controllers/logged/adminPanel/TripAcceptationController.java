@@ -7,9 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import pl.jointrip.models.entities.comments.Comments;
 import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.services.tripService.TripAcceptationService;
+import pl.jointrip.services.tripService.TripService;
+import pl.jointrip.services.userService.UserService;
 
 @Controller
 public class TripAcceptationController {
@@ -28,6 +31,12 @@ public class TripAcceptationController {
 
     @Autowired
     TripAcceptationService acceptationService;
+
+    @Autowired
+    private TripService tripService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/admin/acceptationPanel", method = RequestMethod.GET)
     public ModelAndView showTripsToAccept() {
@@ -48,11 +57,10 @@ public class TripAcceptationController {
         return modelAndView;
     }
     @RequestMapping(value = "/admin/acceptationPanel/show", params = "id", method = RequestMethod.GET)
-    public ModelAndView showTrip(@RequestParam("id") int id) {
+    public ModelAndView showTrip(@RequestParam("id") int tripId) {
         ModelAndView modelAndView = new ModelAndView();
-        Trip trip = acceptationService.fetchTripById(id);
-        modelAndView.addObject("tripInfo", trip);
-        modelAndView.addObject("members", trip.getTripMembers());
+        modelAndView.addObject("tripInfo", tripService.findById(tripId));
+        modelAndView.addObject("commentList", tripService.findByTripAndStatusIs(tripService.findById(tripId), 1));
         modelAndView.setViewName("admin/trip-info");
         return modelAndView;
     }
