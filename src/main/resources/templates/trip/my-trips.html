@@ -87,15 +87,15 @@
                     <div class="row sidebarPage">
                         <ul class="nav nav-tabs" role="tablist" id="tablist">
                             <li role="presentation">
-                                <a href="#wait" aria-controls="wait" role="tab" data-toggle="tab"
+                                <a th:id="toVerifyTabLink" href="#wait" aria-controls="wait" role="tab" data-toggle="tab"
                                    th:text="'Do weryfikacji (' +${showTripsAmountInfo.get('memberToVerify')}+ ')'"/>
                             </li>
                             <li role="presentation">
-                                <a href="#topaid" aria-controls="topaid" role="tab" data-toggle="tab"
+                                <a th:id="memberWaitForPaymentTabLink" href="#topaid" aria-controls="topaid" role="tab" data-toggle="tab"
                                    th:text="'Oczekujące na zapłatę (' +${showTripsAmountInfo.get('memberWaitForPayment')}+ ')'"/>
                             </li>
                             <li role="presentation">
-                                <a href="#paid" aria-controls="paid" role="tab" data-toggle="tab"
+                                <a th:id="paidMemberTabLink" href="#paid" aria-controls="paid" role="tab" data-toggle="tab"
                                    th:text="'Opłacone (' +${showTripsAmountInfo.get('paidMember')}+ ')'"/>
                             </li>
                         </ul>
