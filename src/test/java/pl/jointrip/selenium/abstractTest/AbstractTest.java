@@ -149,7 +149,7 @@ public abstract class AbstractTest {
             verificationErrors.append(e.toString());
         }
         try {
-            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripShortDesc")),255, "maxlength"));
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripShortDesc")),1000, "maxlength"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -159,7 +159,7 @@ public abstract class AbstractTest {
             verificationErrors.append(e.toString());
         }
         try {
-            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripFullDesc")),255, "maxlength"));
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripFullDesc")),5000, "maxlength"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -308,7 +308,7 @@ public abstract class AbstractTest {
             verificationErrors.append(e.toString());
         }
         try {
-            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripShortDesc")),255, "maxlength"));
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripShortDesc")),1000, "maxlength"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -318,7 +318,7 @@ public abstract class AbstractTest {
             verificationErrors.append(e.toString());
         }
         try {
-            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripFullDesc")),255, "maxlength"));
+            assertTrue(isAttributeMaxEqualToExpected(driver.findElement(By.id("tripFullDesc")),5000, "maxlength"));
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
@@ -446,6 +446,35 @@ public abstract class AbstractTest {
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
+    }
+
+    public void joinToTrip() throws Exception{
+
+        driver.get(baseUrl);
+        login("admin@gmail.com","qwe123");
+        addNewTrip(tripName);
+        actions.moveToElement(driver.findElement(By.id("adminLink"))).perform();
+        driver.findElement(By.id("acceptationPanelLink")).click();
+        driver.findElement(By.linkText(tripName)).click();
+        driver.findElement(By.id("acceptLink")).click();
+        driver.findElement(By.id("logoutLink")).click();
+        login("user@gmail.com", "qwe123");
+        actions.moveToElement(driver.findElement(By.id("tripsLink"))).perform();
+        driver.findElement(By.id("showTripsLoggedLink")).click();
+        driver.findElement(By.id(tripName)).click();
+        driver.findElement(By.id("joinTripLink")).click();
+        try {
+            assertTrue(isElementPresent(By.id("messageSuccess")));
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+        String test = driver.findElement(By.id("messageSuccess")).getText();
+        try {
+            assertEquals("Potwierdzamy dolaczenie do wycieczki", driver.findElement(By.id("messageSuccess")).getText());
+        } catch (Error e) {
+            verificationErrors.append(e.toString());
+        }
+
     }
 
     public boolean isAttribtuePresent(WebElement element, String attribute) {

@@ -21,6 +21,11 @@ public class ChatTest extends AbstractTest{
         } catch (Error e) {
             verificationErrors.append(e.toString());
         }
+        driver.findElement(By.id("btn-input")).click();
+        driver.findElement(By.id("btn-input")).clear();
+        driver.findElement(By.id("btn-input")).sendKeys("hej");
+        driver.findElement(By.id("btn-chat")).click();
+
     }
 
 }
