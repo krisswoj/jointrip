@@ -11,12 +11,12 @@ import static org.junit.Assert.assertTrue;
 
 public class UploadFileTest extends AbstractTest {
 
-    @Ignore
     @Test
     public void testUploadFile() throws Exception { // przyrost 4
         driver.get(baseUrl);
         login();
         actions.moveToElement(driver.findElement(By.id("userLink"))).perform();
+        driver.findElement(By.id("docsApprovalLink")).click();
         driver.findElement(By.id("docsApprovalLink")).click();
         driver.findElement(By.id("file")).click();
         driver.findElement(By.id("file")).clear();
