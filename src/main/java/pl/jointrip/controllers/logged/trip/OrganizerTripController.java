@@ -14,6 +14,7 @@ import pl.jointrip.models.entities.comments.CommentsWrapper;
 import pl.jointrip.models.entities.documents.Documentstore;
 import pl.jointrip.models.entities.documents.ImagesStore;
 import pl.jointrip.models.entities.trip.DailyTripPlan;
+import pl.jointrip.models.entities.trip.Trip;
 import pl.jointrip.models.entities.trip.TripExtraCosts;
 import pl.jointrip.models.entities.trip.TripsMemberWrapper;
 import pl.jointrip.models.system.SystemNotification;
@@ -185,6 +186,33 @@ public class OrganizerTripController {
         return modelAndView;
     }
 
+    @GetMapping(value = "/myTripManagment/edit", params = "ids")
+    public ModelAndView editTrip(@RequestParam("ids") int tripId) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tripEdit", tripService.findById(tripId));
+        modelAndView.setViewName("trip/edit");
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/myTripManagment/edit", params = "ids")
+    public ModelAndView editTrip(@Valid Trip trip, @RequestParam("ids") int tripId) {
+        Trip tripEdit = tripService.findById(tripId);
+
+        tripEdit.setTripTitle(trip.getTripTitle());
+        tripEdit.setTripShortDesc(trip.getTripShortDesc());
+        tripEdit.setTripFullDesc(trip.getTripFullDesc());
+        tripEdit.setTripStartDate(trip.getTripStartDate());
+        tripEdit.setTripEndDate(trip.getTripEndDate());
+        tripEdit.setTripCountry(trip.getTripCountry());
+        tripEdit.setTripCity(trip.getTripCity());
+        tripEdit.setTripStreet(trip.getTripStreet());
+        tripEdit.setOrganizatorPhoneNumber(trip.getOrganizatorPhoneNumber());
+
+        tripService.editTrip(tripEdit);
+        ModelAndView modelAndView = new ModelAndView("redirect:/myTripManagment?ids=" + tripId);
+        return modelAndView;
+    }
+
     private ModelAndView mavWithTripInfoFormCommentsForm(int tripId) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tripInfo", dailyTripPlanService.tripWithDailyPlan(tripService.findById(tripId)));
@@ -208,4 +236,5 @@ public class OrganizerTripController {
         modelAndView.setViewName("trip/show-managment-trip-chat");
         return modelAndView;
     }
+
 }

@@ -2,8 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       th:include="layout :: page">
+
 <div th:fragment="content">
-    <sectio class="mainContentSection singlePackage">
+    <section class="mainContentSection singlePackage">
         <div class="container">
             <div>
                 <div>
@@ -21,7 +22,10 @@
                                     <div class="packageInfo">
                                         <h4>Informacje</h4>
                                         <dl class="dl-horizontal">
-                                            <dt>Lokalizacja:</dt>
+                                            <dt><span class="icon" style="color: #ff2f1b !important;"><div class="fa fa-exclamation-circle" aria-hidden="true">
+                                                <div class="tooltiptext col-sm-5 col-xs-5">Pamiętaj, aby przed podróżą w dane miejsce <br/> dowiedzieć się o chorobach tam panujących <br/> i w razie przypadku skonsultować się z lekarzem.</div>
+                                            </div></span>
+                                                Lokalizacja:</dt>
                                             <dd th:text="${tripContent.getTrip().getTripCity()}+' / '+${tripContent.getTrip().getTripCountry()}"/>
                                             <dt>Data wyjazdu:</dt>
                                             <dd th:text="${#dates.format(tripContent.trip.tripStartDate, 'dd/MM/yyyy')}"/>
@@ -196,5 +200,5 @@
                 </div>
             </div>
         </div>
-    </sectio>
+    </section>
 </div>

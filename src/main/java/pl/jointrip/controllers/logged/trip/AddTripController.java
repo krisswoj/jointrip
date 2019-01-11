@@ -11,6 +11,7 @@ import pl.jointrip.models.system.SystemNotification;
 import pl.jointrip.services.tripService.TripService;
 
 import javax.validation.Valid;
+import java.util.Date;
 
 @Controller
 public class AddTripController {
@@ -37,6 +38,7 @@ public class AddTripController {
     public ModelAndView addTripForm(@Valid Trip tripEntity) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("trip_form", new Trip());
+        tripEntity.setTripCreateDate(new Date());
         boolean result = tripService.addedTripNotification(tripEntity);
         SystemNotification systemNotification = result ? new SystemNotification("true", tripPositive) : new SystemNotification("fail", tripNegative);
         modelAndView.addObject("message", systemNotification);

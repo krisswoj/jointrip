@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml"
       th:include="layout :: page">
 
 
@@ -43,7 +43,7 @@
 
 
 
-                        <a href="single-package-fullwidth.html" class="pageLink"></a>
+                        <a th:href="@{/showTrip(ide=${element.trip.id})}" class="pageLink"></a>
 
                         <div class="caption">
                             <h4><a th:href="@{/showTrip(ide=${element.trip.id})}" class="captionTitle"
@@ -69,7 +69,9 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="btnArea">
-                            <a href="/trips" class="btn buttonTransparent">Pokaż wszystkie</a>
+                            <a href="/trips" sec:authorize='isAnonymous()' class="btn buttonTransparent">Pokaż wszystkie</a>
+                            <a href="/trips" sec:authorize='hasAuthority("NOTVERIFIEDUSER")' class="btn buttonTransparent">Pokaż wszystkie</a>
+                            <a href="/showTrips" sec:authorize='hasAnyAuthority("USER","ADMIN")' class="btn buttonTransparent">Pokaż wszystkie</a>
                         </div>
                     </div>
                 </div>
