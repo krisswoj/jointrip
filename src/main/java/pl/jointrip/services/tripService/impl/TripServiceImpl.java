@@ -79,6 +79,19 @@ public class TripServiceImpl implements TripService {
     }
 
     @Override
+    public boolean editTrip(Trip trip) {
+
+        trip.setTripEditDate(new Date());
+        try {
+            tripRepository.save(trip);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public boolean joinToTripByUser(int id) {
 
         User loggedUser = userService.getLoggedUser();

@@ -24,8 +24,9 @@
                     <li sec:authorize="isAnonymous()"><a id="registrationLink" href="/registration">Zarejestruj</a></li>
                     <li sec:authorize="isAnonymous()"><a id="loginLink" href="/login">Zaloguj</a></li>
                     <li sec:authorize="isAnonymous()"><a id="showTripsUnloggedLink" href="/trips">Wycieczki</a></li>
+                    <li sec:authorize='hasAuthority("NOTVERIFIEDUSER")'><a id="showTripsNotVerifiedLink" href="/trips">Wycieczki</a></li>
 
-                    <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
+                    <li class="dropdown singleDrop" sec:authorize='hasAnyAuthority("USER","ADMIN")'>
                         <a id="tripsLink" hFref="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Wycieczki</a>
                         <ul class="dropdown-menu dropdown-menu-right">
@@ -34,7 +35,7 @@
                         </ul>
                     </li>
 
-                    <li class="dropdown singleDrop" sec:authorize="isAuthenticated()">
+                    <li class="dropdown singleDrop" sec:authorize='hasAnyAuthority("USER","ADMIN")'>
                         <a id="organiserLink" href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button"
                            aria-haspopup="true" aria-expanded="false">Organizator</a>
                         <ul class="dropdown-menu dropdown-menu-right">

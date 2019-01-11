@@ -30,34 +30,92 @@
                         <div class="dashboardPageTitle">
                             <h2>Użytkownicy</h2>
                         </div>
-                        <div class="table-responsive" data-pattern="priority-columns"
-                             th:each="user : ${users}">
-                            <table class="table listingsTable">
-                                <tbody>
-                                <tr class="rowItem">
+
+                        <ul class="nav nav-tabs" role="tablist" id="tablist">
+                            <li role="presentation">
+                                <a th:id="allUsersTab" href="#allUsers" aria-controls="allUsers" role="tab" data-toggle="tab"
+                                   th:text="'Wszyscy użytkownicy'"/>
+                            </li>
+                            <li role="presentation">
+                                <a th:id="notVerifiedUsersTab" href="#notVerifiedUsers" aria-controls="notVerifiedUsers" role="tab" data-toggle="tab"
+                                   th:text="'Niezweryfikowani użytkownicy'"/>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <div id="allUsers" class="tab-pane fade">
+                                <div class="table-responsive" data-pattern="priority-columns"
+                                     th:each="user : ${users}">
+                                    <table class="table listingsTable">
+                                        <tbody>
+                                        <tr class="rowItem">
 
 
-                                    <td class="packageTd">
-                                        <ul class="list-inline listingsInfo">
-                                            <li>
-                                                <h4 th:text="${user.email}"></h4>
-                                                <p th:text="${user.name} + ' ' + ${user.lastName}"/>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td class="bookingTd">
-                                        <ul class="list-inline listingsInfo text-left">
-                                            <li>
-                                                <h4>ID UŻYTKOWNIKA</h4>
-                                                <p th:text="${user.userId}"/>
-                                                <a href="/admin/allUsersPanel" th:href="@{/admin/allUsersPanel/block(id=${user.userId})}" ><h4>Zablokuj</h4></a>
-                                                <a href="/admin/allUsersPanel" th:href="@{/admin/allUsersPanel/remove(id=${user.userId})}" ><h4>Usuń</h4></a>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
+                                            <td class="packageTd">
+                                                <ul class="list-inline listingsInfo">
+                                                    <li>
+                                                        <h4 th:text="${user.email}"></h4>
+                                                        <p th:text="${user.name} + ' ' + ${user.lastName}"/>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td class="bookingTd">
+                                                <ul class="list-inline listingsInfo text-left">
+                                                    <li>
+                                                        <h4>ID UŻYTKOWNIKA</h4>
+                                                        <p th:text="${user.userId}"/>
+                                                        <a href="/admin/allUsersPanel"
+                                                           th:href="@{/admin/allUsersPanel/block(id=${user.userId})}">
+                                                            <h4>Zablokuj</h4></a>
+                                                        <a href="/admin/allUsersPanel"
+                                                           th:href="@{/admin/allUsersPanel/remove(id=${user.userId})}">
+                                                            <h4>Usuń</h4></a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div id="notVerifiedUsers" class="tab-pane fade">
+                                <div class="table-responsive" data-pattern="priority-columns"
+                                     th:each="user : ${usersNotVerified}">
+                                    <table class="table listingsTable">
+                                        <tbody>
+                                        <tr class="rowItem">
+
+
+                                            <td class="packageTd">
+                                                <ul class="list-inline listingsInfo">
+                                                    <li>
+                                                        <a th:href="@{@{/admin/user-info(id=${user.userId})}}" th:text="${user.email}"></a>
+                                                        <p th:text="${user.name} + ' ' + ${user.lastName}"/>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                            <td class="bookingTd">
+                                                <ul class="list-inline listingsInfo text-left">
+                                                    <li>
+                                                        <h4>ID UŻYTKOWNIKA</h4>
+                                                        <p th:text="${user.userId}"/>
+                                                        <a href="/admin/allUsersPanel"
+                                                           th:href="@{/admin/allUsersPanel/block(id=${user.userId})}">
+                                                            <h4>Zablokuj</h4></a>
+                                                        <a href="/admin/allUsersPanel"
+                                                           th:href="@{/admin/allUsersPanel/remove(id=${user.userId})}">
+                                                            <h4>Usuń</h4></a>
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

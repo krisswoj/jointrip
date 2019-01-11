@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      th:include="layout :: page">
+
+<div th:fragment="content">
+
+    <section class="settingSection">
+        <div class="container">
+            <div class="settingContent bg-ash">
+                <h4>Edycja wycieczki</h4>
+                <div class="changePassword">
+                    <div class="row">
+
+                        <form autocomplete="off" action="#" th:action="@{/myTripManagment/edit(ids=${tripEdit.id})}"
+                              th:object="${tripEdit}" method="post" class="form-horizontal" role="form">
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Tytul wycieczki</label>
+                                        <input type="text" class="form-control"
+                                               th:field="*{tripTitle}"
+                                               rows="2" th:maxlength="255">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Opis wycieczki</label>
+                                        <textarea type="text" class="form-control"
+                                               th:field="*{tripShortDesc}"
+                                               rows="2" th:maxlength="1000">
+                                        </textarea>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Pelen opis wycieczki</label>
+                                        <textarea type="text" class="form-control"
+                                               th:field="*{tripFullDesc}"
+                                               rows="2" th:maxlength="5000">
+                                        </textarea>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Data rozpoczecia wycieczki</label>
+                                        <input type="date" class="form-control"
+                                               th:field="*{tripStartDate}"
+                                               rows="2">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Data zakonczenia wycieczki</label>
+                                        <input type="date" class="form-control"
+                                               th:field="*{tripEndDate}"
+                                               rows="2">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Kraj podrozy</label>
+                                        <input type="text" class="form-control"
+                                               th:field="*{tripCountry}"
+                                               rows="2" th:maxlength="255">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Miasto</label>
+                                        <input type="text" class="form-control"
+                                               th:field="*{tripCity}"
+                                               rows="2" th:maxlength="255">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Ulica oraz numer</label>
+                                        <input type="text" class="form-control"
+                                               th:field="*{tripStreet}"
+                                               rows="2" th:maxlength="255">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Telefon kontaktowy</label>
+                                        <input type="tel" class="form-control"
+                                               th:field="*{organizatorPhoneNumber}"
+                                               rows="2" pattern="[0-9]{9}">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <button type="submit" class="btn buttonCustomPrimary">Edytuj</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>

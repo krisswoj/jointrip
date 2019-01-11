@@ -4,18 +4,50 @@
       th:include="layout :: page">
 
 <div th:fragment="content">
-    <form autocomplete="off" action="#" th:action="@{/user/edit}"
-          th:object="${userEdit}" method="post" class="form-horizontal" role="form">
-        <div style="width: 30%">
-            <input type="text" th:field="*{name}" placeholder="Imię"
-                   class="form-control"/>
+
+    <section class="settingSection">
+        <div class="container">
+            <div class="settingContent bg-ash">
+                <h4>Edycja profilu</h4>
+                <div class="changePassword">
+                    <div class="row">
+
+                        <form autocomplete="off" action="#" th:action="@{/user/edit}"
+                              th:object="${userEdit}" method="post" class="form-horizontal" role="form">
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Imie</label>
+                                        <input type="text" class="form-control"
+                                               th:field="*{name}"
+                                               rows="2">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label>Nazwisko</label>
+                                        <input type="text" class="form-control"
+                                               th:field="*{lastName}"
+                                               rows="2">
+                                        </input>
+                                    </div>
+                                </fieldset>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <button type="submit" name="Submit" class="btn buttonTransparent">Edytuj</button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div style="width: 30%">
-            <input type="text" th:field="*{lastName}" placeholder="Nazwisko"
-                   class="form-control"/>
-        </div>
-        <div style="width: 30%">
-            <button type="submit" class="btn buttonTransparent">Edytuj</button>
-        </div>
-    </form>
+    </section>
+
 </div>

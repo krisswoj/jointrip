@@ -20,9 +20,11 @@ public class Trip {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Basic
     @Column(name = "trip_create_date")
     private Date tripCreateDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Basic
     @Column(name = "trip_edit_date")
     private Date tripEditDate;

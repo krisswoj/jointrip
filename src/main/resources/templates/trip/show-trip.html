@@ -84,9 +84,9 @@
                         <div class="col-xs-12">
                             <div class="review-aria">
                                 <form th:action="@{/showTrip/addedComment(ide=${tripInfo.id})}" method="POST"
-                                      role="form" class="commentsForm" th:object="${commentForm}">
+                                      role="form" class="commentsForm" th:object="${commentForm}" sec:authorize='hasAnyAuthority("USER","ADMIN")'>
                                     <h3 class="reviewTitle">Zadaj pytanie organizatorowi</h3>
-                                    <div class="row" sec:authorize="isAuthenticated()">
+                                    <div class="row">
                                         <div class="col-xs-12">
                                             <div class="form-group">
                                                     <textarea class="form-control" rows="3"
@@ -96,8 +96,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" class="btn buttonCustomPrimary" name="Submit"
-                                            sec:authorize="isAuthenticated()">Wyslij
+                                    <button type="submit" class="btn buttonCustomPrimary" name="Submit">Wyslij
                                     </button>
                                 </form>
 
@@ -182,7 +181,7 @@
                                                 <div class="col-xs-4 totalCostRight"
                                                      th:text="${tripInfo.tripPriceMember} + ' zł'"></div>
                                             </div>
-                                            <div class="col-sm-12" sec:authorize="isAuthenticated()">
+                                            <div class="col-sm-12" sec:authorize='hasAnyAuthority("USER","ADMIN")'>
                                                 <span th:if="${userIsAMember}"
                                                       class="btn btn-block buttonTransparent disabled">Jesteś już uczestnikiem</span>
                                                 <span th:unless="${userIsAMember}"><a id="joinTripLink" href="/showTrip"

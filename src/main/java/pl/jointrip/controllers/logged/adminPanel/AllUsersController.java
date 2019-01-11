@@ -25,6 +25,7 @@ public class AllUsersController {
     public ModelAndView fetchUsers(){
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("users", userService.allUsersByStatus(1));
+        modelAndView.addObject("usersNotVerified", userService.allNotVerifiedUsers());
         modelAndView.setViewName("admin/allUsersPanel");
         return modelAndView;
     }
@@ -36,6 +37,7 @@ public class AllUsersController {
         SystemNotification systemNotification = result ? new SystemNotification("true", userBlockPositive) : new SystemNotification("fail", userBlockNegative);
         modelAndView.addObject("message", systemNotification);
         modelAndView.addObject("users", userService.allUsersByStatus(1));
+        modelAndView.addObject("usersNotVerified", userService.allNotVerifiedUsers());
         modelAndView.setViewName("admin/allUsersPanel");
         return modelAndView;
     }
@@ -44,6 +46,7 @@ public class AllUsersController {
         ModelAndView modelAndView = new ModelAndView();
         boolean result = userService.removeUser(id);
         modelAndView.addObject("users", userService.allUsersByStatus(1));
+        modelAndView.addObject("usersNotVerified", userService.allNotVerifiedUsers());
         modelAndView.setViewName("admin/allUsersPanel");
         return modelAndView;
     }

@@ -15,6 +15,8 @@ public interface TripService {
 
     boolean saveTrip(Trip trip);
 
+    public boolean editTrip(Trip trip);
+
     boolean joinToTripByUser(int id);
 
     boolean saveCommentByUser(Comments comment, int tripId);

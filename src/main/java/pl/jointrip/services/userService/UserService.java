@@ -12,13 +12,21 @@ public interface UserService {
 
     void saveUser(User user);
 
+    void editUser(User user);
+
     boolean changeUserPassword(String oldPassword, String newPassword, String newPasswordVerify);
 
     User getLoggedUser();
 
     List<User> allUsersByStatus(int status);
 
+    List<User> allNotVerifiedUsers();
+
     boolean changeUserStatus(int id, int status);
 
     boolean removeUser(int id);
+
+    User findUserById(int id);
+
+    boolean changeUserRole(int id, String role);
 }

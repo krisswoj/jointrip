@@ -21,37 +21,153 @@
                         <div class="tab-content">
                             <div id="main-info" class="tab-pane fade">
 
-                                <div class="form-group">
-                                    <fieldset disabled>
-                                        <div class="form-group">
-                                            <label>Wycieczka</label>
-                                            <input type="text" class="form-control"
-                                                   th:value="${tripInfo.trip.tripTitle}">
-                                        </div>
-                                    </fieldset>
-                                </div>
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Tytul wycieczki</label>
+                                                <input type="text" class="form-control" th:value="${tripInfo.trip.tripTitle}">
+                                            </div>
+                                        </fieldset>
+                                    </div>
 
-                                <div class="form-group">
-                                    <fieldset disabled>
-                                        <div class="form-group">
-                                            <label>Opis wycieczki</label>
-                                            <textarea type="text" class="form-control"
-                                                      th:field="*{tripInfo.trip.tripShortDesc}"
-                                                      rows="2">
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Opis wycieczki</label>
+                                                <textarea type="text" class="form-control"
+                                                          th:field="*{tripInfo.trip.tripShortDesc}"
+                                                          rows="2">
                                         </textarea>
-                                        </div>
-                                    </fieldset>
-                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
 
-                                <div class="form-group">
-                                    <fieldset disabled>
-                                        <div class="form-group">
-                                            <label>Data dodania</label>
-                                            <input type="text" class="form-control"
-                                                   th:value="${tripInfo.trip.tripCreateDate}">
-                                        </div>
-                                    </fieldset>
-                                </div>
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Pelen opis wycieczki</label>
+                                                <textarea type="text" class="form-control"
+                                                          th:field="*{tripInfo.trip.tripFullDesc}"
+                                                          rows="2">
+                                        </textarea>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Liczba czlonkow wycieczki</label>
+                                                <input type="text" class="form-control"
+                                                       th:field="*{tripInfo.trip.tripMembersAmount}"
+                                                       rows="2">
+                                                </input>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Cena za osobe</label>
+                                                <input type="text" class="form-control"
+                                                       th:field="*{tripInfo.trip.tripPriceMember}"
+                                                       rows="2">
+                                                </input>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Data dodania</label>
+                                                <input type="text" class="form-control" th:value="${#dates.format(tripInfo.trip.tripCreateDate, 'dd/MM/yyyy HH:mm')}">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Data rozpoczęcia wycieczki</label>
+                                                <input type="text" class="form-control" th:value="${#dates.format(tripInfo.trip.tripStartDate, 'dd/MM/yyyy')}">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Data zakończenia wycieczki</label>
+                                                <input type="text" class="form-control" th:value="${#dates.format(tripInfo.trip.tripEndDate, 'dd/MM/yyyy')}">
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Kraj podrozy</label>
+                                                <input type="text" class="form-control"
+                                                       th:field="*{tripInfo.trip.tripCountry}"
+                                                       rows="2">
+                                                </input>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Miasto</label>
+                                                <input type="text" class="form-control"
+                                                       th:field="*{tripInfo.trip.tripCity}"
+                                                       rows="2">
+                                                </input>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Ulica oraz numer bloku</label>
+                                                <input type="text" class="form-control"
+                                                       th:field="*{tripInfo.trip.tripStreet}"
+                                                       rows="2">
+                                                </input>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Telefon kontaktowy</label>
+                                                <input type="text" class="form-control"
+                                                       th:field="*{tripInfo.trip.organizatorPhoneNumber}"
+                                                       rows="2">
+                                                </input>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <fieldset disabled>
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control"
+                                                       th:field="*{tripInfo.trip.organizatorEmail}"
+                                                       rows="2">
+                                                </input>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+
+                                <a id="edit"
+                                   th:href="@{/myTripManagment/edit(ids=${tripInfo.trip.id})}"
+                                   class="btn buttonCustomPrimary">Edytuj wycieczkę</a>
 
                             </div>
                         </div>
@@ -73,7 +189,6 @@
                                        class="list-group-item">Plan wycieczki</a>
                                     <a th:href="@{/myTripManagment/extra-costs(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Dodatkowe koszta</a>
-                                    <a href="#" class="list-group-item">Wiadomości</a>
                                     <a th:href="@{/myTripManagment/comments(ids=${tripInfo.trip.id})}"
                                        class="list-group-item">Komentarze</a>
                                     <a th:id="filesDownloadLink" th:href="@{/myTripManagment/files-to-download(ids=${tripInfo.trip.id})}"
